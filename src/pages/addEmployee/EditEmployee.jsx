@@ -72,9 +72,9 @@ const EditEmployee = () => {
         // setErrors(false);
 
         setMsg("")
-        /*
+        
         if (file) {
-          ApiService.AddResume(file, id)
+          ApiService.UpdateResume(file, data.masterEmployeeDetails?.lancesoft)
             .then((res) => {
               console.log(res.data)
               alert(" resume upload successfull")
@@ -86,7 +86,7 @@ const EditEmployee = () => {
               // setErrors(true);
               setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error)
             })
-        }*/
+        }
 
         if (pic) {
           ApiService.UpdateImage(pic, data.masterEmployeeDetails?.lancesoft)
