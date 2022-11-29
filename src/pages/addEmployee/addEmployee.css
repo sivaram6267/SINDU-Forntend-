@@ -1,0 +1,42 @@
+#add-employee {
+  animation: upDown 1s 0.5s 1 linear;
+  /* display: flex; */
+  flex-wrap: wrap;
+  max-width: fit-content;
+  align-items: center;
+  margin-top: 20px;
+  padding: 20px 50px;
+  background: #fcfeff;
+  background: linear-gradient(to bottom right, #fcfeff, #8a8be9);
+  background: -moz-linear-gradient(top left, #fcfeff, #8a8be9);
+  background: -webkit-linear-gradient(top left, #fcfeff, #8a8be9);
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  border-radius: 5px;
+}
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 700px;
+
+  /* flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 20px 50px; */
+}
+.form label {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  font-size: small;
+}
+.selectInput {
+  width: 210px;
+}
+#my-5 label {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  font-size: small;
+}
+.title {
+  font-family: Arial, Helvetica, sans-serif;
+}
