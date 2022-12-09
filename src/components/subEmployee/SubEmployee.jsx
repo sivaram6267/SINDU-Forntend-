@@ -1,7 +1,8 @@
 import React, { Fragment, useState } from "react";
 import { Button } from "react-bootstrap";
 import ApiService from "../../services/ApiService";
-import ModelComponent from "../model/ModelComponent";
+ import ModelComponent from "../../modelComponent/ModelComponent";
+// import EmployeeProfile from "../../pages/employeeProfile/EmployeeProfile";
 import "./subEmployee.css";
 
 export default function SubEmployee({ id }) {
@@ -41,6 +42,14 @@ export default function SubEmployee({ id }) {
         }}
       />
 
+      {/* <EmployeeProfile
+      data={subEmpId}
+      type={type}
+      show={modalShow}
+      onHide={() =>{
+        setModalShow(false)
+      }}
+      /> */}
       <Button
         className="card-btn"
         onClick={(e) => {

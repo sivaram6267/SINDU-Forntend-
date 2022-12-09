@@ -14,6 +14,8 @@ import axios from "axios"
 
 // const BASE_URL = "http://10.81.4.197:2022"; // chamu pc
 // const BASE_URL = "http://10.81.3.30:9090"; // charan pc
+// const BASE_URL="http://10.81.4.198:2022"; //sowmya pc
+// const  BASE_URL="http://10.81.4.188:2021";  //santhosh pc
 
 //get
 const ALL_EMPLOYEES = `${BASE_URL}/api/v1/emp/getEmps`
@@ -248,6 +250,13 @@ export default new (class ApiService {
   ReleaseEmpCmp(lancesoft) {
     return axios.get(`${BASE_URL}/getemp/${lancesoft}`, auth())
   }
+  //Abscond employee
+  // AbscondEmo(id){
+  //   return axios.get(`${BASE_URL}/getallemployees1/${id}`,auth())
+  // }
+  // AbscondEmoCmp(lancesoft){
+  //   return axios.get(`${BASE_URL}/getemp1/${lancesoft}`,auth())
+  // }
 
   //HR DASHBOARD// TRANSFER EMPLOYEE//
   getPromDesignations() {
@@ -337,4 +346,37 @@ export default new (class ApiService {
   getClients() {
     return axios.get(`${BASE_URL}/api/v1/fields/get-all-clients`, auth())
   }
+//AbscondEmployee
+getAllEmployees1(id) {
+  return axios.get(`${BASE_URL}/getByDesignationId/${id}`, auth())
+}
+
+abscondEmp(lancesoft) {
+  return axios.get(`${BASE_URL}/abscondemp/${lancesoft}`, auth())
+}
+
+
+ //Demote employee
+ //alldesignations
+getAllDemoteDesignation() {
+  return axios.get(`${BASE_URL}/getAllDemoteDesignations`, auth())
+}
+//select emp
+getAllDesignationEmployees(id, data) {
+  return axios.post(`${BASE_URL}/getAlldesignationEmployees/${id}`, data, auth())
+ 
+}
+//report to
+addSupervisor(lanceId){
+  return axios.get(`${BASE_URL}/addSupervisor/${lanceId}`, auth())
+
+}
+
+
+//submit
+demoteEmp(id,id2,Salary) {
+  return axios.get(`${BASE_URL}/demote/${id}/${id2}/${Salary}`, auth())
+}
+//
+
 })()

@@ -11,8 +11,8 @@ import { Button } from "react-bootstrap";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
-import ModelComponent from "../model/ModelComponent";
+//import EmployeeProfile from "../../pages/employeeProfile/EmployeeProfile";
+ import ModelComponent from "../../modelComponent/ModelComponent";
 import ApiService from "../../services/ApiService";
 import { useEffect } from "react";
 import { padding } from "@mui/system";
@@ -389,7 +389,7 @@ export default function DataTable(props) {
 
   return (
     <>
-      <ModelComponent
+      { <ModelComponent
         data={subEmp ? subEmpId : pid}
         type={type}
         show={modalShow}
@@ -398,7 +398,17 @@ export default function DataTable(props) {
           setModalShow(false);
           // setData({});
         }}
-      />
+      /> }
+      {/* <EmployeeProfile
+       data={subEmp ? subEmpId : pid}
+       type={type}
+       show={modalShow}
+       // view={view}
+       onHide={() => {
+         setModalShow(false);
+         // setData({});
+       }}
+     /> */}
 
       <form id="searchForm" onSubmit={handleSubmit}>
         <input

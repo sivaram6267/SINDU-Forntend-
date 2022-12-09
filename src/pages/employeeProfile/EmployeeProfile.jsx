@@ -2,12 +2,12 @@ import React, { Fragment } from "react"
 import { useState } from "react"
 import { Button, Modal, Col, Row, Form, FormGroup } from "react-bootstrap"
 // import moment from "moment";
-import "./modelComponent.css"
+import "./EmployeeProfile.css"
 import { useEffect } from "react"
 import ApiService from "../../services/ApiService"
-import SubEmployee from "../subEmployee/SubEmployee"
+import SubEmployee from "../../components/subEmployee/SubEmployee"
 
-function ModelComponent(props) {
+function EmployeeProfile(props) {
   // console.log(props.data);
   const [data, setData] = useState({})
   const [client, setClient] = useState({})
@@ -67,19 +67,11 @@ function ModelComponent(props) {
         })
     }
   }, [props.data, props.show])
-
   return (
-    <>
-      <Modal show={props.show} size={["lead", "Consultant"].includes(data.detailsResponse?.designation) ? "xl" : "lg"} aria-labelledby="contained-modal-title-vcenter" centered scrollable>
-        <Modal.Header>
-          <Modal.Title id="contained-modal-title-vcenter" className="title">
-            Employee Profile
-          </Modal.Title>
-          <Button className="btnClose" onClick={handleClose}>
-            X
-          </Button>
-        </Modal.Header>
-        <Modal.Body>
+  <>
+<div id="add-employee" className="container-sm">
+    <h1 className="title text-center">Employee Profile</h1>
+    
           {status && <p className="text-success mb-1">loading...</p>}
           <p className="text-danger">{msg}</p>
           {!status && (
@@ -939,10 +931,10 @@ function ModelComponent(props) {
               </Row>
             </Form>
           )}
-        </Modal.Body>
-      </Modal>
-    </>
+
+</div>
+</>
   )
 }
-
-export default ModelComponent
+export default EmployeeProfile;
+  

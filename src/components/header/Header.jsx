@@ -12,7 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import LancesoftWhiteLogo from "../../images/LancesoftWhiteLogo.svg";
 import ApiService from "../../services/ApiService";
-import ModelComponent from "../model/ModelComponent";
+import ModelComponent from "../../modelComponent/ModelComponent";
 import login from "../../images/Login Icon.svg";
 import HomeIcon from "../../images/Home Icon.svg";
 import "./header.css";
@@ -422,6 +422,20 @@ export default function Header({ view }) {
                                 id="nav-link"
                               >
                                 Release Employee
+                              </Link>
+                              <Link
+                                className="m-2"
+                                to="/hr/AbscondEmployee"
+                                id="nav-link"
+                              >
+                                Abscond  Employee
+                              </Link>
+                              <Link
+                                className="m-2"
+                                to="/hr/demoteEmployee"
+                                id="nav-link"
+                              >
+                                Demote Employee
                               </Link>
                             </Row>
                           </Dropdown.Menu>

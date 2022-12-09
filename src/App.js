@@ -31,6 +31,12 @@ import Home from "./pages/home/Home";
 import TransferEmployee from "./pages/transferEmployee/TransferEmployee";
 import ReleaseRequest from "./pages/releaseRequest/ReleaseRequest";
 import EditClientDetails from "./pages/editClientDetails/EditClientDetails";
+import DemoteEmployee from "./pages/demoteEmployee/DemoteEmployee";
+import AbscondEmployee from "./pages/abscondEmployee/AbscondEmployee";
+import ModelComponent from "./modelComponent/ModelComponent";
+import EmployeeProfile from "./pages/employeeProfile/EmployeeProfile";
+
+
 
 function App() {
   return (
@@ -64,6 +70,7 @@ function App() {
                 </PrivateRoutes>
               }
             />
+            
             <Route
               path="register"
               element={
@@ -88,6 +95,9 @@ function App() {
                 </PrivateRoutes>
               }
             />
+
+         
+
             <Route
               path="addDepartment"
               element={
@@ -145,6 +155,23 @@ function App() {
                 </PrivateRoutes>
               }
             />
+           
+             <Route
+            path="AbscondEmployee"
+            element={
+              <PrivateRoutes>
+                <AbscondEmployee/>
+              </PrivateRoutes>
+              }
+            />
+            <Route
+            path="demoteEmployee"
+            element={
+              <PrivateRoutes>
+              < DemoteEmployee/>
+              </PrivateRoutes>
+              }
+            />
             <Route
               path="exitEmployee"
               element={
@@ -161,6 +188,7 @@ function App() {
                 </PrivateRoutes>
               }
             />
+            
           </Route>
           <Route path="/finance">
             <Route
@@ -204,6 +232,27 @@ function App() {
               }
             />
           </Route>
+          <Route path="modelComponent">
+            <Route
+              index
+              element={
+                <PrivateRoutes>
+                  < ModelComponent/>
+                </PrivateRoutes>
+              }
+            />
+            </Route>
+            <Route path="employeeProfile">
+            <Route
+              index
+              element={
+                <PrivateRoutes>
+                  < EmployeeProfile/>
+                </PrivateRoutes>
+              }
+            />
+            </Route>
+            
           <Route
             path="/md"
             element={
