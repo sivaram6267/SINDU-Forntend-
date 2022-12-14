@@ -6,14 +6,19 @@ import "./EmployeeProfile.css"
 import { useEffect } from "react"
 import ApiService from "../../services/ApiService"
 import SubEmployee from "../../components/subEmployee/SubEmployee"
+import { useLocation } from "react-router-dom"
 
-function EmployeeProfile(props) {
+function EmployeeProfile() {
   // console.log(props.data);
   const [data, setData] = useState({})
   const [client, setClient] = useState({})
   const [disabled, setDisabled] = useState(false)
   const [status, setStatus] = useState(false)
   const [msg, setMsg] = useState("")
+
+  const location = useLocation()
+
+
   const handleChange = (e) => {
     const { name, value } = e.target
     setData((prevState) => ({
@@ -30,16 +35,20 @@ function EmployeeProfile(props) {
   //   setDisabled(true);
   // };
   const handleClose = () => {
-    props.onHide()
-    setData("")
+    //props.onHide()
+    //setData("")
   }
 
   useEffect(() => {
-    if (props.show && props.data) {
+
+    console.log(location.state.empId)
+
+    if (location.state.empId) {
+     
       setStatus(true)
-      console.log(props)
+      //console.log(props)
       console.log(data)
-      ApiService.getEmployeeById(props.data)
+      ApiService.getEmployeeById(location.state.empId)
         .then((res) => {
           console.log(res.data)
           setData(res.data)
@@ -53,7 +62,7 @@ function EmployeeProfile(props) {
           setMsg(err.message)
         })
 
-      ApiService.getAllClientsByEmpId(props.data)
+      ApiService.getAllClientsByEmpId(location.state.empId)
         .then((res) => {
           console.log(data)
           console.log(res.data.addres)
@@ -66,7 +75,9 @@ function EmployeeProfile(props) {
           setStatus(false)
         })
     }
-  }, [props.data, props.show])
+  }, [location.state.empId])
+
+
   return (
   <>
 <div id="add-employee" className="container-sm">
@@ -326,23 +337,8 @@ function EmployeeProfile(props) {
                       </Form.Label>
                       <Form.Control required disabled={disabled ? "" : "enabled"} id="salary" type="number" placeholder="" name="salary" title="enter salary" defaultValue={data.salary} onChange={handleChange} />
                     </Form.Group>
-                    {/* <Form.Group className="mb-3">
-                      <Form.Label htmlFor="employeeId">
-                        Reporting Person
-                      </Form.Label>
-                      <Form.Control
-                        name="reportingperson"
-                        id="reportingperson"
-                        required
-                        disabled={disabled ? "" : "disabled"}
-                        type="text"
-                        placeholder="Enter reportingperson"
-                        defaultValue={
-                          data.detailsResponse?.reportingperson
-                        }
-                        onChange={handleChange}
-                      />
-                    </Form.Group> */}
+
+                    
                     {data.addres?.map((it) => (
                       <Form.Group className="mb-3">
                         <Form.Label htmlFor="firstName">
@@ -359,18 +355,6 @@ function EmployeeProfile(props) {
                         <Form.Control name="state" id="state " required type="text" placeholder="" disabled={disabled ? "" : "disabled"} onChange={handleChange} defaultValue={it.state} />
                       </Form.Group>
                     ))}{" "}
-                    {/* <Form.Group className="mb-3">
-                    //   <Form.Label htmlFor="city">city</Form.Label>
-                    //   <Form.Control
-                    //     disabled
-                    //     id="city"
-                    //     type="text"
-                    //     name="city"
-                    //     placeholder="please enter city name"
-                    //     // defaultValue={it.city}
-                    //     onChange={handleChange}
-                    //   />
-                    // </Form.Group> */}
                     {data.addres?.map((it) => (
                       <Form.Group className="mb-3">
                         <Form.Label htmlFor="city">
@@ -397,7 +381,7 @@ function EmployeeProfile(props) {
                         <Form.Control name="street" id="street" enable required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={it.street} onChange={handleChange} />
                       </Form.Group>
                     ))}
-                    {data.addres?.map((it) => (
+                       {data.addres?.map((it) => (
                       <Form.Group className="mb-3">
                         <Form.Label htmlFor="zipCode">
                           <b>Pincode</b>
@@ -405,6 +389,39 @@ function EmployeeProfile(props) {
                         <Form.Control name="zipCod" id="zipCod" required type="number" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={it.zipCod} onChange={handleChange} />
                       </Form.Group>
                     ))}
+                    {/* <Form.Group className="mb-3">
+                      <Form.Label htmlFor="employeeId">
+                        Reporting Person
+                      </Form.Label>
+                      <Form.Control
+                        name="reportingperson"
+                        id="reportingperson"
+                        required
+                        disabled={disabled ? "" : "disabled"}
+                        type="text"
+                        placeholder="Enter reportingperson"
+                        defaultValue={
+                          data.detailsResponse?.reportingperson
+                        }
+                        onChange={handleChange}
+                      />
+                    </Form.Group> */}
+                    
+                    {/* <Form.Group className="mb-3">
+                    //   <Form.Label htmlFor="city">city</Form.Label>
+                    //   <Form.Control
+                    //     disabled
+                    //     id="city"
+                    //     type="text"
+                    //     name="city"
+                    //     placeholder="please enter city name"
+                    //     // defaultValue={it.city}
+                    //     onChange={handleChange}
+                    //   />
+                    // </Form.Group> */}
+                    
+                    
+                 
                     {/* <Form.Group className="mb-3 checkbox">
                 <Form.Label>Gender : </Form.Label>{" "}
                 <Form.Check
@@ -925,7 +942,7 @@ function EmployeeProfile(props) {
                   Cancel
                 </Button> */}
 
-                    <SubEmployee id={props.data} />
+                    <SubEmployee id={location.state.empId} />
                   </div>
                 </Col>
               </Row>

@@ -35,6 +35,7 @@ import DemoteEmployee from "./pages/demoteEmployee/DemoteEmployee";
 import AbscondEmployee from "./pages/abscondEmployee/AbscondEmployee";
 import ModelComponent from "./modelComponent/ModelComponent";
 import EmployeeProfile from "./pages/employeeProfile/EmployeeProfile";
+import DeleteEmployee from "./pages/deleteEmployee/DeleteEmployee";
 
 
 
@@ -95,8 +96,20 @@ function App() {
                 </PrivateRoutes>
               }
             />
-
-         
+            <Route path="employeeProfile"
+              element={
+                <PrivateRoutes>
+                  < EmployeeProfile/>
+                </PrivateRoutes>
+              }
+            />
+             <Route path="deleteEmployee"
+              element={
+                <PrivateRoutes>
+                  <DeleteEmployee/>
+                </PrivateRoutes>
+              }
+            />
 
             <Route
               path="addDepartment"
@@ -242,16 +255,7 @@ function App() {
               }
             />
             </Route>
-            <Route path="employeeProfile">
-            <Route
-              index
-              element={
-                <PrivateRoutes>
-                  < EmployeeProfile/>
-                </PrivateRoutes>
-              }
-            />
-            </Route>
+            
             
           <Route
             path="/md"

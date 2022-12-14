@@ -437,6 +437,13 @@ export default function Header({ view }) {
                               >
                                 Demote Employee
                               </Link>
+                              <Link
+                                className="m-2"
+                                to="/hr/deleteEmployee"
+                                id="nav-link"
+                              >
+                                Delete Employee
+                              </Link>
                             </Row>
                           </Dropdown.Menu>
                         </Dropdown>
