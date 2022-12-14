@@ -382,6 +382,43 @@ export default function Header({ view }) {
                           >
                             {/* <img src={profilepic} alt="profile" className="img" /> */}
                             <p id="nav-link" className="username">
+                              Client
+                            </p>
+                          </Dropdown.Toggle>
+                          <Dropdown.Menu>
+                            <Row>
+                              <Link
+                                className="m-2"
+                                to="/manager/addClientDetails"
+                                id="nav-link"
+                              >
+                                Add Client details
+                              </Link>
+                              <Link
+                                className="m-2"
+                                to="/manager/addClientNames"
+                                id="nav-link"
+                              >
+                                Add Client Names
+                              </Link>
+                              <Link
+                                className="m-2"
+                                to="/manager/editClientDetails"
+                                id="nav-link"
+                              >
+                                Edit Client details
+                              </Link>
+                            </Row>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                        <Dropdown>
+                          <Dropdown.Toggle
+                            className="toggle"
+                            variant=""
+                            id="dropdown-basic dropdownMenu dropdown-autoclose-true "
+                          >
+                            {/* <img src={profilepic} alt="profile" className="img" /> */}
+                            <p id="nav-link" className="username">
                               Employee
                             </p>
                           </Dropdown.Toggle>
@@ -409,6 +446,7 @@ export default function Header({ view }) {
                               >
                                 Promote Employee
                               </Link>
+
                               <Link
                                 className="m-2"
                                 to="/transferEmployee"
@@ -422,6 +460,13 @@ export default function Header({ view }) {
                                 id="nav-link"
                               >
                                 Release Employee
+                              </Link>
+                              <Link
+                                className="m-2"
+                                to="/hr/subordinatesupervisior"
+                                id="nav-link"
+                              >
+                                Secondary Manager
                               </Link>
                             </Row>
                           </Dropdown.Menu>
@@ -560,13 +605,13 @@ export default function Header({ view }) {
                             {total}
                           </span>
                         </p>
-                        <Dropdown>
+                        {/* <Dropdown>
                           <Dropdown.Toggle
                             className="toggle"
                             variant=""
                             id="dropdown-basic dropdownMenu dropdown-autoclose-true "
                           >
-                            {/* <img src={profilepic} alt="profile" className="img" /> */}
+                            
                             <p id="nav-link" className="username">
                               Employee
                             </p>
@@ -589,7 +634,7 @@ export default function Header({ view }) {
                               </Link>
                             </Row>
                           </Dropdown.Menu>
-                        </Dropdown>
+                        </Dropdown> */}
                       </>
                     ) : ["manager"].includes(type) ? (
                       <>
@@ -638,13 +683,13 @@ export default function Header({ view }) {
                             {total}
                           </span>
                         </p>
-                        <Dropdown>
+                        {/* <Dropdown>
                           <Dropdown.Toggle
                             className="toggle"
                             variant=""
                             id="dropdown-basic dropdownMenu dropdown-autoclose-true "
                           >
-                            {/* <img src={profilepic} alt="profile" className="img" /> */}
+                       
                             <p id="nav-link" className="username">
                               Client
                             </p>
@@ -674,7 +719,7 @@ export default function Header({ view }) {
                               </Link>
                             </Row>
                           </Dropdown.Menu>
-                        </Dropdown>
+                        </Dropdown> */}
                         {/* <Link
                           className="m-2"
                           to="/releaseRequest"
@@ -683,13 +728,13 @@ export default function Header({ view }) {
                           Release employee
                         </Link> */}
 
-                        <Dropdown>
+                        {/* <Dropdown>
                           <Dropdown.Toggle
                             className="toggle"
                             variant=""
                             id="dropdown-basic dropdownMenu dropdown-autoclose-true "
                           >
-                            {/* <img src={profilepic} alt="profile" className="img" /> */}
+                           
                             <p id="nav-link" className="username">
                               Employee
                             </p>
@@ -712,7 +757,7 @@ export default function Header({ view }) {
                               </Link>
                             </Row>
                           </Dropdown.Menu>
-                        </Dropdown>
+                        </Dropdown> */}
                         {/* <Button
                       variant="link"
                       id="nav-link"

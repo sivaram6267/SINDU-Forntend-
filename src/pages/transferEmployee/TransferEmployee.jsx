@@ -1,51 +1,58 @@
-import React, { Fragment, useState } from "react"
+import React, { Fragment, useState } from "react";
 // import { useEffect } from "react";
-import { Button, Form } from "react-bootstrap"
-import { useNavigate } from "react-router-dom"
-import { FormInputs } from "../../components/formInputs/FormInputs"
-import ApiService from "../../services/ApiService"
-import { useEffect } from "react"
+import { Button, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { FormInputs } from "../../components/formInputs/FormInputs";
+import ApiService from "../../services/ApiService";
+import { useEffect } from "react";
 
 export default function TransferEmployee() {
-  const [data, setData] = useState({})
-  const [status, setStatus] = useState(false)
-  const [msg, setMsg] = useState("")
+  const [data, setData] = useState({});
+  const [status, setStatus] = useState(false);
+  const [msg, setMsg] = useState("");
   // eslint-disable-next-line
-  const [empTypes, setEmpTypes] = useState(null)
-  const [promdesg, setPromdesg] = useState(null)
-  const [genManagerTransfer, setGenManagerTransfer] = useState(null)
-  const [genmanagerEmp, setGenmanagerEmp] = useState(null)
-  const [selectempprom, setSelectempprom] = useState(null)
-  const [assigntoprom, setAssigntoprom] = useState(null)
-  const [generalAssignEmp, setGeneralassignEmp] = useState(null)
+  const [empTypes, setEmpTypes] = useState(null);
+  const [promdesg, setPromdesg] = useState(null);
+  const [genManagerTransfer, setGenManagerTransfer] = useState(null);
+  const [genmanagerEmp, setGenmanagerEmp] = useState(null);
+  const [selectempprom, setSelectempprom] = useState(null);
+  const [assigntoprom, setAssigntoprom] = useState(null);
+  const [generalAssignEmp, setGeneralassignEmp] = useState(null);
 
-  const [relEmpProm, setRelEmpProm] = useState(null)
-  const [repoEmp, setrepoEmp] = useState(null)
-
-  const [relgeneralManger, setrelGeneralmanager] = useState(null)
+  const [relEmpProm, setRelEmpProm] = useState(null);
+  const [secondarytransfer, setSecondarytransfer] = useState(null);
+  const [repoEmp, setrepoEmp] = useState(null);
+  const [empID, setEmpID] = useState(null);
+  const [relgeneralManger, setrelGeneralmanager] = useState(null);
 
   //   const [departs, setDeparts] = useState(null);
   //   const [subDep, setSubDep] = useState(null);
   // eslint-disable-next-line
-  const [supId, setSupId] = useState(null)
-  let type = sessionStorage.getItem("type")
-  console.log(type)
+  const [supId, setSupId] = useState(null);
+  let type = sessionStorage.getItem("type");
+  console.log(type);
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setData({ ...data, [name]: value })
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
+    console.log(data);
     if (name === "Designationid" && value !== "") {
       ApiService.selectEmployeeprom(value)
         .then((res) => {
-          console.log(res.data)
-          setSelectempprom(res.data)
+          console.log(res.data);
+          setSelectempprom(res.data);
         })
 
         .catch((error) => {
-          alert(JSON.stringify(error))
-          setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
-        })
+          alert(JSON.stringify(error));
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
     }
     if (name === "selectEmployeeprom" && value !== "") {
+      setEmpID(value);
       // ApiService.AssignToprom(value)
       //   .then((res) => {
       //     // console.log(res.data);
@@ -62,13 +69,34 @@ export default function TransferEmployee() {
       //   });
       ApiService.ReleaseEmpprom(value)
         .then((res) => {
-          console.log(res.data)
-          setRelEmpProm(res.data)
+          console.log(res.data);
+          setRelEmpProm(res.data);
         })
         .catch((error) => {
-          alert(JSON.stringify(error))
-          setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
+          alert(JSON.stringify(error));
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
+    }
+    if (name === "Reportsto" && value !== "") {
+      console.log(empID);
+
+      ApiService.secondarymanagertransfer(empID, value)
+        .then((res) => {
+          console.log(res.data);
+          setSecondarytransfer(res.data);
         })
+        .catch((error) => {
+          alert(JSON.stringify(error));
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
     }
 
     // const handleChange = (e) => {
@@ -92,42 +120,58 @@ export default function TransferEmployee() {
 
       ApiService.ReleaseEmployee(value)
         .then((res) => {
-          console.log(res.data)
-          setrepoEmp(res.data)
+          console.log(res.data);
+          setrepoEmp(res.data);
         })
         .catch((error) => {
-          alert(JSON.stringify(error))
-          setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
-        })
+          alert(JSON.stringify(error));
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
     }
-  }
+  };
 
   // };
 
   // console.log(releaseempprom);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    setStatus(true)
-    console.log(data)
+    e.preventDefault();
+    setStatus(true);
+    console.log(data);
     // ApiService.AssigntransferEmp(data.selectEmployeeprom, data.AssignToprom)
     //   .then((res) => {
     //     console.log(res.data);
     //     alert("assigntransferemp is successfully ");
     //     setMsg("");
     if (type === "hr") {
-      if (data.salary === undefined) data.salary = 0
-      if (data.location === undefined) data.location = null
-      ApiService.promotetransferEmp(data.selectEmployeeprom, data.Reportsto, data.salary, data.location)
+      if (data.salary === undefined) data.salary = 0;
+      if (data.secondaryLancesoftId === undefined)
+        data.secondaryLancesoftId = null;
+      if (data.location === undefined) data.location = null;
+      ApiService.promotetransferEmp(
+        data.selectEmployeeprom,
+        data.Reportsto,
+        data.secondarymanager,
+        data.location,
+        data.salary
+      )
         .then((res) => {
-          console.log(res)
-          alert("promte transfer emp is successfully")
-          navigate("/hr")
+          console.log(res);
+          alert("promte transfer emp is successfully");
+          navigate("/hr");
         })
         .catch((error) => {
-          alert(JSON.stringify(error))
-          setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
-        })
+          alert(JSON.stringify(error));
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
     }
 
     // .catch((error) => {
@@ -139,7 +183,7 @@ export default function TransferEmployee() {
     //   );
     // });
     if (type === "manager") {
-      console.log(data)
+      console.log(data);
 
       // ApiService.TransferEmplo(data.employee, data.AssignToprom)
       //   .then((res) => {
@@ -147,21 +191,30 @@ export default function TransferEmployee() {
       //     console.log(res.data);
       //     alert("transfer emp is successfully");
       //     setMsg("");
-      if (data.salary === undefined) data.salary = 0
-      if (data.location === undefined) data.location = null
-      ApiService.transferEmpgeneral(data.employee, data.reportsTo, data.salary, data.location)
+      if (data.salary === undefined) data.salary = 0;
+      if (data.location === undefined) data.location = null;
+      ApiService.transferEmpgeneral(
+        data.employee,
+        data.reportsTo,
+        data.salary,
+        data.location
+      )
         .then((res) => {
-          console.log(res)
-          alert("promte transfer emp is successfully")
-          navigate("/hr")
+          console.log(res);
+          alert("promte transfer emp is successfully");
+          navigate("/hr");
         })
         .catch((error) => {
-          alert(JSON.stringify(error))
-          setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
-        })
+          alert(JSON.stringify(error));
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
     }
     if (type === "ch") {
-      console.log(data)
+      console.log(data);
 
       // ApiService.TransferEmplo(data.employee, data.AssignToprom)
       //   .then((res) => {
@@ -169,21 +222,30 @@ export default function TransferEmployee() {
       //     console.log(res.data);
       //     alert("transfer emp is successfully");
       //     setMsg("");
-      if (data.salary === undefined) data.salary = 0
-      if (data.location === undefined) data.location = null
-      ApiService.transferEmpgeneral(data.employee, data.reportsTo, data.salary, data.location)
+      if (data.salary === undefined) data.salary = 0;
+      if (data.location === undefined) data.location = null;
+      ApiService.transferEmpgeneral(
+        data.employee,
+        data.reportsTo,
+        data.salary,
+        data.location
+      )
         .then((res) => {
-          console.log(res)
-          alert("promte transfer emp is successfully")
-          navigate("/hr")
+          console.log(res);
+          alert("promte transfer emp is successfully");
+          navigate("/hr");
         })
         .catch((error) => {
-          alert(JSON.stringify(error))
-          setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
-        })
+          alert(JSON.stringify(error));
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
     }
     if (type === "md") {
-      console.log(data)
+      console.log(data);
 
       // ApiService.TransferEmplo(data.employee, data.AssignToprom)
       //   .then((res) => {
@@ -191,21 +253,30 @@ export default function TransferEmployee() {
       //     console.log(res.data);
       //     alert("transfer emp is successfully");
       //     setMsg("");
-      if (data.salary === undefined) data.salary = 0
-      if (data.location === undefined) data.location = null
-      ApiService.transferEmpgeneral(data.employee, data.reportsTo, data.salary, data.location)
+      if (data.salary === undefined) data.salary = 0;
+      if (data.location === undefined) data.location = null;
+      ApiService.transferEmpgeneral(
+        data.employee,
+        data.reportsTo,
+        data.salary,
+        data.location
+      )
         .then((res) => {
-          console.log(res)
-          alert("promte transfer emp is successfully")
-          navigate("/hr")
+          console.log(res);
+          alert("promte transfer emp is successfully");
+          navigate("/hr");
         })
         .catch((error) => {
-          alert(JSON.stringify(error))
-          setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
-        })
+          alert(JSON.stringify(error));
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
     }
     if (type === "general_manager") {
-      console.log(data)
+      console.log(data);
 
       // ApiService.TransferEmplo(data.employee, data.AssignToprom)
       //   .then((res) => {
@@ -213,20 +284,29 @@ export default function TransferEmployee() {
       //     console.log(res.data);
       //     alert("transfer emp is successfully");
       //     setMsg("");
-      if (data.salary === undefined) data.salary = 0
-      if (data.location === undefined) data.location = null
-      ApiService.transferEmpgeneral(data.employee, data.reportsTo, data.salary, data.location)
+      if (data.salary === undefined) data.salary = 0;
+      if (data.location === undefined) data.location = null;
+      ApiService.transferEmpgeneral(
+        data.employee,
+        data.reportsTo,
+        data.salary,
+        data.location
+      )
         .then((res) => {
-          console.log(res)
-          alert("promte transfer emp is successfully")
-          navigate("/hr")
+          console.log(res);
+          alert("promte transfer emp is successfully");
+          navigate("/hr");
         })
         .catch((error) => {
-          alert(JSON.stringify(error))
-          setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
-        })
+          alert(JSON.stringify(error));
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
     }
-  }
+  };
   // })
   // .catch((error) => {
   //   console.log(error);
@@ -243,41 +323,51 @@ export default function TransferEmployee() {
   useEffect(() => {
     ApiService.getPromDesignations()
       .then((res) => {
-        console.log(res.data)
-        setPromdesg(res.data)
-        setMsg("")
+        console.log(res.data);
+        setPromdesg(res.data);
+        setMsg("");
       })
       .catch((error) => {
         // console.log(error);
-        alert(JSON.stringify(error))
-        setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
-      })
-  }, [])
+        alert(JSON.stringify(error));
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
+      });
+  }, []);
 
   useEffect(() => {
-    ApiService.generalTransferEmplloyee(sessionStorage.getItem("firstName"))
+    if (type === "manager") {
+      ApiService.generalTransferEmplloyee(sessionStorage.getItem("firstName"))
 
-      .then((res) => {
-        console.log(res.data)
-        console.log(data)
-        setGenManagerTransfer(res.data)
-        setMsg("")
-      })
-      .catch((error) => {
-        // console.log(error);
-        alert(JSON.stringify(error))
-        setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
-      })
-  }, [])
+        .then((res) => {
+          console.log(res.data);
+          console.log(data);
+          setGenManagerTransfer(res.data);
+          setMsg("");
+        })
+        .catch((error) => {
+          // console.log(error);
+          alert(JSON.stringify(error));
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
+    }
+  }, []);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleCancel = (e) => {
-    e.preventDefault()
-    navigate(`/${type}`)
+    e.preventDefault();
+    navigate(`/${type}`);
     //
-  }
+  };
 
-  let formData = []
+  let formData = [];
   if (type === "hr") {
     formData = [
       {
@@ -288,7 +378,13 @@ export default function TransferEmployee() {
               Choose designation <nobr />
               <span className="text-danger"> *</span>
             </Form.Label>
-            <Form.Select id="empTypeId" aria-label="employee Type" className="selectInput" name="Designationid" onChange={handleChange}>
+            <Form.Select
+              id="empTypeId"
+              aria-label="employee Type"
+              className="selectInput"
+              name="Designationid"
+              onChange={handleChange}
+            >
               <option value="">{status ? "loading" : "select "}</option>
 
               {promdesg?.map((type) => (
@@ -310,7 +406,13 @@ export default function TransferEmployee() {
               <nobr />
               <span className="text-danger"> *</span>
             </Form.Label>
-            <Form.Select id="emp" aria-label="employee Type" className="selectInput" name="selectEmployeeprom" onChange={handleChange}>
+            <Form.Select
+              id="emp"
+              aria-label="employee Type"
+              className="selectInput"
+              name="selectEmployeeprom"
+              onChange={handleChange}
+            >
               <option value="">{status ? "loading" : "select "}</option>
 
               {selectempprom?.map((type) => (
@@ -375,10 +477,18 @@ export default function TransferEmployee() {
         data: (
           <Form.Group className="mb-3 px-2">
             <Form.Label htmlFor="emp">
-              Reports to <nobr />
+              Primary Manager
+              <nobr />
               <span className="text-danger"> *</span>
             </Form.Label>
-            <Form.Select required id="newSupervisor" aria-label="newSupervisor" className="selectInput" name="Reportsto" onChange={handleChange}>
+            <Form.Select
+              required
+              id="newSupervisor"
+              aria-label="newSupervisor"
+              className="selectInput"
+              name="Reportsto"
+              onChange={handleChange}
+            >
               <option value="">{status ? "loading" : "select "}</option>
               {/* <option value="1">N/A</option> */}
               {relEmpProm?.map((type) => (
@@ -390,7 +500,34 @@ export default function TransferEmployee() {
           </Form.Group>
         ),
       },
-    ]
+      {
+        id: "secondarymanager",
+        data: (
+          <Form.Group className="mb-3 px-2">
+            <Form.Label htmlFor="emp">
+              Seconadary Manager
+              <nobr />
+              {/* <span className="text-danger"> *</span> */}
+            </Form.Label>
+            <Form.Select
+              id="secondarymanager"
+              aria-label="secondarymanager"
+              className="selectInput"
+              name="secondarymanager"
+              onChange={handleChange}
+            >
+              <option value="">{status ? "loading" : "select "}</option>
+              {/* <option value="1">N/A</option> */}
+              {secondarytransfer?.map((type) => (
+                <option key={type.empId} value={type.lancesoft}>
+                  {type.firstName} {type.lastName} {type.lancesoft}
+                </option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+        ),
+      },
+    ];
   } else {
     formData = [
       // {
@@ -432,7 +569,14 @@ export default function TransferEmployee() {
               <nobr />
               <span className="text-danger"> *</span>
             </Form.Label>
-            <Form.Select required id="emp" aria-label="employee Type" className="selectInput" name="employee" onChange={handleChange}>
+            <Form.Select
+              required
+              id="emp"
+              aria-label="employee Type"
+              className="selectInput"
+              name="employee"
+              onChange={handleChange}
+            >
               <option value="">{status ? "loading" : "select "}</option>
 
               {genManagerTransfer?.map((type) => (
@@ -503,7 +647,14 @@ export default function TransferEmployee() {
               <nobr />
               <span className="text-danger"> *</span>
             </Form.Label>
-            <Form.Select id="reportsTo" aria-label="employee Type" className="selectInput" name="reportsTo" required onChange={handleChange}>
+            <Form.Select
+              id="reportsTo"
+              aria-label="employee Type"
+              className="selectInput"
+              name="reportsTo"
+              required
+              onChange={handleChange}
+            >
               <option value="">{status ? "loading" : "select "}</option>
 
               {repoEmp?.map((type) => (
@@ -515,7 +666,7 @@ export default function TransferEmployee() {
           </Form.Group>
         ),
       },
-    ]
+    ];
   }
   return (
     <div id="add-employee" className="container-sm ">
@@ -554,9 +705,13 @@ export default function TransferEmployee() {
           Cancel
         </Button>
         {/* </Col> */}
-        {status && <p className="text-success mb-2">Please wait while we are processing your request.</p>}
+        {status && (
+          <p className="text-success mb-2">
+            Please wait while we are processing your request.
+          </p>
+        )}
         {<p className="text-danger mb-2">{msg}</p>}
       </Form>
     </div>
-  )
+  );
 }

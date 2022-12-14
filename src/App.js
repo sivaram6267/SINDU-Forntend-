@@ -31,6 +31,7 @@ import Home from "./pages/home/Home";
 import TransferEmployee from "./pages/transferEmployee/TransferEmployee";
 import ReleaseRequest from "./pages/releaseRequest/ReleaseRequest";
 import EditClientDetails from "./pages/editClientDetails/EditClientDetails";
+import Subordinatesupervisior from "./components/subordinatesupervisior/Subordinatesupervisior";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
               </PrivateRoutes>
             }
           />
+
           <Route
             path="releaseRequest"
             element={
@@ -142,6 +144,14 @@ function App() {
               element={
                 <PrivateRoutes>
                   <PromoteEmployee />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="subordinatesupervisior"
+              element={
+                <PrivateRoutes>
+                  <Subordinatesupervisior />
                 </PrivateRoutes>
               }
             />
