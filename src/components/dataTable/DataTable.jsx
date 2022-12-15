@@ -57,7 +57,14 @@ export default function DataTable(props) {
 
     { id: "designation", label: "Designation", minWidth: 120 }, // format: (value) => value.toLocaleString("en-US"),
 
-    { id: "manager", label: "Manager Name", minWidth: 170 },
+    { id: "manager", label: "Primary Manager", minWidth: 170 },
+
+    // { id: "status", label: "status", minWidth: 170 },
+    {
+      id: "SecondaryManager",
+      label: "Secondary Manager",
+      minWidth: 170,
+    },
 
     { id: "view", label: "View", minWidth: 50 },
     { id: "edit", label: "Edit", minWidth: 50 },
@@ -79,11 +86,21 @@ export default function DataTable(props) {
     profilePic,
     designation,
     manager,
+    SecondaryManager,
     view,
     edit
   ) {
     //   const density = population / size;
-    return { name, lsiId, profilePic, designation, manager, view, edit };
+    return {
+      name,
+      lsiId,
+      profilePic,
+      designation,
+      manager,
+      SecondaryManager,
+      view,
+      edit,
+    };
   }
   /*
   function createData(email, lastName, phoneNumber, firstName, view) {
@@ -118,6 +135,7 @@ export default function DataTable(props) {
     createData(
       "emp2",
       "34",
+      "",
       "",
       "emp2@gmail.com",
       9596961,
@@ -163,6 +181,7 @@ export default function DataTable(props) {
           </div>,
           item.designation,
           item.managerName,
+          item.subordinateManagerName,
 
           //item.designation,
 
@@ -209,6 +228,7 @@ export default function DataTable(props) {
           </div>,
           item.designation,
           item.managerName,
+          item.subordinateManagerName,
 
           <Button
             className="card-btn"

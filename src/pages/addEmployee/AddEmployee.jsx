@@ -1,102 +1,118 @@
-import React, { Fragment, useState } from "react"
-import { useEffect } from "react"
-import { Button, Form } from "react-bootstrap"
-import { Link, useNavigate } from "react-router-dom"
-import { FormInputs } from "../../components/formInputs/FormInputs"
+import React, { Fragment, useState } from "react";
+import { useEffect } from "react";
+import { Button, Form } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { FormInputs } from "../../components/formInputs/FormInputs";
 
-import ApiService from "../../services/ApiService"
+import ApiService from "../../services/ApiService";
 
-import "./addEmployee.css"
+import "./addEmployee.css";
 
 const AddEmployee = () => {
-  const [data, setData] = useState({})
-  const [status, setStatus] = useState(false)
-  const [msg, setMsg] = useState("")
-  const [empTypes, setEmpTypes] = useState(null)
-  const [desgs, setDesgs] = useState(null)
-  const [addTypes, setAddTypes] = useState(null)
-  const [departs, setDeparts] = useState(null)
-  const [subDep, setSubDep] = useState(null)
-  const [supId, setSupId] = useState(null)
-  const [file, setFile] = useState("")
-  const [pic, setPic] = useState("")
-  const [apistatus, setApistatus] = useState(false)
+  const [data, setData] = useState({});
+  const [status, setStatus] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [empTypes, setEmpTypes] = useState(null);
+  const [desgs, setDesgs] = useState(null);
+  const [addTypes, setAddTypes] = useState(null);
+  const [departs, setDeparts] = useState(null);
+  const [subDep, setSubDep] = useState(null);
+  const [supId, setSupId] = useState(null);
+  const [file, setFile] = useState("");
+  const [pic, setPic] = useState("");
+  const [apistatus, setApistatus] = useState(false);
 
   // const [errors, setErrors] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setData({ ...data, [name]: value })
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
     if (value > 0 && name === "desgId") {
       ApiService.supervisorId(value)
         .then((res) => {
           // console.log(res.data);
-          setSupId(res.data)
-          setMsg("")
+          setSupId(res.data);
+          setMsg("");
         })
         .catch((error) => {
           // console.log(error);
-          alert(JSON.stringify(error))
-          setSupId(null)
-          setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
-        })
+          alert(JSON.stringify(error));
+          setSupId(null);
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
     }
     // setData((prevState) => ({
     //   ...prevState,
     //   [name]: value,
     // }));
     // console.log({ data });
-  }
+  };
   // eslint-disable-next-line  no-unused-vars
 
   // eslint-disable-next-line
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
-    e.preventDefault()
-    setStatus(true)
+    e.preventDefault();
+    setStatus(true);
     // setErrors(false);
     ApiService.insertEmployee(data)
       .then((res) => {
-        console.log(res.data)
-        alert("employee details successfull")
+        console.log(res.data);
+        alert("employee details successfull");
 
-        let id = res.data
-        setStatus(false)
+        let id = res.data;
+        setStatus(false);
         // setErrors(false);
-        setMsg("")
+        setMsg("");
         ApiService.AddResume(file, id)
           .then((res) => {
-            console.log(res.data)
-            alert(" resume upload successfull")
-            setMsg("")
+            console.log(res.data);
+            alert(" resume upload successfull");
+            setMsg("");
             ApiService.AddImage(pic, id)
               .then((res) => {
-                console.log(res.data)
-                alert("photo upload successfully")
-                setMsg("")
-                navigate("/hr")
+                console.log(res.data);
+                alert("photo upload successfully");
+                setMsg("");
+                navigate("/hr");
               })
               .catch((error) => {
-                console.log(error)
-                setStatus(false)
+                console.log(error);
+                setStatus(false);
                 // setErrors(true);
-                setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
-              })
+                setMsg(
+                  error.response.data.errorMessage
+                    ? error.response.data.errorMessage
+                    : error.message
+                );
+              });
           })
           .catch((error) => {
-            console.log(error)
-            setStatus(false)
+            console.log(error);
+            setStatus(false);
             // setErrors(true);
-            setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error)
-          })
+            setMsg(
+              error.response.data.errorMessage
+                ? error.response.data.errorMessage
+                : error
+            );
+          });
       })
       .catch((error) => {
-        console.log(error)
-        setStatus(false)
+        console.log(error);
+        setStatus(false);
         // setErrors(true);
-        setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
-      })
-  }
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
+      });
+  };
 
   // useEffect(() => {
 
@@ -109,8 +125,8 @@ const AddEmployee = () => {
         ...data.masterEmployeeDetails,
         [e.target.name]: e.target.value,
       },
-    })
-  }
+    });
+  };
   const handleInternalData = (e) => {
     setData({
       ...data,
@@ -118,8 +134,8 @@ const AddEmployee = () => {
         ...data.internalExpenses,
         [e.target.name]: e.target.value,
       },
-    })
-  }
+    });
+  };
   const handleAddressData = (e) => {
     setData({
       ...data,
@@ -127,8 +143,8 @@ const AddEmployee = () => {
         ...data.address,
         [e.target.name]: e.target.value,
       },
-    })
-  }
+    });
+  };
   const handleSalary = (e) => {
     setData({
       ...data,
@@ -136,50 +152,50 @@ const AddEmployee = () => {
         ...data.salary,
         [e.target.name]: e.target.value,
       },
-    })
-  }
+    });
+  };
   useEffect(() => {
     ApiService.empType()
       .then((res) => {
-        console.log(res.data)
-        setEmpTypes(res.data)
-        setStatus(false)
+        console.log(res.data);
+        setEmpTypes(res.data);
+        setStatus(false);
         // setErrors(false);
       })
       .catch((error) => {
-        console.log(error)
-        setEmpTypes(null)
-        setStatus(false)
+        console.log(error);
+        setEmpTypes(null);
+        setStatus(false);
         // setErrors(true);
-      })
+      });
 
     ApiService.getAllDesg()
       .then((res) => {
-        console.log(res.data)
-        setDesgs(res.data)
+        console.log(res.data);
+        setDesgs(res.data);
       })
       .catch((error) => {
-        console.log(error)
-        setDesgs(null)
-      })
+        console.log(error);
+        setDesgs(null);
+      });
     ApiService.getAllAddType()
       .then((res) => {
-        console.log(res.data)
-        setAddTypes(res.data)
+        console.log(res.data);
+        setAddTypes(res.data);
       })
       .catch((error) => {
-        console.log(error)
-        setAddTypes(null)
-      })
+        console.log(error);
+        setAddTypes(null);
+      });
     ApiService.getAllSubDepart()
       .then((res) => {
-        console.log(res.data)
-        setSubDep(res.data)
+        console.log(res.data);
+        setSubDep(res.data);
       })
       .catch((error) => {
-        console.log(error)
-        setSubDep(null)
-      })
+        console.log(error);
+        setSubDep(null);
+      });
 
     // ApiService.getAllClients()
     //   .then((res) => {
@@ -192,14 +208,14 @@ const AddEmployee = () => {
     //   });
     ApiService.getAllDepart()
       .then((res) => {
-        console.log(res.data)
-        setDeparts(res.data)
+        console.log(res.data);
+        setDeparts(res.data);
       })
       .catch((error) => {
-        console.log(error)
-        setDeparts(null)
-      })
-  }, [])
+        console.log(error);
+        setDeparts(null);
+      });
+  }, []);
 
   const formData = [
     {
@@ -265,7 +281,14 @@ const AddEmployee = () => {
             Employee Type <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
-          <Form.Select required id="empTypeId" aria-label="employee Type" className="selectInput" name="empTypeId" onChange={handleChange}>
+          <Form.Select
+            required
+            id="empTypeId"
+            aria-label="employee Type"
+            className="selectInput"
+            name="empTypeId"
+            onChange={handleChange}
+          >
             <option value="">{status ? "loading" : "select "}</option>
             {/* <option value="1">N/A</option> */}
             {empTypes?.map((type) => (
@@ -296,11 +319,18 @@ const AddEmployee = () => {
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
-          <Form.Select required id="status" aria-label="status" className="selectInput" name="status" onChange={handleMasterData}>
+          <Form.Select
+            required
+            id="status"
+            aria-label="status"
+            className="selectInput"
+            name="status"
+            onChange={handleMasterData}
+          >
             <option value="">select</option>
             <option value="BENCH">BENCH</option>
-            <option value="ACTIVE">ACTIVE</option>
-            <option value="EXIT">EXIT</option>
+            {/* <option value="ACTIVE">ACTIVE</option>
+            <option value="EXIT">EXIT</option> */}
             <option value="MANAGMENT">MANAGMENT</option>
           </Form.Select>
         </Form.Group>
@@ -346,7 +376,14 @@ const AddEmployee = () => {
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
-          <Form.Select required id="departId" aria-label="Department" className="selectInput" name="departId" onChange={handleChange}>
+          <Form.Select
+            required
+            id="departId"
+            aria-label="Department"
+            className="selectInput"
+            name="departId"
+            onChange={handleChange}
+          >
             <option value="">{status ? "loading" : "select "}</option>
             <option value="0">N/A</option>
             {departs?.map((type) => (
@@ -367,7 +404,14 @@ const AddEmployee = () => {
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
-          <Form.Select required id="subDepartId" aria-label="Sub department" className="selectInput" name="subDepartId" onChange={handleChange}>
+          <Form.Select
+            required
+            id="subDepartId"
+            aria-label="Sub department"
+            className="selectInput"
+            name="subDepartId"
+            onChange={handleChange}
+          >
             <option value="">{status ? "loading..." : "select "}</option>
             <option value="0">N/A</option>
             {subDep?.map((type) => (
@@ -440,7 +484,14 @@ const AddEmployee = () => {
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
-          <Form.Select required id="desgId" aria-label="employee designation" className="selectInput" name="desgId" onChange={handleChange}>
+          <Form.Select
+            required
+            id="desgId"
+            aria-label="employee designation"
+            className="selectInput"
+            name="desgId"
+            onChange={handleChange}
+          >
             <option value="">{status ? "loading..." : "select "}</option>
             {desgs?.map((type) => (
               <option key={type.desgId} value={type.desgId}>
@@ -461,7 +512,14 @@ const AddEmployee = () => {
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
-          <Form.Select required id="supervisorId" aria-label="Supervisor Id" className="selectInput" name="supervisorId" onChange={handleChange}>
+          <Form.Select
+            required
+            id="supervisorId"
+            aria-label="Supervisor Id"
+            className="selectInput"
+            name="supervisorId"
+            onChange={handleChange}
+          >
             <option value="">{status ? "loading" : "select "}</option>
             <option value="0">N/A</option>
             {supId?.map((type) => (
@@ -555,7 +613,14 @@ const AddEmployee = () => {
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
-          <Form.Select required id="addTypeId" aria-label="addressType" className="selectInput" name="addTypeId" onChange={handleChange}>
+          <Form.Select
+            required
+            id="addTypeId"
+            aria-label="addressType"
+            className="selectInput"
+            name="addTypeId"
+            onChange={handleChange}
+          >
             <option value="">{status ? "loading" : "select "}</option>
             {addTypes?.map((type) => (
               <option key={type.addType} value={type.addTypeId}>
@@ -574,7 +639,14 @@ const AddEmployee = () => {
             Working internal ?<nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
-          <Form.Select required id="isInternal" aria-label="isInternal" className="selectInput" name="isInternal" onChange={handleMasterData}>
+          <Form.Select
+            required
+            id="isInternal"
+            aria-label="isInternal"
+            className="selectInput"
+            name="isInternal"
+            onChange={handleMasterData}
+          >
             <option key="IsInternal" value="">
               select
             </option>
@@ -641,7 +713,17 @@ const AddEmployee = () => {
     },
     {
       id: "joiningDate",
-      data: <FormInputs id="joiningDate" title="Joining Date" name="joiningDate" type="date" required={true} defaultValue={data.masterEmployeeDetails?.joiningDate} handleChange={handleMasterData} />,
+      data: (
+        <FormInputs
+          id="joiningDate"
+          title="Joining Date"
+          name="joiningDate"
+          type="date"
+          required={true}
+          defaultValue={data.masterEmployeeDetails?.joiningDate}
+          handleChange={handleMasterData}
+        />
+      ),
     },
     {
       id: "dob",
@@ -662,7 +744,7 @@ const AddEmployee = () => {
                 ...data.masterEmployeeDetails,
                 dob: e.target.value,
               },
-            })
+            });
           }}
         />
       ),
@@ -689,7 +771,7 @@ const AddEmployee = () => {
                   ...data.masterEmployeeDetails,
                   [e.target.name]: "Male",
                 },
-              })
+              });
             }}
           />
           <Form.Check
@@ -705,7 +787,7 @@ const AddEmployee = () => {
                   ...data.masterEmployeeDetails,
                   [e.target.name]: "Female",
                 },
-              })
+              });
             }}
           />
         </Form.Group>
@@ -723,7 +805,7 @@ const AddEmployee = () => {
           accept=".pdf"
           defaultValue={file}
           handleChange={(e) => {
-            setFile(e.target.files[0])
+            setFile(e.target.files[0]);
             // setData({
             //   ...data,
             //   masterEmployeeDetails: {
@@ -747,7 +829,7 @@ const AddEmployee = () => {
           accept=".png, .jpg, .jpeg"
           defaultValue={pic}
           handleChange={(e) => {
-            setPic(e.target.files[0])
+            setPic(e.target.files[0]);
             // setData({
             //   ...data,
             //   masterEmployeeDetails: {
@@ -759,7 +841,7 @@ const AddEmployee = () => {
         />
       ),
     },
-  ]
+  ];
   return (
     <div id="add-employee" className="container-sm ">
       <h1 className="title text-center">Create New Employee</h1>
@@ -798,7 +880,11 @@ const AddEmployee = () => {
           Cancel
         </Button>
         {/* </Col> */}
-        {status && <p className="text-success mb-2">Please wait while we are processing your request.</p>}
+        {status && (
+          <p className="text-success mb-2">
+            Please wait while we are processing your request.
+          </p>
+        )}
         {/* {errors && (
             <p className="text-danger mb-2">
               Network error. Please try again later.
@@ -807,7 +893,7 @@ const AddEmployee = () => {
         {<p className="text-danger mb-2">{msg}</p>}
       </Form>
     </div>
-  )
-}
+  );
+};
 
-export default AddEmployee
+export default AddEmployee;

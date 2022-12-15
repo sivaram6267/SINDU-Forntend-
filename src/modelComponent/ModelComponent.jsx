@@ -413,7 +413,14 @@ function ModelComponent(props) {
                         <Form.Control name="zipCod" id="zipCod" required type="number" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={it.zipCod} onChange={handleChange} />
                       </Form.Group>
                     ))}
-                    {/* <Form.Group className="mb-3 checkbox">
+                    {/* {data.detailsResponse?.map((it) => ( */}
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="status">
+                        <b>status</b>
+                      </Form.Label>
+                      <Form.Control name="status" id="status" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.status} onChange={handleChange} />
+                    </Form.Group>
+                    {/* <orm.Group className="mb-3 checkbox">
                 <Form.Label>Gender : </Form.Label>{" "}
                 <Form.Check
                   required
@@ -436,7 +443,7 @@ function ModelComponent(props) {
                     data.gender = "Female";
                   }}
                 />
-              </Form.Group>
+              </orm.Group>
               <Form.Group className="mb-3">
                 <Form.Label htmlFor="phone number">Phone Number</Form.Label>
                 <Form.Control
@@ -934,7 +941,7 @@ function ModelComponent(props) {
                 </Button> */}
 
                     <SubEmployee id={props.data} />
-                   </div>
+                  </div>
                 </Col>
               </Row>
             </Form>

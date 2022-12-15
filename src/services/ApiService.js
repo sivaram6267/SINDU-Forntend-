@@ -1,5 +1,4 @@
 import axios from "axios"
-
 // const BASE_URL = 'https://lsi-employeetracker.herokuapp.com'; // heruko.
 
 // const BASE_URL = "http://18.209.60.4:8080/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // devops
@@ -10,14 +9,14 @@ import axios from "axios"
 // const BASE_URL ="http://18.188.242.190:8081/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // NEW ONE DEVOPS API
 
 // const BASE_URL = "http://10.81.4.191:2030"; // sudheer pc
- //const BASE_URL = "http://10.81.4.195:2022" // umer pc
+ const BASE_URL = "http://10.81.4.195:2022" // umer pc
 //const BASE_URL = "http://localhost:2032"
 
 // const BASE_URL = "http://10.81.4.197:2022"; // chamu pc
 // const BASE_URL = "http://10.81.3.30:9090"; // charan pc
 // const BASE_URL="http://10.81.4.198:2022"; //sowmya pc
  //const  BASE_URL="http://10.81.4.188:2021";  //santhosh pc
- const  BASE_URL="http://10.81.4.231:2022";   //teju pc
+ //const  BASE_URL="http://10.81.4.231:2022";   //teju pc
 //get
 const ALL_EMPLOYEES = `${BASE_URL}/api/v1/emp/getEmps`
 const ALL_EMPLOYEES_BY_ID = `${BASE_URL}/api/v1/emp/get-emp-crosspnd-details?id=`
@@ -106,7 +105,7 @@ export default new (class ApiService {
   }
   addClientDetails(data, cId, eId) {
     // http://localhost:2022/api/v1/emp/inser-empat-client?clientId=5&empId=LSI9908
-    return axios.post(`${BASE_URL}/api/v1/emp/inser-empat-client?clientId=${cId}&empId=${eId}`, data, auth())
+    return axios.post(`${BASE_URL}/api/v1/emp/insert-empat-client?clientId=${cId}&empId=${eId}`, data, auth())
   }
   supervisorId(id) {
     // http://10.81.4.195:2022/api/v1/emp/get-supvisor-dropdown?id=6
@@ -212,13 +211,10 @@ export default new (class ApiService {
       auth()
     )
   }
-  UpdateResume(data,id)
-  {
+  UpdateResume(data, id) {
     let formData = new FormData()
-    formData.append("file",data)
-    return axios.put(
-      `${BASE_URL}/ResumeUpdate?id=${id}`,formData,auth()
-)
+    formData.append("file", data)
+    return axios.put(`${BASE_URL}/ResumeUpdate?id=${id}`, formData, auth())
   }
 
   // HR DASHBOARD//
@@ -270,13 +266,26 @@ export default new (class ApiService {
     return axios.get(`${BASE_URL}/AssignToEmployee?LancesoftId=${id}`, auth())
   }
   ReleaseEmpprom(id) {
-    return axios.get(`${BASE_URL}/newsupervisiorsinHRDashboard?LancesoftId=${id}`, auth())
+    return axios.get(`${BASE_URL}/reportstodropdownsuperadmin?LancesoftId=${id}`, auth())
   }
+  secondarymanagertransfer(empId, mgrId) {
+    return axios.get(`${BASE_URL}/secondaryreportstodropdownsuperadmin?LancesoftId=${empId}&primaryLancesoftId=${mgrId}`, auth())
+  }
+
+  // http://localhost:2022/secondaryreportstodropdownsuperadmin?LancesoftId=LSI006&primaryManagerID=LSI5200
   AssigntransferEmp(id, id2) {
     return axios.get(`${BASE_URL}/setSupervisor/${id}/${id2}`, auth())
   }
-  promotetransferEmp(id, id2, Salary, Location) {
-    return axios.get(`${BASE_URL}/transfer?LancesoftId=${id}&Location=${Location}&Salary=${Salary}&TansferLancesoftId=${id2}`, auth())
+  // promotetransferEmp(id, id2, Salary, Location) {
+  //   return axios.get(
+  //     `${BASE_URL}/transfer?LancesoftId=${id}&Location=${Location}&Salary=${Salary}&TansferLancesoftId=${id2}`,
+  //     auth()
+  //   );
+  // }
+  // http://localhost:2022/transfer?LancesoftId=LSI006&Location=ff&Salary=0.0&primaryLancesoftId=LSI5200&secondaryLancesoftId=null
+
+  promotetransferEmp(id, id2, id3, Salary, Location) {
+    return axios.get(`${BASE_URL}/transfer?LancesoftId=${id}&Location=${Salary}&Salary=${Location}&primaryLancesoftId=${id2}&secondaryLancesoftId=${id3}`, auth())
   }
   // TRANSFER EMPLOYEE END //
   selectEmployeeReq() {
@@ -347,59 +356,65 @@ export default new (class ApiService {
   getClients() {
     return axios.get(`${BASE_URL}/api/v1/fields/get-all-clients`, auth())
   }
-//AbscondEmployee
-getAllEmployees1(id) {
-  return axios.get(`${BASE_URL}/getByDesignationId/${id}`, auth())
-}
+  selectPractice() {
+    return axios.get(`${BASE_URL}/api/v1/fields/get-all-subDepart`, auth())
+  }
+  getEmploy(id, value) {
+    return axios.get(`${BASE_URL}/api/v1/drop-down/consultants?lancesoftId=${id}&subDId=${value}`, auth())
+  }
+  selectempdesgination() {
+    return axios.get(`${BASE_URL}/api/v1/drop-down/designaton`, auth())
+  }
+  selectempdesgns(id, value) {
+    return axios.get(`${BASE_URL}/api/v1/drop-down/employee-by-desig?desgId=${id}&keyword=${value}`, auth())
+  }
+  secondarymanager(id) {
+    return axios.get(`${BASE_URL}/api/v1/drop-down/report-to-desigs?desigId=${id}`, auth())
+  }
+  selectmanager(id, value) {
+    return axios.get(`${BASE_URL}/api/v1/drop-down/employee-by-desig?desgId=${id}&keyword=${value}`, auth())
+  }
 
-abscondEmp(lancesoft) {
-  return axios.get(`${BASE_URL}/abscondemp/${lancesoft}`, auth())
-}
+  setsecondarymanager(id, id2, data) {
+    return axios.post(`${BASE_URL}/api/v1/emp/subordinate-manager?empId=${id}&flag=false&supervisorId=${id2}`, data, auth())
+  }
+  setsecondaryfor(id, id2, data) {
+    return axios.post(`${BASE_URL}/api/v1/emp/subordinate-manager?empId=${id}&flag=true&supervisorId=${id2}`, data, auth())
+  }
 
+  //AbscondEmployee
+  getAllEmployees1(id) {
+    return axios.get(`${BASE_URL}/getByDesignationId/${id}`, auth())
+  }
 
- //Demote employee
- //alldesignations
-getAllDemoteDesignation(){
-  return axios.get(`${BASE_URL}/getAllDemoteDesignations`, auth())
-}
-//select emp
-getAllDesignationEmployees(id, data) {
-  return axios.post(`${BASE_URL}/getAlldesignationEmployees/${id}`, data, auth())
- 
-}
-// primary manager reports to
-addSupervisor(lanceId){
-  return axios.get(`${BASE_URL}/addSupervisor/${lanceId}`, auth())
+  abscondEmp(lancesoft) {
+    return axios.get(`${BASE_URL}/abscondemp/${lancesoft}`, auth())
+  }
 
-}
-// secondary manager reports to
-addSecondarySupervisor(empId,superId){
-  return axios.get(`${BASE_URL}/addSecondSupervisor?empId=${empId}&superId=${superId}`,auth())
+  //Demote employee
+  //alldesignations
+  getAllDemoteDesignation() {
+    return axios.get(`${BASE_URL}/getAllDemoteDesignations`, auth())
+  }
+  //select emp
+  getAllDesignationEmployees(id, data) {
+    return axios.post(`${BASE_URL}/getAlldesignationEmployees/${id}`, data, auth())
+  }
+  // primary manager reports to
+  addSupervisor(lanceId) {
+    return axios.get(`${BASE_URL}/addSupervisor/${lanceId}`, auth())
+  }
+  // secondary manager reports to
+  addSecondarySupervisor(empId, superId) {
+    return axios.get(`${BASE_URL}/addSecondSupervisor?empId=${empId}&superId=${superId}`, auth())
+  }
+  //submit
+  demoteEmp(id, id1, id2, Salary) {
+    return axios.get(`${BASE_URL}/demote/${id}/${id1}/${id2}/${Salary}`, auth())
+  }
 
-}
-//submit
-demoteEmp(id,id1,id2,Salary) {
-  return axios.get(`${BASE_URL}/demote/${id}/${id1}/${id2}/${Salary}`, auth())
-}
-
-//Delete Employee
-//select Designation
-DesinationsForDeleteModule()
-{
-  return axios.get(`${BASE_URL}/api/v1/admin/ShowDesinationsForDeleteModule`,auth())
-}
-
-//select employee
-ShowEmployeesToDelete(empid)
-{
-  return axios.get(`${BASE_URL}/api/v1/admin/ShowEmployeesToDelete/${empid}`)
-}
-
-
-//submit
-deleteEmployee(lancesoftid)
-{
-  return axios.delete(`${BASE_URL}/api/v1/admin/delete-employee/${lancesoftid}`, auth())
-}
-
+  //Delete Employee
+  DeleteEmployee(lancesoftid) {
+    return axios.get(`${BASE_URL}/api/v1/admin/delete-employee/${lancesoftid}`, auth())
+  }
 })()
