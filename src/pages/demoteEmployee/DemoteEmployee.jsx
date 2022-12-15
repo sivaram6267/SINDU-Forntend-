@@ -257,7 +257,7 @@ return (
                             </Form.Group>
                             <Button variant="primary" type="submit">
                                 Submit
-                            </Button>
+                            </Button>{" "}
                             <Button onClick={handleCancel} variant="danger">
           Cancel
         </Button>
