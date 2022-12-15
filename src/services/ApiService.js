@@ -9,9 +9,9 @@ import axios from "axios";
 // const BASE_URL ="http://18.188.242.190:8081/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // NEW ONE DEVOPS API
 
 // const BASE_URL = "http://10.81.4.191:2030"; // sudheer pc
-const BASE_URL = "http://10.81.4.195:2022"; // umer pc
+// const BASE_URL = "http://10.81.4.195:2022"; // umer pc
 //const BASE_URL = "http://localhost:2032"
-
+const BASE_URL = "http://10.81.4.198:2022"; //sowmya pc
 // const BASE_URL = "http://10.81.4.197:2022"; // chamu pc
 
 //get
@@ -90,8 +90,9 @@ export default new (class ApiService {
   }
   //addEmployee
   getAllDesg() {
-    return axios.get(`${BASE_URL}/api/v1/fields/get-all-desg`, auth());
+    return axios.get(`${BASE_URL}/api/v1/drop-down/designaton`, auth());
   }
+
   //http://10.81.4.195:2022/api/v1/fields/get-all-addType
   getAllAddType() {
     return axios.get(`${BASE_URL}/api/v1/fields/get-all-addType`, auth());
@@ -124,12 +125,12 @@ export default new (class ApiService {
     );
   }
   supervisorId(id) {
-    // http://10.81.4.195:2022/api/v1/emp/get-supvisor-dropdown?id=6
     return axios.get(
-      `${BASE_URL}/api/v1/emp/get-supvisor-dropdown?id=${id}`,
+      `${BASE_URL}/api/v1/drop-down/primary-manager-desig?desigId=${id}`,
       auth()
     );
   }
+
   getEmployeeId() {
     //localhost:2022/api/v1/emp/client-emp-dropdown
     return axios.get(`${BASE_URL}/api/v1/emp/client-emp-dropdown`, auth());
@@ -269,25 +270,36 @@ export default new (class ApiService {
   getDesignations() {
     return axios.get(`${BASE_URL}/getAllDesignation`, auth());
   }
-  selectEmployee(id) {
-    return axios.get(`${BASE_URL}/getByDesignation?des_id=${id}`, auth());
+  selectEmployee(des_id) {
+    return axios.get(`${BASE_URL}/getByDesignationId/${des_id}`, auth());
   }
+
   AssignTo(id) {
     return axios.get(`${BASE_URL}/AssignToEmployee?LancesoftId=${id}`, auth());
   }
 
-  ReportsTo(id) {
-    return axios.get(`${BASE_URL}/getNewSuperVisor/${id}`, auth());
+  ReportsTo(lanceId) {
+    return axios.get(`${BASE_URL}/ReportsToPrimary/${lanceId}`, auth());
   }
-  // AssignEmp(id, id2) {
-  //   return axios.get(`${BASE_URL}/setSupervisor/${id}/${id2}`, auth());
-  // }
-  promoteEmp(emp_id, sub_id, newSalary) {
+
+  secondarymanagerpromote(lanceId, primaryId) {
     return axios.get(
-      `${BASE_URL}/update/${emp_id}/${sub_id}/${newSalary}`,
+      `${BASE_URL}/ReportsToSecondary/${lanceId}/${primaryId}`,
       auth()
     );
   }
+
+  // http://localhost:2022/ReportsToSecondary/{lanceId}/{primaryId}
+
+  promoteEmp(emp_id, sub_id, sub_id2, newSalary) {
+    return axios.get(
+      `${BASE_URL}/PromoteEmpDetails/${emp_id}/${sub_id}/${sub_id2}/${newSalary}`,
+      auth()
+    );
+  }
+
+  // http://localhost:2022/PromoteEmpDetails/lsi013/LSI011/LSI003/987
+
   getDesignationses() {
     return axios.get(`${BASE_URL}/getAllDesignation`, auth());
   }
