@@ -11,8 +11,8 @@ import { Button } from "react-bootstrap";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
-import ModelComponent from "../model/ModelComponent";
+import EmployeeProfile from "../../pages/employeeProfile/EmployeeProfile";
+ import ModelComponent from "../../modelComponent/ModelComponent";
 import ApiService from "../../services/ApiService";
 import { useEffect } from "react";
 import { padding } from "@mui/system";
@@ -117,6 +117,14 @@ export default function DataTable(props) {
   const handleOnClickEdit = (id) => {
     navigate("/hr/editEmployee", { state: { empId: id, name: "" } });
   };
+ const handleOnClickView = (id) =>{
+  //data={subEmp ? subEmpId : pid}
+  //type={type}
+  console.log(id, type);
+   navigate("/hr/EmployeeProfile", { state: {empId: id , type: type }})
+
+ }
+
 
   const navigate = useNavigate();
   // const handleCancel = (e) => {
@@ -181,7 +189,7 @@ export default function DataTable(props) {
             className="card-btn"
             onClick={(e) => {
               e.stopPropagation();
-              handleOnClick(item.empId);
+              handleOnClickView(item.empId);
               console.log(item.empId);
             }}
           >
@@ -226,7 +234,7 @@ export default function DataTable(props) {
             className="card-btn"
             onClick={(e) => {
               e.stopPropagation();
-              handleOnClick(item.empId);
+              handleOnClickView(item.empId);
               console.log(item.empId);
             }}
           >
@@ -409,7 +417,7 @@ export default function DataTable(props) {
 
   return (
     <>
-      <ModelComponent
+      {/* { <ModelComponent
         data={subEmp ? subEmpId : pid}
         type={type}
         show={modalShow}
@@ -418,7 +426,17 @@ export default function DataTable(props) {
           setModalShow(false);
           // setData({});
         }}
-      />
+      /> } */}
+      {/* { <EmployeeProfile
+       data={subEmp ? subEmpId : pid}
+       type={type}
+       show={modalShow}
+       // view={view}
+       onHide={() => {
+         setModalShow(false);
+         // setData({});
+       }}
+     /> } */}
 
       <form id="searchForm" onSubmit={handleSubmit}>
         <input

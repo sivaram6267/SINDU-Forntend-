@@ -2,7 +2,8 @@ import React, { Fragment, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 // import ApiService from "../../services/ApiService";
 // import { useNavigate } from "react-router-dom";
-import ModelComponent from "../model/ModelComponent";
+import ModelComponent from "../modelComponent/ModelComponent";
+// import EmployeeProfile from "../../pages/employeeProfile/EmployeeProfile";
 import "./cards.css";
 import ApiService from "../../services/ApiService";
 function Cards(props) {

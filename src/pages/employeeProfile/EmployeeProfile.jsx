@@ -1,95 +1,88 @@
-import React, { Fragment } from "react";
-import { useState } from "react";
-import { Button, Modal, Col, Row, Form, FormGroup } from "react-bootstrap";
+import React, { Fragment } from "react"
+import { useState } from "react"
+import { Button, Modal, Col, Row, Form, FormGroup } from "react-bootstrap"
 // import moment from "moment";
-import "./modelComponent.css";
-import { useEffect } from "react";
-import ApiService from "../../services/ApiService";
-import SubEmployee from "../subEmployee/SubEmployee";
+import "./EmployeeProfile.css"
+import { useEffect } from "react"
+import ApiService from "../../services/ApiService"
+import SubEmployee from "../../components/subEmployee/SubEmployee"
+import { useLocation } from "react-router-dom"
 
-function ModelComponent(props) {
+function EmployeeProfile() {
   // console.log(props.data);
-  const [data, setData] = useState({});
-  const [client, setClient] = useState({});
-  const [disabled, setDisabled] = useState(false);
-  const [status, setStatus] = useState(false);
-  const [msg, setMsg] = useState("");
+  const [data, setData] = useState({})
+  const [client, setClient] = useState({})
+  const [disabled, setDisabled] = useState(false)
+  const [status, setStatus] = useState(false)
+  const [msg, setMsg] = useState("")
+
+  const location = useLocation()
+
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setData((prevState) => ({
       ...prevState,
       [name]: value,
-    }));
-  };
+    }))
+  }
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     // console.log(data);
-  };
+  }
 
   // const handleEdit = () => {
   //   setDisabled(true);
   // };
   const handleClose = () => {
-    props.onHide();
-    setData("");
-  };
+    //props.onHide()
+    //setData("")
+  }
 
   useEffect(() => {
-    if (props.show && props.data) {
-      setStatus(true);
-      console.log(props);
-      console.log(data);
-      ApiService.getEmployeeById(props.data)
-        .then((res) => {
-          console.log(res.data);
-          setData(res.data);
-          setStatus(false);
-          setMsg("");
-        })
-        .catch((err) => {
-          console.log(err);
-          setData("");
-          setStatus(false);
-          setMsg(err.message);
-        });
 
-      ApiService.getAllClientsByEmpId(props.data)
+    console.log(location.state.empId)
+
+    if (location.state.empId) {
+     
+      setStatus(true)
+      //console.log(props)
+      console.log(data)
+      ApiService.getEmployeeById(location.state.empId)
         .then((res) => {
-          console.log(data);
-          console.log(res.data.addres);
-          setClient(res.data);
-          setStatus(false);
+          console.log(res.data)
+          setData(res.data)
+          setStatus(false)
+          setMsg("")
         })
         .catch((err) => {
-          console.log(err);
-          setClient({});
-          setStatus(false);
-        });
+          console.log(err)
+          setData("")
+          setStatus(false)
+          setMsg(err.message)
+        })
+
+      ApiService.getAllClientsByEmpId(location.state.empId)
+        .then((res) => {
+          console.log(data)
+          console.log(res.data.addres)
+          setClient(res.data)
+          setStatus(false)
+        })
+        .catch((err) => {
+          console.log(err)
+          setClient({})
+          setStatus(false)
+        })
     }
-  }, [props.data, props.show]);
+  }, [location.state.empId])
+
 
   return (
-    <>
-      <Modal
-        show={props.show}
-        size={
-          ["lead", "Consultant"].includes(data.detailsResponse?.designation)
-            ? "xl"
-            : "lg"
-        }
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        scrollable
-      >
-        <Modal.Header>
-          <Modal.Title id="contained-modal-title-vcenter" className="title">
-            Employee Profile
-          </Modal.Title>
-          <Button className="btnClose" onClick={handleClose}>
-            X
-          </Button>
-        </Modal.Header>
-        <Modal.Body>
+  <>
+<div id="add-employee" className="container-sm">
+    <h1 className="title text-center">Employee Profile</h1>
+    
           {status && <p className="text-success mb-1">loading...</p>}
           <p className="text-danger">{msg}</p>
           {!status && (
@@ -103,61 +96,25 @@ function ModelComponent(props) {
                       <Form.Label htmlFor="employeeId">
                         <b>Employee ID</b>
                       </Form.Label>
-                      <Form.Control
-                        name="employeeId"
-                        id="employeeId"
-                        required
-                        disabled={disabled ? "" : "disabled"}
-                        type="text"
-                        placeholder=""
-                        defaultValue={data.detailsResponse?.employeeId}
-                        onChange={handleChange}
-                      />
+                      <Form.Control name="employeeId" id="employeeId" required disabled={disabled ? "" : "disabled"} type="text" placeholder="" defaultValue={data.detailsResponse?.employeeId} onChange={handleChange} />
                     </Form.Group>
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="firstName">
                         <b>First Name</b>
                       </Form.Label>
-                      <Form.Control
-                        name="firstName"
-                        id="firstName"
-                        required
-                        type="text"
-                        placeholder=""
-                        disabled={disabled ? "" : "disabled"}
-                        defaultValue={data.detailsResponse?.firstName}
-                        onChange={handleChange}
-                      />
+                      <Form.Control name="firstName" id="firstName" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.firstName} onChange={handleChange} />
                     </Form.Group>
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="lastName">
                         <b>Last Name</b>
                       </Form.Label>
-                      <Form.Control
-                        name="lastName"
-                        id="lastName"
-                        required
-                        type="text"
-                        placeholder=""
-                        disabled={disabled ? "" : "disabled"}
-                        defaultValue={data.detailsResponse?.lastName}
-                        onChange={handleChange}
-                      />
+                      <Form.Control name="lastName" id="lastName" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.lastName} onChange={handleChange} />
                     </Form.Group>
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="joiningDate">
                         <b>Joining Date</b>
                       </Form.Label>
-                      <Form.Control
-                        name="joiningDate"
-                        id="joiningDate"
-                        required
-                        type="date"
-                        placeholder=""
-                        disabled={disabled ? "" : "disabled"}
-                        defaultValue={data.detailsResponse?.joiningDate}
-                        onChange={handleChange}
-                      />
+                      <Form.Control name="joiningDate" id="joiningDate" required type="date" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.joiningDate} onChange={handleChange} />
                     </Form.Group>
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="email">
@@ -196,46 +153,19 @@ function ModelComponent(props) {
                       <Form.Label htmlFor="gender">
                         <b>Gender</b>
                       </Form.Label>
-                      <Form.Control
-                        name="gender"
-                        id="gender"
-                        required
-                        type="text"
-                        placeholder=""
-                        disabled={disabled ? "" : "disabled"}
-                        defaultValue={data.detailsResponse?.gender}
-                        onChange={handleChange}
-                      />
+                      <Form.Control name="gender" id="gender" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.gender} onChange={handleChange} />
                     </Form.Group>
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="employeeType">
                         <b>Employee Type</b>
                       </Form.Label>
-                      <Form.Control
-                        name="employeeType"
-                        id="employeeType"
-                        required
-                        type="text"
-                        placeholder=""
-                        disabled={disabled ? "" : "disabled"}
-                        defaultValue={data.detailsResponse?.employeeType}
-                        onChange={handleChange}
-                      />
+                      <Form.Control name="employeeType" id="employeeType" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.employeeType} onChange={handleChange} />
                     </Form.Group>
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="location">
                         <b>Location</b>
                       </Form.Label>
-                      <Form.Control
-                        name="location"
-                        id="location"
-                        required
-                        type="text"
-                        placeholder=""
-                        disabled={disabled ? "" : "disabled"}
-                        defaultValue={data.detailsResponse?.location}
-                        onChange={handleChange}
-                      />
+                      <Form.Control name="location" id="location" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.location} onChange={handleChange} />
                     </Form.Group>
 
                     {/* <Form.Group className="mb-3 checkbox">
@@ -329,31 +259,13 @@ function ModelComponent(props) {
                       <Form.Label htmlFor="subDepartName">
                         <b>Sub Department Name</b>
                       </Form.Label>
-                      <Form.Control
-                        name="subDepartName"
-                        id="subDepartName"
-                        required
-                        type="text"
-                        placeholder=""
-                        disabled={disabled ? "" : "disabled"}
-                        defaultValue={data.detailsResponse?.subDepartName}
-                        onChange={handleChange}
-                      />
+                      <Form.Control name="subDepartName" id="subDepartName" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.subDepartName} onChange={handleChange} />
                     </Form.Group>
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="designation">
                         <b>Designation</b>
                       </Form.Label>
-                      <Form.Control
-                        name="designation"
-                        id="designation"
-                        required
-                        type="text"
-                        placeholder=""
-                        disabled={disabled ? "" : "disabled"}
-                        defaultValue={data.detailsResponse?.designation}
-                        onChange={handleChange}
-                      />
+                      <Form.Control name="designation" id="designation" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.designation} onChange={handleChange} />
                     </Form.Group>
                     {/* <Form.Group className="mb-3">
                       <Form.Label htmlFor="status">Status</Form.Label>
@@ -373,16 +285,7 @@ function ModelComponent(props) {
                       <Form.Label htmlFor="location">
                         <b>Department</b>
                       </Form.Label>
-                      <Form.Control
-                        name="depart"
-                        id="depart"
-                        required
-                        type="text"
-                        placeholder=""
-                        disabled={disabled ? "" : "disabled"}
-                        defaultValue={data.detailsResponse?.department}
-                        onChange={handleChange}
-                      />
+                      <Form.Control name="depart" id="depart" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.department} onChange={handleChange} />
                     </Form.Group>
                     {/* <Form.Group className="mb-3">
                       <Form.Label htmlFor="vertical">vertical</Form.Label>
@@ -406,14 +309,7 @@ function ModelComponent(props) {
                         <Form.Label htmlFor="benchTenure">
                           <b>Bench Tenure</b>
                         </Form.Label>
-                        <Form.Control
-                          disabled
-                          id="benchTenure"
-                          type="number"
-                          name="benchTenure"
-                          defaultValue={ip.benchTenure}
-                          onChange={handleChange}
-                        />
+                        <Form.Control disabled id="benchTenure" type="number" name="benchTenure" defaultValue={ip.benchTenure} onChange={handleChange} />
                       </Form.Group>
                     ))}
                     <Form.Group className="mb-3">
@@ -439,50 +335,16 @@ function ModelComponent(props) {
                       <Form.Label htmlFor="salary">
                         <b>Salary</b>
                       </Form.Label>
-                      <Form.Control
-                        required
-                        disabled={disabled ? "" : "enabled"}
-                        id="salary"
-                        type="number"
-                        placeholder=""
-                        name="salary"
-                        title="enter salary"
-                        defaultValue={data.salary}
-                        onChange={handleChange}
-                      />
+                      <Form.Control required disabled={disabled ? "" : "enabled"} id="salary" type="number" placeholder="" name="salary" title="enter salary" defaultValue={data.salary} onChange={handleChange} />
                     </Form.Group>
-                    {/* <Form.Group className="mb-3">
-                      <Form.Label htmlFor="employeeId">
-                        Reporting Person
-                      </Form.Label>
-                      <Form.Control
-                        name="reportingperson"
-                        id="reportingperson"
-                        required
-                        disabled={disabled ? "" : "disabled"}
-                        type="text"
-                        placeholder="Enter reportingperson"
-                        defaultValue={
-                          data.detailsResponse?.reportingperson
-                        }
-                        onChange={handleChange}
-                      />
-                    </Form.Group> */}
+
+                    
                     {data.addres?.map((it) => (
                       <Form.Group className="mb-3">
                         <Form.Label htmlFor="firstName">
                           <b>Country</b>
                         </Form.Label>
-                        <Form.Control
-                          name="country"
-                          id="country"
-                          required
-                          type="text"
-                          placeholder=""
-                          disabled={disabled ? "" : "disabled"}
-                          defaultValue={it.country}
-                          onChange={handleChange}
-                        />
+                        <Form.Control name="country" id="country" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={it.country} onChange={handleChange} />
                       </Form.Group>
                     ))}
                     {data.addres?.map((it) => (
@@ -490,30 +352,9 @@ function ModelComponent(props) {
                         <Form.Label htmlFor="state">
                           <b>State</b>
                         </Form.Label>
-                        <Form.Control
-                          name="state"
-                          id="state "
-                          required
-                          type="text"
-                          placeholder=""
-                          disabled={disabled ? "" : "disabled"}
-                          onChange={handleChange}
-                          defaultValue={it.state}
-                        />
+                        <Form.Control name="state" id="state " required type="text" placeholder="" disabled={disabled ? "" : "disabled"} onChange={handleChange} defaultValue={it.state} />
                       </Form.Group>
                     ))}{" "}
-                    {/* <Form.Group className="mb-3">
-                    //   <Form.Label htmlFor="city">city</Form.Label>
-                    //   <Form.Control
-                    //     disabled
-                    //     id="city"
-                    //     type="text"
-                    //     name="city"
-                    //     placeholder="please enter city name"
-                    //     // defaultValue={it.city}
-                    //     onChange={handleChange}
-                    //   />
-                    // </Form.Group> */}
                     {data.addres?.map((it) => (
                       <Form.Group className="mb-3">
                         <Form.Label htmlFor="city">
@@ -537,53 +378,51 @@ function ModelComponent(props) {
                         <Form.Label htmlFor="street">
                           <b>Street</b>
                         </Form.Label>
-                        <Form.Control
-                          name="street"
-                          id="street"
-                          enable
-                          required
-                          type="text"
-                          placeholder=""
-                          disabled={disabled ? "" : "disabled"}
-                          defaultValue={it.street}
-                          onChange={handleChange}
-                        />
+                        <Form.Control name="street" id="street" enable required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={it.street} onChange={handleChange} />
                       </Form.Group>
                     ))}
-                    {data.addres?.map((it) => (
+                       {data.addres?.map((it) => (
                       <Form.Group className="mb-3">
                         <Form.Label htmlFor="zipCode">
                           <b>Pincode</b>
                         </Form.Label>
-                        <Form.Control
-                          name="zipCod"
-                          id="zipCod"
-                          required
-                          type="number"
-                          placeholder=""
-                          disabled={disabled ? "" : "disabled"}
-                          defaultValue={it.zipCod}
-                          onChange={handleChange}
-                        />
+                        <Form.Control name="zipCod" id="zipCod" required type="number" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={it.zipCod} onChange={handleChange} />
                       </Form.Group>
                     ))}
-                    {/* {data.detailsResponse?.map((it) => ( */}
-                    <Form.Group className="mb-3">
-                      <Form.Label htmlFor="status">
-                        <b>status</b>
+                    {/* <Form.Group className="mb-3">
+                      <Form.Label htmlFor="employeeId">
+                        Reporting Person
                       </Form.Label>
                       <Form.Control
-                        name="status"
-                        id="status"
+                        name="reportingperson"
+                        id="reportingperson"
                         required
-                        type="text"
-                        placeholder=""
                         disabled={disabled ? "" : "disabled"}
-                        defaultValue={data.detailsResponse?.status}
+                        type="text"
+                        placeholder="Enter reportingperson"
+                        defaultValue={
+                          data.detailsResponse?.reportingperson
+                        }
                         onChange={handleChange}
                       />
-                    </Form.Group>
-                    {/* <orm.Group className="mb-3 checkbox">
+                    </Form.Group> */}
+                    
+                    {/* <Form.Group className="mb-3">
+                    //   <Form.Label htmlFor="city">city</Form.Label>
+                    //   <Form.Control
+                    //     disabled
+                    //     id="city"
+                    //     type="text"
+                    //     name="city"
+                    //     placeholder="please enter city name"
+                    //     // defaultValue={it.city}
+                    //     onChange={handleChange}
+                    //   />
+                    // </Form.Group> */}
+                    
+                    
+                 
+                    {/* <Form.Group className="mb-3 checkbox">
                 <Form.Label>Gender : </Form.Label>{" "}
                 <Form.Check
                   required
@@ -606,7 +445,7 @@ function ModelComponent(props) {
                     data.gender = "Female";
                   }}
                 />
-              </orm.Group>
+              </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label htmlFor="phone number">Phone Number</Form.Label>
                 <Form.Control
@@ -837,11 +676,7 @@ function ModelComponent(props) {
                   ) && ( */}
                   {/* <> */}
                   {data.employeeAtClientsDetails?.map((client, index) => (
-                    <div
-                      id="modelSection"
-                      key={index}
-                      className="container-sm "
-                    >
+                    <div id="modelSection" key={index} className="container-sm ">
                       <h5 className="modelHeading">Client {index + 1}</h5>
                       <hr></hr>
                       <Form.Group className="mb-3">
@@ -1017,16 +852,7 @@ function ModelComponent(props) {
                         <Form.Label htmlFor="paidTillNow">
                           <b>Total Salary Paid Till Now</b>
                         </Form.Label>
-                        <Form.Control
-                          name="paidTillNow"
-                          id="paidTillNow"
-                          required
-                          type="text"
-                          placeholder=""
-                          disabled
-                          defaultValue={ip.totalSalPaidTillNow}
-                          onChange={handleChange}
-                        />
+                        <Form.Control name="paidTillNow" id="paidTillNow" required type="text" placeholder="" disabled defaultValue={ip.totalSalPaidTillNow} onChange={handleChange} />
                       </Form.Group>
                     ))}
                     {data.internalExpenses?.map((ip) => (
@@ -1034,15 +860,7 @@ function ModelComponent(props) {
                         <Form.Label htmlFor="totalExpenses">
                           <b>Total Expences</b>
                         </Form.Label>
-                        <Form.Control
-                          disabled
-                          id="totalExpenses"
-                          type="text"
-                          name="totalExpenses"
-                          placeholder=""
-                          defaultValue={ip.totalExpenses}
-                          onChange={handleChange}
-                        />
+                        <Form.Control disabled id="totalExpenses" type="text" name="totalExpenses" placeholder="" defaultValue={ip.totalExpenses} onChange={handleChange} />
                       </Form.Group>
                     ))}
 
@@ -1097,13 +915,7 @@ function ModelComponent(props) {
                         <Form.Label htmlFor="profitOrLoss">
                           <b>Profit/Loss</b>
                         </Form.Label>
-                        <Form.Control
-                          disabled
-                          id="profitOrLoss"
-                          type="text"
-                          name="profitOrLoss"
-                          defaultValue={ip.profitOrLoss}
-                        />
+                        <Form.Control disabled id="profitOrLoss" type="text" name="profitOrLoss" defaultValue={ip.profitOrLoss} />
                       </Form.Group>
                     ))}
 
@@ -1130,16 +942,16 @@ function ModelComponent(props) {
                   Cancel
                 </Button> */}
 
-                    <SubEmployee id={props.data} />
+                    <SubEmployee id={location.state.empId} />
                   </div>
                 </Col>
               </Row>
             </Form>
           )}
-        </Modal.Body>
-      </Modal>
-    </>
-  );
-}
 
-export default ModelComponent;
+</div>
+</>
+  )
+}
+export default EmployeeProfile;
+  

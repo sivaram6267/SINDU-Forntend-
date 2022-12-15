@@ -23,7 +23,7 @@ function PromoteEmployee() {
     if (name === "Designationid" && value !== "") {
       ApiService.selectEmployee(value)
         .then((res) => {
-          //console.log(res.data);
+          console.log(res.data);
           setSelemp(res.data);
         })
 
@@ -167,7 +167,7 @@ function PromoteEmployee() {
             <option value="">{status ? "loading" : "select "}</option>
             {/* <option value="1">N/A</option> */}
             {selemp?.map((type) => (
-              <option key={type.empId} value={type.lancesoft}>
+              <option key={type.empId} value={type.desgId}>
                 {type.firstName} {type.lastName} {type.lancesoft}
               </option>
             ))}
