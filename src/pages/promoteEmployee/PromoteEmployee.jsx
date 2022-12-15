@@ -14,12 +14,15 @@ function PromoteEmployee() {
   const [assignEmp, setAssignemp] = useState(null);
   const [reportsto, setReportsto] = useState(null);
   const [assignid, setAssignid] = useState(null);
+  const [empIDs, setEmpIDs] = useState(null);
+  const [secondarypromote, setSecondarypromote] = useState(null);
 
   const navigate = useNavigate();
   let type = sessionStorage.getItem("type");
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
+    //console.log(value);
     if (name === "Designationid" && value !== "") {
       ApiService.selectEmployee(value)
         .then((res) => {
@@ -36,7 +39,9 @@ function PromoteEmployee() {
           );
         });
     }
+
     if (name === "selectEmp" && value !== "") {
+      setEmpIDs(value);
       // ApiService.AssignTo(value)
       //   .then((res) => {
       //     // console.log(res.data);
@@ -51,10 +56,28 @@ function PromoteEmployee() {
       //         : error.message
       //     );
       //   });
-      ApiService.ReportsTo(value)
+
+      ApiService.ReportsTo(value) //primary manager
         .then((res) => {
           console.log(res.data);
           setReportsto(res.data);
+        })
+        .catch((error) => {
+          alert(JSON.stringify(error));
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
+    }
+    if (name === "reportsTo" && value !== "") {
+      console.log(value);
+
+      ApiService.secondarymanagerpromote(empIDs, value)
+        .then((res) => {
+          console.log(res.data);
+          setSecondarypromote(res.data);
         })
         .catch((error) => {
           alert(JSON.stringify(error));
@@ -75,8 +98,15 @@ function PromoteEmployee() {
     //     console.log(res);
     //     alert("assignemp is successfully ");
     //     setMsg("");
+
     if (data.salary === undefined) data.salary = 0;
-    ApiService.promoteEmp(data.selectEmp, data.reportsTo, data.salary)
+    if (data.secondarymanager === undefined) data.secondarymanager = null;
+    ApiService.promoteEmp(
+      data.selectEmp,
+      data.reportsTo,
+      data.secondarymanager,
+      data.salary
+    )
       .then((res) => {
         console.log(res);
         alert("promte emp is successfully");
@@ -211,7 +241,7 @@ function PromoteEmployee() {
         </Form.Group> */}
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor="reportsTo">
-            Reports To
+            Primary Reports To
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
@@ -226,6 +256,28 @@ function PromoteEmployee() {
             <option value="">{status ? "loading" : "select "}</option>
             {/* <option value="1">N/A</option> */}
             {reportsto?.map((type) => (
+              <option key={type.empId} value={type.lancesoft}>
+                {type.firstName} {type.lastName} {type.lancesoft}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+        <Form.Group className="mb-3 px-2">
+          <Form.Label htmlFor="reportsTo">
+            secondary ReportsTo
+            <nobr />
+            {/* <span className="text-danger"> *</span> */}
+          </Form.Label>
+          <Form.Select
+            id="secondarymanager"
+            aria-label="employee Type"
+            className="selectInput"
+            name="secondarymanager"
+            onChange={handleChange}
+          >
+            <option value="">{status ? "loading" : "select "}</option>
+            {/* <option value="1">N/A</option> */}
+            {secondarypromote?.map((type) => (
               <option key={type.empId} value={type.lancesoft}>
                 {type.firstName} {type.lastName} {type.lancesoft}
               </option>

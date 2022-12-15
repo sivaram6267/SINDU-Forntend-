@@ -53,20 +53,6 @@ export default function TransferEmployee() {
     }
     if (name === "selectEmployeeprom" && value !== "") {
       setEmpID(value);
-      // ApiService.AssignToprom(value)
-      //   .then((res) => {
-      //     // console.log(res.data);
-      //     setAssigntoprom(res.data);
-      //   })
-
-      //   .catch((error) => {
-      //     alert(JSON.stringify(error));
-      //     setMsg(
-      //       error.response.data.errorMessage
-      //         ? error.response.data.errorMessage
-      //         : error.message
-      //     );
-      //   });
       ApiService.ReleaseEmpprom(value)
         .then((res) => {
           console.log(res.data);

@@ -583,7 +583,7 @@ function Subordinatesupervisior() {
               onSubmit={handleSubmit}
               type="submit"
             >
-              Yes
+              yes
             </Button>
 
             <Button
