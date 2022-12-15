@@ -133,10 +133,6 @@ useEffect(() => {
       setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
     })
 }, [])
-
-
-
-
 return (
     <div id="add-employee" className="container-sm">
         <h1 className="title text-center">Demote Employee</h1>

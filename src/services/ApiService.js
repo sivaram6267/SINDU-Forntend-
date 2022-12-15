@@ -3,20 +3,20 @@ import axios from "axios"
 
 // const BASE_URL = "http://18.209.60.4:8080/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // devops
 
-  //const BASE_URL = "http://10.81.4.23:2022"; //server port
+  // const BASE_URL = "http://10.81.4.23:2022"; //server port
 // const BASE_URL = "http://10.81.4.23:9090/LESM-Status-Monitor123";
 
 // const BASE_URL ="http://18.188.242.190:8081/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // NEW ONE DEVOPS API
 
 // const BASE_URL = "http://10.81.4.191:2030"; // sudheer pc
- const BASE_URL = "http://10.81.4.195:2022" // umer pc
+  const BASE_URL = "http://10.81.4.195:2022" // umer pc
 //const BASE_URL = "http://localhost:2032"
 
 // const BASE_URL = "http://10.81.4.197:2022"; // chamu pc
 // const BASE_URL = "http://10.81.3.30:9090"; // charan pc
 // const BASE_URL="http://10.81.4.198:2022"; //sowmya pc
  //const  BASE_URL="http://10.81.4.188:2021";  //santhosh pc
- //const  BASE_URL="http://10.81.4.231:2022";   //teju pc
+//  const  BASE_URL="http://10.81.4.231:2022";   //teju pc
 //get
 const ALL_EMPLOYEES = `${BASE_URL}/api/v1/emp/getEmps`
 const ALL_EMPLOYEES_BY_ID = `${BASE_URL}/api/v1/emp/get-emp-crosspnd-details?id=`
@@ -413,8 +413,20 @@ export default new (class ApiService {
     return axios.get(`${BASE_URL}/demote/${id}/${id1}/${id2}/${Salary}`, auth())
   }
 
+
+  
+
   //Delete Employee
-  DeleteEmployee(lancesoftid) {
-    return axios.get(`${BASE_URL}/api/v1/admin/delete-employee/${lancesoftid}`, auth())
+  DesinationsForDeleteModule(){
+    return axios.get(`${BASE_URL}/api/v1/admin/ShowDesinationsForDeleteModule`,auth())
+  }
+
+  ShowEmployeesToDelete(empid){
+    return axios.get(`${BASE_URL}/api/v1/admin/ShowEmployeesToDelete/${empid}`,auth())
+  }
+
+
+  deleteEmployee(lancesoftid) {
+    return axios.delete(`${BASE_URL}/api/v1/admin/delete-employee/${lancesoftid}`, auth())
   }
 })()

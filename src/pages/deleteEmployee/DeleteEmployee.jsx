@@ -13,9 +13,6 @@ function DeleteEmployee(){
     const[msg,setMsg]=useState(null);
     const[desgs,setDesgs]=useState(null);
     const[selemp , setSelemp]=useState(null);
-
-
-    
 const navigate = useNavigate();
     let type = sessionStorage.getItem("type");
     const handleChange = (e) => {
@@ -86,7 +83,7 @@ const navigate = useNavigate();
             );
           });
       }, []);
-
+    
  return(
   <div id="add-employee" className="container-sm ">
   <h1 className="title text-center">Delete Employee</h1>

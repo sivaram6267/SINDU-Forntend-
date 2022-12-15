@@ -37,6 +37,7 @@ import AbscondEmployee from "./pages/abscondEmployee/AbscondEmployee"
 import ModelComponent from "./modelComponent/ModelComponent"
 import EmployeeProfile from "./pages/employeeProfile/EmployeeProfile"
 import DeleteEmployee from "./pages/deleteEmployee/DeleteEmployee"
+import SuperAdmin from "./components/superAdminDashboard/SuperAdmin"
 
 function App() {
   return (
@@ -340,6 +341,14 @@ function App() {
             }
           />
         </Route>
+        <Route
+            path="/superAdminDashboard"
+            element={
+              <PrivateRoutes>
+                < SuperAdmin/>
+              </PrivateRoutes>
+            }
+          />
       </Routes>
     </>
   )
