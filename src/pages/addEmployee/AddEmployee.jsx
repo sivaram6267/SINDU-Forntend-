@@ -19,6 +19,7 @@ const AddEmployee = () => {
   const [subDep, setSubDep] = useState(null);
   const [supId, setSupId] = useState(null);
   const [file, setFile] = useState("");
+  const [primarydesg, setPrimarydesg] = useState(null);
   const [pic, setPic] = useState("");
   const [apistatus, setApistatus] = useState(false);
 
@@ -27,10 +28,11 @@ const AddEmployee = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
+    console.log(value);
     if (value > 0 && name === "desgId") {
       ApiService.supervisorId(value)
         .then((res) => {
-          // console.log(res.data);
+          console.log(res.data);
           setSupId(res.data);
           setMsg("");
         })
@@ -38,6 +40,25 @@ const AddEmployee = () => {
           // console.log(error);
           alert(JSON.stringify(error));
           setSupId(null);
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
+    }
+    if (value > 0 && name === "supervisorId") {
+      console.log(value);
+      ApiService.primarydesgs(value)
+        .then((res) => {
+          console.log(value);
+          setPrimarydesg(res.data);
+          setMsg("");
+        })
+        .catch((error) => {
+          // console.log(error);
+          alert(JSON.stringify(error));
+          setPrimarydesg(null);
           setMsg(
             error.response.data.errorMessage
               ? error.response.data.errorMessage
@@ -495,6 +516,7 @@ const AddEmployee = () => {
             <option value="">{status ? "loading..." : "select "}</option>
             {desgs?.map((type) => (
               <option key={type.desgId} value={type.desgId}>
+                {type.name}
                 {type.desgNames}
               </option>
             ))}
@@ -508,7 +530,7 @@ const AddEmployee = () => {
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor="supervisorId">
             {/* Supervisor */}
-            Reporting Person
+            Primary Manager Designation
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
@@ -523,8 +545,37 @@ const AddEmployee = () => {
             <option value="">{status ? "loading" : "select "}</option>
             <option value="0">N/A</option>
             {supId?.map((type) => (
+              <option key={type.lancesoftId} value={type.desgId}>
+                {type.firstName} {type.lastName} {type.desgNames}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+      ),
+    },
+    {
+      id: "desg",
+      data: (
+        <Form.Group className="mb-3 px-2">
+          <Form.Label htmlFor="selectManager">
+            {/* Supervisor */}
+            select employee
+            <nobr />
+            <span className="text-danger"> *</span>
+          </Form.Label>
+          <Form.Select
+            required
+            id="desg"
+            aria-label="Supervisor Id"
+            className="selectInput"
+            name="desg"
+            onChange={handleChange}
+          >
+            <option value="">{status ? "loading" : "select "}</option>
+            <option value="0">N/A</option>
+            {primarydesg?.map((type) => (
               <option key={type.lancesoftId} value={type.empId}>
-                {type.firstName} {type.lastName} ({type.lancesoftId})
+                {type.name} ({type.lancesoftId})
               </option>
             ))}
           </Form.Select>
