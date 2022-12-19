@@ -84,22 +84,24 @@ function Subordinatesupervisior() {
     console.log(name + " " + value);
     setSecondary(value);
 
-    ApiService.secondarymanager(value)
-      .then((res) => {
-        console.log(res.data);
-        setSelmanager2(res.data);
-        setMsg("");
-      })
-      .catch((error) => {
-        // console.log(error);
-        alert(JSON.stringify(error));
+    if (type === "hr" && name === "SelectSecondary") {
+      ApiService.secondarymanager(value)
+        .then((res) => {
+          console.log(res.data);
+          setSelmanager2(res.data);
+          setMsg("");
+        })
+        .catch((error) => {
+          // console.log(error);
+          alert(JSON.stringify(error));
 
-        setMsg(
-          error.response.data.errorMessage
-            ? error.response.data.errorMessage
-            : error.message
-        );
-      });
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
+    }
   };
 
   const handleDatas = (e) => {
@@ -124,11 +126,13 @@ function Subordinatesupervisior() {
         );
       });
   };
-
+  console.log(second);
+  console.log(secondary);
   // eslint-disable-next-line  no-unused-vars
   const [errors, setErrors] = useState(false);
   // eslint-disable-next-line
   const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setStatus(true);
@@ -379,7 +383,7 @@ function Subordinatesupervisior() {
             id="Secondarymanager"
             aria-label="Client Name"
             className="selectInput"
-            name="SelectPractices"
+            name="SelectSecondary"
             // disabled={disabled ? "" : "disabled"}
             onChange={handlesecondary}
           >
@@ -423,11 +427,11 @@ function Subordinatesupervisior() {
             className="selectInput"
             name="employeeID"
             // disabled={disabled ? "" : "disabled"}
-            // onChange={handlesecondary}
+            onChange={handlesecondary}
           >
             <option value="">{status ? "loading..." : "select "}</option>
             {Selmanager2?.map((type, index) => (
-              <option key={index} value={type.lancesoftId}>
+              <option key={index} value={type.empId}>
                 {type.name} {type.lastName} {type.lancesoftId}
               </option>
             ))}

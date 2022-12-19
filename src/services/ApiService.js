@@ -255,7 +255,7 @@ export default new (class ApiService {
   AddResume(data, id) {
     let formData = new FormData();
     formData.append("file", data);
-    return axios.post(`${BASE_URL}/upload?id=${id}`, formData, auth());
+    return axios.post(`${BASE_URL}/Resumeupload?id=${id}`, formData, auth());
   }
   AddImage(data, id) {
     let formData = new FormData();
@@ -513,7 +513,7 @@ export default new (class ApiService {
   }
 
   abscondEmp(lancesoft) {
-    return axios.get(`${BASE_URL}/abscondemp/${lancesoft}`, auth());
+    return axios.get(`${BASE_URL}/AbscondEmp/${lancesoft}`, auth());
   }
 
   //Demote employee
