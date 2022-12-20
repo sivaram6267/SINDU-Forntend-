@@ -21,10 +21,11 @@ function PromoteEmployee() {
   let type = sessionStorage.getItem("type");
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name);
     setData({ ...data, [name]: value });
     //console.log(value);
     if (name === "Designationid" && value !== "") {
-      ApiService.selectEmployee(value)
+      ApiService.selectEmployee(value) //select employee
         .then((res) => {
           console.log(res.data);
           setSelemp(res.data);
@@ -39,24 +40,9 @@ function PromoteEmployee() {
           );
         });
     }
-
     if (name === "selectEmp" && value !== "") {
+      console.log("hi");
       setEmpIDs(value);
-      // ApiService.AssignTo(value)
-      //   .then((res) => {
-      //     // console.log(res.data);
-      //     setAssignemp(res.data);
-      //   })
-
-      //   .catch((error) => {
-      //     alert(JSON.stringify(error));
-      //     setMsg(
-      //       error.response.data.errorMessage
-      //         ? error.response.data.errorMessage
-      //         : error.message
-      //     );
-      //   });
-
       ApiService.ReportsTo(value) //primary manager
         .then((res) => {
           console.log(res.data);
@@ -74,7 +60,7 @@ function PromoteEmployee() {
     if (name === "reportsTo" && value !== "") {
       console.log(value);
 
-      ApiService.secondarymanagerpromote(empIDs, value)
+      ApiService.secondarymanagerpromote(empIDs, value) //secondary manager
         .then((res) => {
           console.log(res.data);
           setSecondarypromote(res.data);
@@ -136,7 +122,7 @@ function PromoteEmployee() {
   };
 
   useEffect(() => {
-    ApiService.getDesignations()
+    ApiService.getDesignations() //choose designation
       .then((res) => {
         //  console.log(res.data);
         setDesgs(res.data);
@@ -197,7 +183,7 @@ function PromoteEmployee() {
             <option value="">{status ? "loading" : "select "}</option>
             {/* <option value="1">N/A</option> */}
             {selemp?.map((type) => (
-              <option key={type.empId} value={type.desgId}>
+              <option key={type.empId} value={type.lancesoft}>
                 {type.firstName} {type.lastName} {type.lancesoft}
               </option>
             ))}

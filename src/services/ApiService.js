@@ -14,7 +14,7 @@ const BASE_URL = "http://10.81.4.195:2022"; // umer pc
 // const BASE_URL = "http://10.81.4.198:2022"; //sowmya pc
 // const BASE_URL = "http://10.81.4.197:2022"; // chamu pc
 // const BASE_URL = "http://10.81.3.30:9090"; // charan pc
-// const BASE_URL="http://10.81.4.198:2022"; //sowmya pc
+// const BASE_URL = "http://10.81.4.198:2022"; //sowmya pc
 //const  BASE_URL="http://10.81.4.188:2021";  //santhosh pc
 //  const  BASE_URL="http://10.81.4.231:2022";   //teju pc
 //get
@@ -122,13 +122,23 @@ export default new (class ApiService {
     }
   }
   addClientDetails(data, cId, eId) {
-    // http://localhost:2022/api/v1/emp/inser-empat-client?clientId=5&empId=LSI9908
     return axios.post(
       `${BASE_URL}/api/v1/emp/insert-empat-client?clientId=${cId}&empId=${eId}`,
       data,
       auth()
     );
   }
+
+  addClientDetails2(cId, data) {
+    return axios.post(
+      `${BASE_URL}/api/v1/emp/update-client-details?clientDetailId=${cId}`,
+      data,
+      auth()
+    );
+  }
+
+  // http://localhost:2022/api/v1/emp/update-client-details?clientDetailId=5
+
   supervisorId(id) {
     return axios.get(
       `${BASE_URL}/api/v1/drop-down/primary-manager-desig?desigId=${id}`,
@@ -319,15 +329,19 @@ export default new (class ApiService {
   // http://localhost:2022/PromoteEmpDetails/lsi013/LSI011/LSI003/987
 
   getDesignationses() {
-    return axios.get(`${BASE_URL}/getAllDesignation`, auth());
+    return axios.get(`${BASE_URL}/get-all-designations`, auth());
   }
-  ReleaseEmps(id) {
+
+  ReleaseEmps(des_id) {
     // return axios.get(`${BASE_URL}/getall`, auth());
-    return axios.get(`${BASE_URL}/getallemployees/${id}`, auth());
+    return axios.get(`${BASE_URL}/getByDesignationId/${des_id}`, auth());
   }
-  ReleaseEmpCmp(lancesoft) {
-    return axios.get(`${BASE_URL}/getemp/${lancesoft}`, auth());
+
+  // http://localhost:2022/getByDesignationId/{des_id}
+  ReleaseEmpCmp(lancesoftId) {
+    return axios.get(`${BASE_URL}/ReleaseEmp/${lancesoftId}`, auth());
   }
+
   //Abscond employee
   // AbscondEmo(id){
   //   return axios.get(`${BASE_URL}/getallemployees1/${id}`,auth())
@@ -464,7 +478,17 @@ export default new (class ApiService {
   selectPractice() {
     return axios.get(`${BASE_URL}/api/v1/fields/get-all-subDepart`, auth());
   }
+  selectPractices() {
+    return axios.get(`${BASE_URL}/api/v1/fields/get-all-subDepart`, auth());
+  }
   getEmploy(id, value) {
+    return axios.get(
+      `${BASE_URL}/api/v1/drop-down/consultants?lancesoftId=${id}&subDId=${value}`,
+      auth()
+    );
+  }
+
+  getEmploys(id, value) {
     return axios.get(
       `${BASE_URL}/api/v1/drop-down/consultants?lancesoftId=${id}&subDId=${value}`,
       auth()
