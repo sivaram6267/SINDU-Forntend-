@@ -183,7 +183,7 @@ function EditClientDetails() {
     setStatus(true);
     // setErrors(false);
     console.log(empdetail.clientId);
-    ApiService.addClientDetails2(empId, data)
+    ApiService.addClientDetails2(empId, client2, data)
       .then((res) => {
         // console.log(res.data);
         alert("successfull");
@@ -368,7 +368,7 @@ function EditClientDetails() {
       id: "clientEmail",
       title: "client Manager email",
       name: "clientEmail",
-      type: "email",
+      type: "",
       placeholder: "Enter client email",
       required: true,
       //defaultValue: client2.clientManagerEmail,

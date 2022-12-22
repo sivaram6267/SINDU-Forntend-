@@ -20,6 +20,7 @@ const AddEmployee = () => {
   const [supId, setSupId] = useState(null);
   const [file, setFile] = useState("");
   const [primarydesg, setPrimarydesg] = useState(null);
+  const [primaryMgr, setPrimaryMgr] = useState(null);
   const [pic, setPic] = useState("");
   const [apistatus, setApistatus] = useState(false);
 
@@ -28,7 +29,7 @@ const AddEmployee = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
-    console.log(value);
+
     if (value > 0 && name === "desgId") {
       ApiService.supervisorId(value)
         .then((res) => {
@@ -49,9 +50,10 @@ const AddEmployee = () => {
     }
     if (value > 0 && name === "supervisorId") {
       console.log(value);
+
       ApiService.primarydesgs(value)
         .then((res) => {
-          console.log(value);
+          console.log(res.data);
           setPrimarydesg(res.data);
           setMsg("");
         })
@@ -65,6 +67,10 @@ const AddEmployee = () => {
               : error.message
           );
         });
+    }
+    if (value > 0 && name === "desg") {
+      console.log(value);
+      setPrimaryMgr(value);
     }
     // setData((prevState) => ({
     //   ...prevState,
@@ -80,7 +86,8 @@ const AddEmployee = () => {
     e.preventDefault();
     setStatus(true);
     // setErrors(false);
-    ApiService.insertEmployee(data)
+    console.log(primaryMgr);
+    ApiService.insertEmployee(data, primaryMgr)
       .then((res) => {
         console.log(res.data);
         alert("employee details successfull");
@@ -559,7 +566,7 @@ const AddEmployee = () => {
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor="selectManager">
             {/* Supervisor */}
-            select employee
+            Primary Manager
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>

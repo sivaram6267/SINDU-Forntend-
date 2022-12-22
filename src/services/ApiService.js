@@ -16,7 +16,7 @@ const BASE_URL = "http://10.81.4.195:2022"; // umer pc
 // const BASE_URL = "http://10.81.3.30:9090"; // charan pc
 // const BASE_URL = "http://10.81.4.198:2022"; //sowmya pc
 //const  BASE_URL="http://10.81.4.188:2021";  //santhosh pc
-//  const  BASE_URL="http://10.81.4.231:2022";   //teju pc
+// const BASE_URL = "http://10.81.4.231:2022"; //teju pc
 //get
 const ALL_EMPLOYEES = `${BASE_URL}/api/v1/emp/getEmps`;
 const ALL_EMPLOYEES_BY_ID = `${BASE_URL}/api/v1/emp/get-emp-crosspnd-details?id=`;
@@ -52,9 +52,9 @@ export default new (class ApiService {
   // register(data) {
   //   return axios.post(REGISTER_API_URL, data);
   // }
-  insertEmployee(data) {
+  insertEmployee(data, primaryMgr) {
     return axios.post(
-      `${INSERT_EMP_DETAILS_API_URL}?addressTypeId=${data.addTypeId}&departId=${data.departId}&desgId=${data.desgId}&subDepartId=${data.subDepartId}&subVId=${data.supervisorId}&typeId=${data.empTypeId}`,
+      `${INSERT_EMP_DETAILS_API_URL}?addressTypeId=${data.addTypeId}&departId=${data.departId}&desgId=${data.desgId}&subDepartId=${data.subDepartId}&subVId=${primaryMgr}&typeId=${data.empTypeId}`,
       data,
       auth()
     );
@@ -145,6 +145,13 @@ export default new (class ApiService {
       auth()
     );
   }
+  //edit employee
+  supervisorIdmanager(id) {
+    return axios.get(
+      `${BASE_URL}/api/v1/drop-down/primary-manager-desig?desigId=${id}`,
+      auth()
+    );
+  }
 
   primarydesgs(id) {
     return axios.get(
@@ -152,6 +159,13 @@ export default new (class ApiService {
       auth()
     );
   }
+  primarydesgsination(id) {
+    return axios.get(
+      `${BASE_URL}/api/v1/drop-down/all-employee-by-desig?desgId=${id}`,
+      auth()
+    );
+  }
+
   // http://localhost:2022/api/v1/drop-down/all-employee-by-desig?desgId=5
 
   getEmployeeId() {
@@ -590,6 +604,26 @@ export default new (class ApiService {
   deleteEmployee(lancesoftid) {
     return axios.delete(
       `${BASE_URL}/api/v1/admin/delete-employee/${lancesoftid}`,
+      auth()
+    );
+  }
+
+  ShowEmployeesToDelete(empid) {
+    return axios.get(
+      `${BASE_URL}/api/v1/admin/ShowEmployeesToDelete/${empid}`,
+      auth()
+    );
+  }
+
+  deleteEmployee(lancesoft) {
+    return axios.delete(
+      `${BASE_URL}/api/v1/admin/delete-employee/${lancesoft}/${false}`,
+      auth()
+    );
+  }
+  deleteEmployeefor(lancesoft) {
+    return axios.delete(
+      `${BASE_URL}/api/v1/admin/delete-employee/${lancesoft}/${true}`,
       auth()
     );
   }
