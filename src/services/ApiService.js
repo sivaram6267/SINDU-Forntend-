@@ -130,7 +130,7 @@ export default new (class ApiService {
   }
 
   addClientDetails2(cId, data) {
-    return axios.post(
+    return axios.put(
       `${BASE_URL}/api/v1/emp/update-client-details?clientDetailId=${cId}`,
       data,
       auth()

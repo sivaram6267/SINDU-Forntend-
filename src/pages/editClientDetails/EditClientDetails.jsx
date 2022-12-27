@@ -428,7 +428,7 @@ function EditClientDetails() {
       type: "text",
       placeholder: "Enter client billing",
       required: true,
-      //defaultValue: client2.clientSalary,
+      //  defaultValue: client2.clientSalary,
       // handleChange: handleChange,
     },
     {

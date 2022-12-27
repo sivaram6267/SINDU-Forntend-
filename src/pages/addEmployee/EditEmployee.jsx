@@ -37,29 +37,30 @@ const EditEmployee = () => {
     //console.log(name + " value: " + value)
     setData({ ...data, [name]: value });
 
-    // if (value > 0 && name === "desgId") {
-    //   ApiService.supervisorIdmanager() //Primary Manager Designation  api
-    //     .then((res) => {
-    //       console.log(res.data);
-    //       setSupId(res.data);
+    if (value > 0 && name === "designations") {
+      console.log(value);
+      ApiService.supervisorIdmanager(value) //Primary Manager Designation  api
+        .then((res) => {
+          console.log(res.data);
+          setSupId(res.data);
 
-    //       setMsg("");
-    //     })
-    //     .catch((error) => {
-    //       // console.log(error);
-    //       alert(JSON.stringify(error));
-    //       setSupId(null);
-    //       setMsg(
-    //         error.response.data.errorMessage
-    //           ? error.response.data.errorMessage
-    //           : error.message
-    //       );
-    //     });
-    // }
+          setMsg("");
+        })
+        .catch((error) => {
+          // console.log(error);
+          alert(JSON.stringify(error));
+          setSupId(null);
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
+    }
 
     if (value > 0 && name === "supervisorId") {
       console.log(value);
-      ApiService.primarydesgsination(value) //list of primary managers
+      ApiService.primarydesgsination(value) //list of primary manager
         .then((res) => {
           console.log(res.data);
           setPrimarydesg(res.data);
@@ -212,7 +213,7 @@ const EditEmployee = () => {
         //setMsg("")
       })
       .then(() => {
-        ApiService.supervisorIdmanager(gDesId) //designation
+        ApiService.supervisorIdmanager(gDesId) //primary manager designation
           .then((res) => {
             console.log(res.data);
             setSupId(res.data);
