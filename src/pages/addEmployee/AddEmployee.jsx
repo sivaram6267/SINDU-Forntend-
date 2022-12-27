@@ -31,6 +31,8 @@ const AddEmployee = () => {
     setData({ ...data, [name]: value });
 
     if (value > 0 && name === "desgId") {
+      //  primary manager desgination
+      //primary manager desgination
       ApiService.supervisorId(value)
         .then((res) => {
           console.log(res.data);
@@ -49,6 +51,7 @@ const AddEmployee = () => {
         });
     }
     if (value > 0 && name === "supervisorId") {
+      // primary manager
       console.log(value);
 
       ApiService.primarydesgs(value)

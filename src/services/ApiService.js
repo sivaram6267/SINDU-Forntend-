@@ -3,13 +3,13 @@ import axios from "axios";
 
 // const BASE_URL = "http://18.209.60.4:8080/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // devops
 
-// const BASE_URL = "http://10.81.4.23:2022"; //server port
+const BASE_URL = "http://10.81.4.23:2022"; //server port
 // const BASE_URL = "http://10.81.4.23:9090/LESM-Status-Monitor123";
 
 // const BASE_URL ="http://18.188.242.190:8081/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // NEW ONE DEVOPS API
 
 // const BASE_URL = "http://10.81.4.191:2030"; // sudheer pc
-const BASE_URL = "http://10.81.4.195:2022"; // umer pc
+// const BASE_URL = "http://10.81.4.195:2022"; // umer pc
 //const BASE_URL = "http://localhost:2032"
 // const BASE_URL = "http://10.81.4.198:2022"; //sowmya pc
 // const BASE_URL = "http://10.81.4.197:2022"; // chamu pc
@@ -130,7 +130,7 @@ export default new (class ApiService {
   }
 
   addClientDetails2(cId, data) {
-    return axios.post(
+    return axios.put(
       `${BASE_URL}/api/v1/emp/update-client-details?clientDetailId=${cId}`,
       data,
       auth()
