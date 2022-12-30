@@ -3,16 +3,18 @@ import axios from "axios";
 
 // const BASE_URL = "http://18.209.60.4:8080/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // devops
 
- const BASE_URL = "http://10.81.4.23:2020"; //server port
+
+// const BASE_URL = "http://10.81.4.23:2022"; //server port
+
 // const BASE_URL = "http://10.81.4.23:9090/LESM-Status-Monitor123";
 
 // const BASE_URL ="http://18.188.242.190:8081/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // NEW ONE DEVOPS API
 
 // const BASE_URL = "http://10.81.4.191:2030"; // sudheer pc
-//const BASE_URL = "http://10.81.4.195:2022"; // umer pc
+
 //const BASE_URL = "http://localhost:2032"
-// const BASE_URL = "http://10.81.4.198:2022"; //sowmya pc
-// const BASE_URL = "http://10.81.4.197:2022"; // chamu pc
+// const BASE_URL = "http://10.81.4.198:2025"; //sowmya pc
+// const BASE_URL = "http://10.81.4.197:2021"; // chamu pc
 // const BASE_URL = "http://10.81.3.30:9090"; // charan pc
 // const BASE_URL = "http://10.81.4.198:2022"; //sowmya pc
 //const  BASE_URL="http://10.81.4.188:2021";  //santhosh pc
@@ -195,6 +197,13 @@ export default new (class ApiService {
     // http://10.81.4.195:2022/Total/lead
     return axios.post(`${BASE_URL}/Total/lead`, data, auth());
   }
+
+  totalManagers() {
+    return axios.get(`${BASE_URL}/Total/SuperAdminDefaultCalculator`, auth());
+  }
+
+  // @PostMapping("/SuperAdminDefaultCalculator")
+
   totalManager(data) {
     return axios.post(`${BASE_URL}/Total/managerCalculation`, data, auth());
   }
@@ -345,6 +354,9 @@ export default new (class ApiService {
   getDesignationses() {
     return axios.get(`${BASE_URL}/get-all-designations`, auth());
   }
+  getDesignationsesEmployee() {
+    return axios.get(`${BASE_URL}/get-all-designations`, auth());
+  }
 
   ReleaseEmps(des_id) {
     // return axios.get(`${BASE_URL}/getall`, auth());
@@ -355,7 +367,10 @@ export default new (class ApiService {
   ReleaseEmpCmp(lancesoftId) {
     return axios.get(`${BASE_URL}/ReleaseEmp/${lancesoftId}`, auth());
   }
-
+  ReleaseEmpCmps(lancesoftId) {
+    return axios.get(`${BASE_URL}/TerminateEmp/${lancesoftId}`, auth());
+  }
+  // http://localhost:2025/TerminateEmp/lsi007
   //Abscond employee
   // AbscondEmo(id){
   //   return axios.get(`${BASE_URL}/getallemployees1/${id}`,auth())
