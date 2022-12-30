@@ -12,7 +12,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import EmployeeProfile from "../../pages/employeeProfile/EmployeeProfile";
- import ModelComponent from "../../modelComponent/ModelComponent";
+import ModelComponent from "../../modelComponent/ModelComponent";
 import ApiService from "../../services/ApiService";
 import { useEffect } from "react";
 import { padding } from "@mui/system";
@@ -57,6 +57,8 @@ export default function DataTable(props) {
 
     { id: "designation", label: "Designation", minWidth: 120 }, // format: (value) => value.toLocaleString("en-US"),
 
+    { id: "status", label: "status", minWidth: 120 },
+
     { id: "manager", label: "Primary Manager", minWidth: 170 },
 
     // { id: "status", label: "status", minWidth: 170 },
@@ -85,6 +87,7 @@ export default function DataTable(props) {
     lsiId,
     profilePic,
     designation,
+    status,
     manager,
     SecondaryManager,
     view,
@@ -96,6 +99,7 @@ export default function DataTable(props) {
       lsiId,
       profilePic,
       designation,
+      status,
       manager,
       SecondaryManager,
       view,
@@ -117,14 +121,12 @@ export default function DataTable(props) {
   const handleOnClickEdit = (id) => {
     navigate("/hr/editEmployee", { state: { empId: id, name: "" } });
   };
- const handleOnClickView = (id) =>{
-  //data={subEmp ? subEmpId : pid}
-  //type={type}
-  console.log(id, type);
-   navigate("/hr/EmployeeProfile", { state: {empId: id , type: type }})
-
- }
-
+  const handleOnClickView = (id) => {
+    //data={subEmp ? subEmpId : pid}
+    //type={type}
+    console.log(id, type);
+    navigate("/hr/EmployeeProfile", { state: { empId: id, type: type } });
+  };
 
   const navigate = useNavigate();
   // const handleCancel = (e) => {
@@ -180,6 +182,7 @@ export default function DataTable(props) {
             <img src={item.photo} alt="Profile Photo" width="100px" />
           </div>,
           item.designation,
+          item.status,
           item.managerName,
           item.subordinateManagerName,
 
@@ -227,6 +230,7 @@ export default function DataTable(props) {
             <img src={item.photo} alt="Profile Photo" width="100px" />
           </div>,
           item.designation,
+          item.status,
           item.managerName,
           item.subordinateManagerName,
 

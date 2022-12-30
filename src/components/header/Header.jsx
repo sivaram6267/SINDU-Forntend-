@@ -161,6 +161,24 @@ export default function Header({ view }) {
           );
         });
     }
+
+    if (type === "hr") {
+      ApiService.totalManagers()
+        .then((res) => {
+          console.log(res.data);
+          // alert(" manager successfully");
+          setTotal(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+          setTotal(0);
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
+    }
   }, [type]);
 
   const handleChange = (e) => {
@@ -497,6 +515,13 @@ export default function Header({ view }) {
                                 id="nav-link"
                               >
                                 Delete Employee
+                              </Link>
+                              <Link
+                                className="m-2"
+                                to="/hr/terminateEmployee"
+                                id="nav-link"
+                              >
+                                Terminate Employee
                               </Link>
                             </Row>
                           </Dropdown.Menu>

@@ -196,9 +196,9 @@ function DeleteEmployee() {
               No
             </Button>
           </Modal.Footer>
-        </Modal>
+        </Modal>{" "}
         <Button variant="danger" onClick={handleCancel} className="px-2">
-          ok
+          Cancel
         </Button>
         {/* {status && (
           <p className="text-success mb-2">
