@@ -196,10 +196,10 @@ function DeleteEmployee() {
               No
             </Button>
           </Modal.Footer>
-        </Modal>
-        {/* <Button variant="danger" onClick={handleCancel} className="px-2">
-          ok
-        </Button> */}
+        </Modal>{" "}
+        <Button variant="danger" onClick={handleCancel} className="px-2">
+          Cancel
+        </Button>
         {/* {status && (
           <p className="text-success mb-2">
             Please wait while we are processing your request.

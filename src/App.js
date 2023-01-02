@@ -1,43 +1,44 @@
-import "./App.css"
-import { Route, Routes } from "react-router-dom"
-import Login from "./pages/login/Login"
-import Dashboard from "./pages/dashboard/Dashboard"
-import AddEmployee from "./pages/addEmployee/AddEmployee"
-import EditEmployee from "./pages/addEmployee/EditEmployee"
-import PrivateRoutes from "./routes/PrivateRoutes"
-import PromoteEmployee from "./pages/promoteEmployee/PromoteEmployee"
-import ExitEmployee from "./pages/exitEmployee/ExitEmployee"
-import Finance from "./components/finance/Finance"
-import ClientDomestic from "./pages/clientDomestic/ClientDomestic"
-import InternalDomestic from "./pages/internalDomestic/InternalDomestic"
-import ClientInternational from "./pages/clientinternational/ClientInternational"
-import InternalInternational from "./pages/internalInternational/InternalInternational"
-import MD from "./pages/md/MD"
-import Manager from "./pages/manager/Manager"
-import AddClientDetails from "./pages/addClientDetails/AddClientDetails"
-import Lead from "./pages/lead/Lead"
-import { GeneralManager } from "./pages/generalmanager/GeneralManager"
-import { Ch } from "./pages/ch/Ch"
-import AddClientNames from "./pages/addClientNames/AddClientNames"
-import Register from "./pages/register/Register"
-import AddDepartment from "./pages/addDepartment/AddDepartment"
-import { AddSubDepartment } from "./pages/addSubDepartment/AddSubDepartment"
-import { AddDesignation } from "./pages/addDesignation/AddDesignation"
-import { AddEmpType } from "./pages/addEmpType/AddEmpType"
-import { AddAddressType } from "./pages/addAddressType/AddAddressType"
-import UpdateSupervisor from "./pages/updateSupervisor/UpdateSupervisor"
-import { UpdateDesignation } from "./pages/updateDesignation/UpdateDesignation"
-import Home from "./pages/home/Home"
-import TransferEmployee from "./pages/transferEmployee/TransferEmployee"
-import ReleaseRequest from "./pages/releaseRequest/ReleaseRequest"
-import EditClientDetails from "./pages/editClientDetails/EditClientDetails"
-import Subordinatesupervisior from "./components/subordinatesupervisior/Subordinatesupervisior"
-import DemoteEmployee from "./pages/demoteEmployee/DemoteEmployee"
-import AbscondEmployee from "./pages/abscondEmployee/AbscondEmployee"
-import ModelComponent from "./modelComponent/ModelComponent"
-import EmployeeProfile from "./pages/employeeProfile/EmployeeProfile"
-import DeleteEmployee from "./pages/deleteEmployee/DeleteEmployee"
-// import SuperAdmin from "./components/superAdminDashboard/SuperAdmin"
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import Login from "./pages/login/Login";
+import Dashboard from "./pages/dashboard/Dashboard";
+import AddEmployee from "./pages/addEmployee/AddEmployee";
+import EditEmployee from "./pages/addEmployee/EditEmployee";
+import PrivateRoutes from "./routes/PrivateRoutes";
+import PromoteEmployee from "./pages/promoteEmployee/PromoteEmployee";
+import ExitEmployee from "./pages/exitEmployee/ExitEmployee";
+import Finance from "./components/finance/Finance";
+import ClientDomestic from "./pages/clientDomestic/ClientDomestic";
+import InternalDomestic from "./pages/internalDomestic/InternalDomestic";
+import ClientInternational from "./pages/clientinternational/ClientInternational";
+import InternalInternational from "./pages/internalInternational/InternalInternational";
+import MD from "./pages/md/MD";
+import Manager from "./pages/manager/Manager";
+import AddClientDetails from "./pages/addClientDetails/AddClientDetails";
+import Lead from "./pages/lead/Lead";
+import { GeneralManager } from "./pages/generalmanager/GeneralManager";
+import { Ch } from "./pages/ch/Ch";
+import AddClientNames from "./pages/addClientNames/AddClientNames";
+import Register from "./pages/register/Register";
+import AddDepartment from "./pages/addDepartment/AddDepartment";
+import { AddSubDepartment } from "./pages/addSubDepartment/AddSubDepartment";
+import { AddDesignation } from "./pages/addDesignation/AddDesignation";
+import { AddEmpType } from "./pages/addEmpType/AddEmpType";
+import { AddAddressType } from "./pages/addAddressType/AddAddressType";
+import UpdateSupervisor from "./pages/updateSupervisor/UpdateSupervisor";
+import { UpdateDesignation } from "./pages/updateDesignation/UpdateDesignation";
+import Home from "./pages/home/Home";
+import TransferEmployee from "./pages/transferEmployee/TransferEmployee";
+import ReleaseRequest from "./pages/releaseRequest/ReleaseRequest";
+import EditClientDetails from "./pages/editClientDetails/EditClientDetails";
+import Subordinatesupervisior from "./components/subordinatesupervisior/Subordinatesupervisior";
+import DemoteEmployee from "./pages/demoteEmployee/DemoteEmployee";
+import AbscondEmployee from "./pages/abscondEmployee/AbscondEmployee";
+import ModelComponent from "./modelComponent/ModelComponent";
+import EmployeeProfile from "./pages/employeeProfile/EmployeeProfile";
+import DeleteEmployee from "./pages/deleteEmployee/DeleteEmployee";
+
+import TerminateEmployee from "./pages/terminateEmployee/TerminateEmployee";
 
 function App() {
   return (
@@ -185,6 +186,14 @@ function App() {
               element={
                 <PrivateRoutes>
                   <DemoteEmployee />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="terminateEmployee"
+              element={
+                <PrivateRoutes>
+                  <TerminateEmployee />
                 </PrivateRoutes>
               }
             />
@@ -341,17 +350,10 @@ function App() {
             }
           />
         </Route>
-        {/* <Route
-            path="/superAdminDashboard"
-            element={
-              <PrivateRoutes>
-                < SuperAdmin/>
-              </PrivateRoutes>
-            }
-          /> */}
+        
       </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

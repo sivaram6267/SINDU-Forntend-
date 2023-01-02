@@ -12,12 +12,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import EmployeeProfile from "../../pages/employeeProfile/EmployeeProfile";
- import ModelComponent from "../../modelComponent/ModelComponent";
+import ModelComponent from "../../modelComponent/ModelComponent";
 import ApiService from "../../services/ApiService";
 import { useEffect } from "react";
 import { padding } from "@mui/system";
 
 import Card from "react-bootstrap/Card";
+import { red } from "@mui/material/colors";
 
 export default function DataTable(props) {
   const [page, setPage] = useState(0);
@@ -48,6 +49,7 @@ export default function DataTable(props) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
   const columns = [
     { id: "name", label: "Name", minWidth: 170 },
 
@@ -56,6 +58,8 @@ export default function DataTable(props) {
     { id: "profilePic", label: "Profile Photo", minWidth: 100 },
 
     { id: "designation", label: "Designation", minWidth: 120 }, // format: (value) => value.toLocaleString("en-US"),
+
+    { id: "status", label: "status", minWidth: 120, color: "red" },
 
     { id: "manager", label: "Primary Manager", minWidth: 170 },
 
@@ -85,6 +89,7 @@ export default function DataTable(props) {
     lsiId,
     profilePic,
     designation,
+    status,
     manager,
     SecondaryManager,
     view,
@@ -96,12 +101,14 @@ export default function DataTable(props) {
       lsiId,
       profilePic,
       designation,
+      status,
       manager,
       SecondaryManager,
       view,
       edit,
     };
   }
+
   /*
   function createData(email, lastName, phoneNumber, firstName, view) {
     //   const density = population / size;
@@ -114,17 +121,16 @@ export default function DataTable(props) {
     setSubEmpId(id);
     setSubEmp(true);
   };
+
   const handleOnClickEdit = (id) => {
     navigate("/hr/editEmployee", { state: { empId: id, name: "" } });
   };
- const handleOnClickView = (id) =>{
-  //data={subEmp ? subEmpId : pid}
-  //type={type}
-  console.log(id, type);
-   navigate("/hr/EmployeeProfile", { state: {empId: id , type: type }})
-
- }
-
+  const handleOnClickView = (id) => {
+    //data={subEmp ? subEmpId : pid}
+    //type={type}
+    console.log(id, type);
+    navigate("/hr/EmployeeProfile", { state: { empId: id, type: type } });
+  };
 
   const navigate = useNavigate();
   // const handleCancel = (e) => {
@@ -180,6 +186,7 @@ export default function DataTable(props) {
             <img src={item.photo} alt="Profile Photo" width="100px" />
           </div>,
           item.designation,
+          item.status,
           item.managerName,
           item.subordinateManagerName,
 
@@ -227,6 +234,7 @@ export default function DataTable(props) {
             <img src={item.photo} alt="Profile Photo" width="100px" />
           </div>,
           item.designation,
+          item.status,
           item.managerName,
           item.subordinateManagerName,
 
@@ -451,6 +459,12 @@ export default function DataTable(props) {
         </button>
       </form>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        {/* <Table
+          bordered
+          columns={columns}
+          dataSource={this.status}
+          rowClassName={(record) => (record.status > 50 ? "red" : "green")}
+        /> */}
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>

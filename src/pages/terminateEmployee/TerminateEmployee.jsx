@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import ApiService from "../../services/ApiService";
 import { useEffect } from "react";
-function ExitEmployee() {
+function TerminateEmployee() {
   const [data, setData] = useState({});
   const [status, setStatus] = useState(false);
   const [msg, setMsg] = useState("");
@@ -49,10 +49,10 @@ function ExitEmployee() {
     setStatus(true);
     console.log(data);
     // setErrors(false);
-    ApiService.ReleaseEmpCmp(data.lancesoft)
+    ApiService.ReleaseEmpCmps(data.lancesoft)
       .then((res) => {
         console.log(res.data);
-        alert("release request has sent to supervisior ");
+        alert("Succesfully Terminated ");
         navigate("/hr");
         setStatus(false);
         // setErrors(false);
@@ -72,7 +72,7 @@ function ExitEmployee() {
   };
 
   useEffect(() => {
-    ApiService.getDesignationses()
+    ApiService.getDesignationsesEmployee()
       .then((res) => {
         console.log(res.data);
         setDesgs(res.data);
@@ -108,7 +108,7 @@ function ExitEmployee() {
 
   return (
     <div id="add-employee" className="container-sm ">
-      <h1 className="title text-center">Release Employee</h1>
+      <h1 className="title text-center">Terminate Employee</h1>
 
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3 px-2">
@@ -175,7 +175,6 @@ function ExitEmployee() {
             // onChange={handleChange}
           />
         </Form.Group>
-
         <Button type="submit" varient="success">
           submit
         </Button>
@@ -184,4 +183,4 @@ function ExitEmployee() {
   );
 }
 
-export default ExitEmployee;
+export default TerminateEmployee;
