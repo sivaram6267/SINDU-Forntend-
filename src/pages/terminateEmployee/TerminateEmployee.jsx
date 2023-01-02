@@ -108,7 +108,7 @@ function TerminateEmployee() {
 
   return (
     <div id="add-employee" className="container-sm ">
-      <h1 className="title text-center">Ternminate Employee</h1>
+      <h1 className="title text-center">Terminate Employee</h1>
 
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3 px-2">
@@ -158,6 +158,22 @@ function TerminateEmployee() {
               </option>
             ))}
           </Form.Select>
+        </Form.Group>
+        <Form.Group className="mb-3" width="50px">
+          <Form.Label htmlFor="releasedDate">
+            <b>Released Date</b>
+          </Form.Label>
+          <Form.Control
+            required={true}
+            id="releasedDate"
+            type="date"
+            max="2022-07-31"
+            placeholder="Enter releasedDate"
+            name="releasedDate"
+            title="enter releasedDate"
+            defaultValue={data.releasedDate}
+            // onChange={handleChange}
+          />
         </Form.Group>
         <Button type="submit" varient="success">
           submit

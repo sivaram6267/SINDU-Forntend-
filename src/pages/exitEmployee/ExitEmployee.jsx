@@ -159,6 +159,23 @@ function ExitEmployee() {
             ))}
           </Form.Select>
         </Form.Group>
+        <Form.Group className="mb-3" width="50px">
+          <Form.Label htmlFor="releasedDate">
+            <b>Released Date</b>
+          </Form.Label>
+          <Form.Control
+            required={true}
+            id="releasedDate"
+            type="date"
+            max="2022-07-31"
+            placeholder="Enter releasedDate"
+            name="releasedDate"
+            title="enter releasedDate"
+            defaultValue={data.releasedDate}
+            // onChange={handleChange}
+          />
+        </Form.Group>
+
         <Button type="submit" varient="success">
           submit
         </Button>
