@@ -37,7 +37,7 @@ import AbscondEmployee from "./pages/abscondEmployee/AbscondEmployee";
 import ModelComponent from "./modelComponent/ModelComponent";
 import EmployeeProfile from "./pages/employeeProfile/EmployeeProfile";
 import DeleteEmployee from "./pages/deleteEmployee/DeleteEmployee";
-import SuperAdmin from "./components/superAdminDashboard/SuperAdmin";
+
 import TerminateEmployee from "./pages/terminateEmployee/TerminateEmployee";
 
 function App() {
@@ -350,14 +350,7 @@ function App() {
             }
           />
         </Route>
-        <Route
-          path="/superAdminDashboard"
-          element={
-            <PrivateRoutes>
-              <SuperAdmin />
-            </PrivateRoutes>
-          }
-        />
+        
       </Routes>
     </>
   );

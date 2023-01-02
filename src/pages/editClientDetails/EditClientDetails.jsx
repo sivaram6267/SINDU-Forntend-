@@ -9,12 +9,13 @@ import { useEffect } from "react";
 
 function EditClientDetails() {
   const [data, setData] = useState({});
+  const [dataone, setDataone] = useState({});
   const [status, setStatus] = useState(false);
   const [clients, setClients] = useState(null);
   const [emp, setEmp] = useState(null);
   const [empId, setEmpId] = useState(null);
   const [empdetail, setEmpDetail] = useState(null);
-  const [client2, setClient2] = useState({});
+  //const [clientnames, setClientnames] = useState(null);
   //let [client2, setClient2] = useState([2, "email", "managername", 4000, "desig", "2022-03-18", "2022-03-18"])
   const [practice, setPractice] = useState(null);
   const [emplo, setEmplo] = useState(null);
@@ -26,9 +27,9 @@ function EditClientDetails() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setData({ ...data, [name]: value });
+    setDataone({ ...dataone, [name]: value });
     console.log(name + " " + value);
-    if (data.lancesoftId === undefined) data.lancesoftId = "";
+    if (dataone.lancesoftId === undefined) dataone.lancesoftId = "";
     if (type === "hr") {
       console.log(practiceno);
       ApiService.getEmploys(value, practiceno)
@@ -47,9 +48,15 @@ function EditClientDetails() {
         });
     }
   };
-  const handleClients = (e) => {
+
+  const handleDataChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
+    console.log(name + " " + value);
+  }
+  const handleClients = (e) => {
+    const { name, value } = e.target;
+    //setData({ ...data, [name]: value });
     console.log(value);
     //console.log(name + ":" + value);
     // eslint-disable-next-line  no-unused-vars
@@ -122,6 +129,25 @@ function EditClientDetails() {
     const { name, value } = e.target;
     console.log(name + " " + value);
     setPracticeno(value);
+
+    ApiService.getClients()
+      .then((res) => {
+        console.log(data);
+        setClients(res.data);
+        setStatus(false);
+        setMsg("");
+      })
+      .catch((error) => {
+        // console.log(error);
+        alert(JSON.stringify(error));
+        setClients(null);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
+      });
+
   };
   const handleData = (e) => {
     const { name, value } = e.target;
@@ -149,23 +175,29 @@ function EditClientDetails() {
         setStatus(false);
         console.log(res.data);
         // setMsg("");
+        setData(res.data);
+        //setClientnames(res.data);
+        //console.log(clientnames);
 
-        setClient2(res.data);
-        //console.log(client2);
-
-        document.getElementById("clientEmail").value =
-          client2.clientManagerEmail;
-
-        document.getElementById("clientManagerName").value =
-          client2.clientManagerName;
-
-        document.getElementById("clientSalary").value = client2.clientSalary;
-        document.getElementById("desgAtClient").value = client2.desgAtClient;
-        document.getElementById("Poedate").value = client2.poEDate;
-        document.getElementById("Posdate").value = client2.poSDate;
+        
 
         //console.log(res.data.clientId);
         //console.log(client2);
+      })
+      .then(() => {
+
+        //console.log(clientnames);
+
+          document.getElementById("clientEmail").value =
+          data.clientManagerEmail;
+
+        document.getElementById("clientManagerName").value =
+        data.clientManagerName;
+
+        document.getElementById("clientSalary").value = data.clientSalary;
+        document.getElementById("desgAtClient").value = data.desgAtClient;
+        document.getElementById("Poedate").value = data.poEDate;
+        document.getElementById("Posdate").value = data.poSDate;
       })
 
       .catch((error) => {
@@ -182,10 +214,10 @@ function EditClientDetails() {
     e.preventDefault();
     setStatus(true);
     // setErrors(false);
-    console.log(empdetail.clientId);
-    ApiService.addClientDetails2(empId, client2, data)
+    console.log(data);
+    ApiService.addClientDetails2(empId, data)
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         alert("successfull");
         navigate(`/${type}`);
         setStatus(false);
@@ -204,13 +236,10 @@ function EditClientDetails() {
       });
   };
   const handleclientManagerEmail = (e) => {
-    setData({
-      ...data,
-      clientManagerEmail: {
-        ...data.clientManagerEmail,
-        [e.target.name]: e.target.value,
-      },
-    });
+    const { name, value } = e.target;
+    console.log(name + " " + value);
+    setData({ ...data, [name]: value });
+
   };
   useEffect(() => {
     ApiService.getSelectEmp()
@@ -350,7 +379,7 @@ function EditClientDetails() {
             id="ClientDetails"
             aria-label="Client Name"
             className="selectInput"
-            name="ClientDetails"
+            name="clientId"
             // onChange={handleClientDetail}
             onChange={handleClientDetail}
           >
@@ -367,11 +396,11 @@ function EditClientDetails() {
     {
       id: "clientEmail",
       title: "client Manager email",
-      name: "clientEmail",
+      name: "clientManagerEmail",
       type: "",
       placeholder: "Enter client email",
       required: true,
-      //defaultValue: client2.clientManagerEmail,
+      // defaultValue: client2.clientManagerEmail,
       handleChange: handleclientManagerEmail,
     },
     {
@@ -382,7 +411,7 @@ function EditClientDetails() {
       placeholder: "Enter client Manager Name",
       required: true,
       //defaultValue: clientdetail.clientManagerName,
-      // handleChange: handleChange,
+       handleChange: handleDataChange,
     },
     {
       id: "clientsId",
@@ -399,7 +428,7 @@ function EditClientDetails() {
             aria-label="Client Name"
             className="selectInput"
             name="clientsId"
-            // onChange={handleChange}
+             //onChange={handleDataChange}
           >
             <option value="">{status ? "loading" : "select "}</option>
             {clients?.map((type, index) => (
@@ -428,8 +457,8 @@ function EditClientDetails() {
       type: "text",
       placeholder: "Enter client billing",
       required: true,
-      //  defaultValue: client2.clientSalary,
-      // handleChange: handleChange,
+      //defaultValue: client2.clientSalary,
+       handleChange: handleDataChange,
     },
     {
       id: "desgAtClient",
@@ -439,27 +468,27 @@ function EditClientDetails() {
       placeholder: "Enter designation at client",
       required: true,
       //defaultValue: clientdetail.desgAtClient,
-      // handleChange: handleChange,
+       handleChange: handleDataChange,
     },
     {
       id: "Posdate",
       title: "POS Date",
-      name: "posdate",
+      name: "poSDate",
       type: "date",
       placeholder: "Enter POS Date",
       required: true,
       // defaultValue: clientdetail.posdate,
-      // handleChange: handleChange,
+       handleChange: handleDataChange,
     },
     {
       id: "Poedate",
       title: "POE Date",
-      name: "poedate",
+      name: "poEDate",
       type: "date",
       placeholder: "Enter POE Date",
       required: false,
       //defaultValue: clientdetail.poedate,
-      // handleChange: handleChange,
+       handleChange: handleDataChange,
     },
   ];
   return (
