@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { padding } from "@mui/system";
 
 import Card from "react-bootstrap/Card";
+import { red } from "@mui/material/colors";
 
 export default function DataTable(props) {
   const [page, setPage] = useState(0);
@@ -48,6 +49,7 @@ export default function DataTable(props) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
   const columns = [
     { id: "name", label: "Name", minWidth: 170 },
 
@@ -57,7 +59,7 @@ export default function DataTable(props) {
 
     { id: "designation", label: "Designation", minWidth: 120 }, // format: (value) => value.toLocaleString("en-US"),
 
-    { id: "status", label: "status", minWidth: 120 },
+    { id: "status", label: "status", minWidth: 120, color: "red" },
 
     { id: "manager", label: "Primary Manager", minWidth: 170 },
 
@@ -106,6 +108,7 @@ export default function DataTable(props) {
       edit,
     };
   }
+
   /*
   function createData(email, lastName, phoneNumber, firstName, view) {
     //   const density = population / size;
@@ -118,6 +121,7 @@ export default function DataTable(props) {
     setSubEmpId(id);
     setSubEmp(true);
   };
+
   const handleOnClickEdit = (id) => {
     navigate("/hr/editEmployee", { state: { empId: id, name: "" } });
   };
@@ -455,6 +459,12 @@ export default function DataTable(props) {
         </button>
       </form>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
+        {/* <Table
+          bordered
+          columns={columns}
+          dataSource={this.status}
+          rowClassName={(record) => (record.status > 50 ? "red" : "green")}
+        /> */}
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
