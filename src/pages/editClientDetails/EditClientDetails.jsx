@@ -220,6 +220,10 @@ function EditClientDetails() {
         );
       });
   };
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate(`/${type}`);
+  };
   const handleclientManagerEmail = (e) => {
     const { name, value } = e.target;
     console.log(name + " " + value);
@@ -439,7 +443,10 @@ function EditClientDetails() {
       id: "clientSalary",
       title: "Client Salary",
       name: "clientSalary",
-      type: "text",
+      maxLength: "10",
+      pattern: "[0-9]{10}",
+      message: "Please enter valid salary",
+      type: "Number",
       placeholder: "Enter client billing",
       required: true,
       defaultValue: data.clientSalary,
@@ -472,7 +479,7 @@ function EditClientDetails() {
       type: "date",
       placeholder: "Enter POE Date",
       required: false,
-      //defaultValue:data.poEDate ,
+      defaultValue:data.poEDate ,
        handleChange: handleDataChange,
     },
   ];
@@ -502,14 +509,19 @@ function EditClientDetails() {
                     required={item.required}
                     defaultValue={item.defaultValue}
                     handleChange={item.handleChange}
+                    max={item.max}
+                    maxLength={item.maxLength}
                   />
                 )}
               </Fragment>
             ))}
           </div>
         )}
-        <Button variant="primary" type="submit">
-          Submit
+         <Button variant="primary" type="submit">
+                                Submit
+                            </Button>{" "}
+                            <Button onClick={handleCancel} variant="danger">
+                         Cancel
         </Button>
         {status && (
           <p className="text-success mb-2">
