@@ -169,7 +169,7 @@ function EditClientDetails() {
     setEmpId(value);
     console.log(value);
 
-    ApiService.getClientDetail(value)
+    ApiService. getClientDetail(value)
       .then((res) => {
         //let id = res.data;
         setStatus(false);
@@ -181,23 +181,8 @@ function EditClientDetails() {
 
         
 
-        //console.log(res.data.clientId);
-        //console.log(client2);
-      })
-      .then(() => {
-
-        //console.log(clientnames);
-
-          document.getElementById("clientEmail").value =
-          data.clientManagerEmail;
-
-        document.getElementById("clientManagerName").value =
-        data.clientManagerName;
-
-        document.getElementById("clientSalary").value = data.clientSalary;
-        document.getElementById("desgAtClient").value = data.desgAtClient;
-        document.getElementById("Poedate").value = data.poEDate;
-        document.getElementById("Posdate").value = data.poSDate;
+        // console.log(res.data.clientId);
+        // console.log(client2);
       })
 
       .catch((error) => {
@@ -400,7 +385,7 @@ function EditClientDetails() {
       type: "",
       placeholder: "Enter client email",
       required: true,
-      // defaultValue: client2.clientManagerEmail,
+      defaultValue:  data.clientManagerEmail,
       handleChange: handleclientManagerEmail,
     },
     {
@@ -410,7 +395,7 @@ function EditClientDetails() {
       type: "text",
       placeholder: "Enter client Manager Name",
       required: true,
-      //defaultValue: clientdetail.clientManagerName,
+      defaultValue:data.clientManagerName,
        handleChange: handleDataChange,
     },
     {
@@ -457,7 +442,7 @@ function EditClientDetails() {
       type: "text",
       placeholder: "Enter client billing",
       required: true,
-      //defaultValue: client2.clientSalary,
+      defaultValue: data.clientSalary,
        handleChange: handleDataChange,
     },
     {
@@ -467,7 +452,7 @@ function EditClientDetails() {
       type: "text",
       placeholder: "Enter designation at client",
       required: true,
-      //defaultValue: clientdetail.desgAtClient,
+      defaultValue:data.desgAtClient,
        handleChange: handleDataChange,
     },
     {
@@ -477,7 +462,7 @@ function EditClientDetails() {
       type: "date",
       placeholder: "Enter POS Date",
       required: true,
-      // defaultValue: clientdetail.posdate,
+      defaultValue: data.poSDate,
        handleChange: handleDataChange,
     },
     {
@@ -487,7 +472,7 @@ function EditClientDetails() {
       type: "date",
       placeholder: "Enter POE Date",
       required: false,
-      //defaultValue: clientdetail.poedate,
+      //defaultValue:data.poEDate ,
        handleChange: handleDataChange,
     },
   ];
