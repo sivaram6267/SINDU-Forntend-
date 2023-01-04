@@ -3,7 +3,7 @@ import axios from "axios";
 
 // const BASE_URL = "http://18.209.60.4:8080/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // devops
 
-const BASE_URL = "http://10.81.4.195:2022"; //server port
+// const BASE_URL = "http://10.81.4.195:2022"; //server port
 
 // const BASE_URL = "http://10.81.4.23:9090/LESM-Status-Monitor123";
 
@@ -14,7 +14,7 @@ const BASE_URL = "http://10.81.4.195:2022"; //server port
 // const BASE_URL = "http://10.81.4.198:2025"; //sowmya pc
 // const BASE_URL = "http://10.81.4.197:2021"; // chamu pc
 // const BASE_URL = "http://10.81.3.30:9090"; // charan pc
-// const BASE_URL = "http://10.81.4.198:2022"; //sowmya pc
+const BASE_URL = "http://10.81.4.198:2025"; //sowmya pc
 //const  BASE_URL="http://10.81.4.188:2021";  //santhosh pc
 //  const BASE_URL = "http://10.81.4.231:2022"; //teju pc
 //get
@@ -361,12 +361,17 @@ export default new (class ApiService {
     return axios.get(`${BASE_URL}/getByDesignationId/${des_id}`, auth());
   }
 
-  // http://localhost:2022/getByDesignationId/{des_id}
-  ReleaseEmpCmp(lancesoftId) {
-    return axios.get(`${BASE_URL}/ReleaseEmp/${lancesoftId}`, auth());
+  ReleaseEmpCmp(releaseDate, lancesoftId) {
+    return axios.get(
+      `${BASE_URL}/ReleaseEmp/${releaseDate}/${lancesoftId}`,
+      auth()
+    );
   }
-  ReleaseEmpCmps(lancesoftId) {
-    return axios.get(`${BASE_URL}/TerminateEmp/${lancesoftId}`, auth());
+  ReleaseEmpCmps(releaseDate, lancesoftId) {
+    return axios.get(
+      `${BASE_URL}/TerminateEmp/${releaseDate}/${lancesoftId}`,
+      auth()
+    );
   }
   // http://localhost:2025/TerminateEmp/lsi007
   //Abscond employee
@@ -563,8 +568,11 @@ export default new (class ApiService {
     return axios.get(`${BASE_URL}/getByDesignationId/${id}`, auth());
   }
 
-  abscondEmp(lancesoft) {
-    return axios.get(`${BASE_URL}/AbscondEmp/${lancesoft}`, auth());
+  abscondEmp(releaseDate, lancesoft) {
+    return axios.get(
+      `${BASE_URL}/AbscondEmp/${releaseDate}/${lancesoft}`,
+      auth()
+    );
   }
 
   //Demote employee

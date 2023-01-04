@@ -19,7 +19,7 @@ function TerminateEmployee() {
     console.log(name, value);
     setData({ ...data, [name]: value });
 
-    if (type === "hr") {
+    if (type === "hr" && name === "Designationid") {
       ApiService.ReleaseEmps(value)
         .then((res) => {
           console.log(res.data);
@@ -49,7 +49,7 @@ function TerminateEmployee() {
     setStatus(true);
     console.log(data);
     // setErrors(false);
-    ApiService.ReleaseEmpCmps(data.lancesoft)
+    ApiService.ReleaseEmpCmps(data.releasedDate, data.lancesoft)
       .then((res) => {
         console.log(res.data);
         alert("Succesfully Terminated ");
@@ -172,7 +172,7 @@ function TerminateEmployee() {
             name="releasedDate"
             title="enter releasedDate"
             defaultValue={data.releasedDate}
-            // onChange={handleChange}
+            onChange={handleChange}
           />
         </Form.Group>
         <Button type="submit" varient="success">

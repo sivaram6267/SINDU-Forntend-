@@ -20,7 +20,7 @@ function AbscondEmployee() {
     let type = sessionStorage.getItem("type");
     const { name, value } = e.target;
     console.log(name, value);
-    //setData({ ...data, [name]: value });
+    setData({ ...data, [name]: value });
 
     //  if (type === "hr") {
     //   ApiService.getAllEmployees(value)
@@ -39,22 +39,22 @@ function AbscondEmployee() {
     //       );
     //     });
     //  }
-    // if (type === "hr") {
-    ApiService.getAllEmployees1(value)
-      .then((res) => {
-        console.log(res.data);
-        setAbscondemp(res.data);
-      })
+    if (type === "hr" && name === "Designationid") {
+      ApiService.getAllEmployees1(value)
+        .then((res) => {
+          console.log(res.data);
+          setAbscondemp(res.data);
+        })
 
-      .catch((error) => {
-        alert(JSON.stringify(error));
-        setMsg(
-          error.response.data.errorMessage
-            ? error.response.data.errorMessage
-            : error.message
-        );
-      });
-    //}
+        .catch((error) => {
+          alert(JSON.stringify(error));
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
+    }
     //};
   };
   const handleSelectEmployee = (e) => {
@@ -70,10 +70,10 @@ function AbscondEmployee() {
     setStatus(true);
     console.log(data);
     // setErrors(false);
-    ApiService.abscondEmp(selemp)
+    ApiService.abscondEmp(data.releasedDate, selemp)
       .then((res) => {
         console.log(res.data);
-        alert("abscondemp request has sent to supervisior ");
+        alert("absconded successfully ");
         navigate("/hr");
         setStatus(false);
         // setErrors(false);
@@ -180,18 +180,18 @@ function AbscondEmployee() {
           </Form.Select>
         </Form.Group>
         <Form.Group className="mb-3" width="50px">
-          <Form.Label htmlFor="releasedDate">
+          <Form.Label htmlFor="releaseDate">
             <b>Released Date</b>
           </Form.Label>
           <Form.Control
             required={true}
-            id="releasedDate"
+            id="releaseDate"
             type="date"
-            placeholder="Enter releasedDate"
+            placeholder="Enter releaseDate"
             name="releasedDate"
-            title="enter releasedDate"
-            defaultValue={data.releasedDate}
-            // onChange={handleChange}
+            title="enter releaseDate"
+            defaultValue={data.releaseDate}
+            onChange={handleChange}
           />
         </Form.Group>
         <Button variant="primary" type="submit">
