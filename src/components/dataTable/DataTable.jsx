@@ -15,7 +15,8 @@ import EmployeeProfile from "../../pages/employeeProfile/EmployeeProfile";
 import ModelComponent from "../../modelComponent/ModelComponent";
 import ApiService from "../../services/ApiService";
 import { useEffect } from "react";
-import { padding } from "@mui/system";
+import { color, padding } from "@mui/system";
+
 
 import Card from "react-bootstrap/Card";
 import { red } from "@mui/material/colors";
@@ -33,6 +34,7 @@ export default function DataTable(props) {
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState();
   const [msg, setMsg] = useState();
+ 
 
   const handleChangePage = (event, newPage) => {
     setPageNumber(newPage);
@@ -83,6 +85,63 @@ export default function DataTable(props) {
     //     format: (value) => value.toFixed(2),
     //   },
   ];
+const showStatus = (status) =>{
+  if(status == "BENCH"){
+return{'backgroundColor':'#FFF9E5'}
+}else if(status == "CLIENT"){
+  return{'backgroundColor':'#D1F3D2' }
+}
+else if(status =="MANAGMENT" ){
+  return{'backgroundColor': '#E6E9F9'}
+}
+else if(status == 'ABSCOND')
+{
+return{'backgroundColor':'#4C4C4C', color:'#ffffff'}
+}
+else if(status ==  'RELEAS')
+{
+return{'backgroundColor':'#ff0000'}
+}
+else if(status == 'TERMINATED')
+{
+return{'backgroundColor':'#ff0000'}
+}
+else if(status == 'EXIT')
+{
+return{'backgroundColor':'#F6C3CC'}
+} 
+}
+
+
+
+  // function Status(props){
+  
+  //   if (props.Status === "Bench") {
+  //     return (
+  //       <div className="statustemp e-bench">
+  //         <span className="statustxt e-bench">Bench</span>
+  //       </div>)
+  //   }
+  //   if (props.Status === "CLIENT ") {
+  //     return (
+  //       <div className="statustemp e-client">
+  //         <span className="statustxt e-client">CLIENT</span>
+  //       </div>)
+  //   }
+  //   if (props.Status === "ABSCOND, RELEAS,EXIT,TERMINATED") {
+  //     return (
+  //       <div className="statustemp e-abscond,releas,exit,terminated">
+  //         <span className="statustxt e-abscond,releas,exit,terminated">ABSCOND, RELEAS,EXIT,TERMINATED</span>
+  //       </div>)
+  //   }
+  //   if (props.Status === "MANAGMENT") {
+  //     return (
+  //       <div className="statustemp e-managment">
+  //         <span className="statustxt e-managment">MANAGMENT</span>
+  //       </div>)
+  //   }
+ 
+  // }
 
   function createData(
     name,
@@ -470,11 +529,13 @@ export default function DataTable(props) {
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
+                  <TableCell 
+                   key={column.id}
                     align={column.align}
+                   
                     style={{ minWidth: column.minWidth }}
                   >
+                   
                     <b>{column.label}</b>
                   </TableCell>
                 ))}
@@ -482,12 +543,15 @@ export default function DataTable(props) {
             </TableHead>
             <TableBody>
               {rows.map((row) => {
+                <TableRow ></TableRow>
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                     {columns.map((column) => {
                       const value = row[column.id];
+
                       return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell sx={showStatus(row.status)}  key={column.id} align={column.align}> 
+                       
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
