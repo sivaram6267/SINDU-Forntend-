@@ -3,7 +3,7 @@ import axios from "axios";
 
 // const BASE_URL = "http://18.209.60.4:8080/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // devops
 
-const BASE_URL = "http://10.81.4.195:2022"; //server port
+const BASE_URL = "http://10.81.4.195:2022"; //umer port
 
 // const BASE_URL = "http://10.81.4.23:9090/LESM-Status-Monitor123";
 
@@ -484,6 +484,8 @@ export default new (class ApiService {
       auth()
     );
   }
+
+  // Edit Client details
   getSelectEmp() {
     return axios.get(`${BASE_URL}/api/v1/emp/client-emp-dropdown`, auth());
   }
@@ -508,6 +510,7 @@ export default new (class ApiService {
   selectPractices() {
     return axios.get(`${BASE_URL}/api/v1/fields/get-all-subDepart`, auth());
   }
+  // Add client details
   getEmploy(id, value) {
     return axios.get(
       `${BASE_URL}/api/v1/drop-down/consultants?lancesoftId=${id}&subDId=${value}`,
