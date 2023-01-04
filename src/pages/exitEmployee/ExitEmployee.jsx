@@ -19,7 +19,7 @@ function ExitEmployee() {
     console.log(name, value);
     setData({ ...data, [name]: value });
 
-    if (type === "hr") {
+    if (type === "hr" && name === "Designationid") {
       ApiService.ReleaseEmps(value)
         .then((res) => {
           console.log(res.data);
@@ -36,6 +36,24 @@ function ExitEmployee() {
           );
         });
     }
+
+    // if (type === "hr") {
+    //   ApiService.ReleaseDate(value)
+    //     .then((res) => {
+    //       console.log(res.data);
+    //       // setReleaseemp(res.data);
+    //       setMsg("");
+    //     })
+    //     .catch((error) => {
+    //       // console.log(error);
+    //       alert(JSON.stringify(error));
+    //       setMsg(
+    //         error.response.data.errorMessage
+    //           ? error.response.data.errorMessage
+    //           : error.message
+    //       );
+    //     });
+    // }
   };
   const handleSelectEmployee = (e) => {
     const { name, value } = e.target;
@@ -49,10 +67,10 @@ function ExitEmployee() {
     setStatus(true);
     console.log(data);
     // setErrors(false);
-    ApiService.ReleaseEmpCmp(data.lancesoft)
+    ApiService.ReleaseEmpCmp(data.releaseDate, data.lancesoft)
       .then((res) => {
         console.log(res.data);
-        alert("release request has sent to supervisior ");
+        alert("released successfully");
         navigate("/hr");
         setStatus(false);
         // setErrors(false);
@@ -160,19 +178,18 @@ function ExitEmployee() {
           </Form.Select>
         </Form.Group>
         <Form.Group className="mb-3" width="50px">
-          <Form.Label htmlFor="releasedDate">
-            <b>Released Date</b>
+          <Form.Label htmlFor="releaseDate">
+            <b>release Date</b>
           </Form.Label>
           <Form.Control
             required={true}
-            id="releasedDate"
+            id="releaseDate"
             type="date"
-            max="2022-07-31"
-            placeholder="Enter releasedDate"
-            name="releasedDate"
+            placeholder="Enter releaseDate"
+            name="releaseDate"
             title="enter releasedDate"
-            defaultValue={data.releasedDate}
-            // onChange={handleChange}
+            defaultValue={data.releaseDate}
+            onChange={handleChange}
           />
         </Form.Group>
 

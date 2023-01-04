@@ -20,7 +20,7 @@ import { color, padding } from "@mui/system";
 
 import Card from "react-bootstrap/Card";
 import { red } from "@mui/material/colors";
-
+import "../dataTable/DataTable.css";
 export default function DataTable(props) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -481,6 +481,8 @@ return{'backgroundColor':'#F6C3CC'}
     const { name, value } = e.target;
     setSearch({ ...data, [name]: value });
   };
+
+  const BENCH = (e) => {};
 
   return (
     <>
