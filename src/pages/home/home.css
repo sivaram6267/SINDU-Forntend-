@@ -1,6 +1,20 @@
-.imrc {
+/* .imrc {
   height: 532px;
   width: 799px;
+} */
+
+.imrc {
+  height: 776px !important;
+  width: 2168px !important;
+  margin-bottom: 88px !important;
+  /* padding-left: 23px; */
+  padding-right: 22px !important;
+  padding-left: -20px !important;
+  margin-left: -344px !important;
+  padding-top: -24px !important;
+  margin-top: -102px !important;
+  /* margin-right: 60px; */
+  padding-top: -28px !important;
 }
 .homeHeader {
   font-weight: 900;
@@ -12,12 +26,12 @@
   margin-top: 100px;
 }
 .contentBox {
-  width: 40%;
+  width: 25%;
   /* background-color: orange; */
   padding-left: 1em;
 }
 .contentBox h1 {
-  font-size: 105px;
+  /* font-size: 105px; */
   color: #152d53;
   text-align: center;
 }
@@ -97,3 +111,83 @@
     width: 60;
   }
 } */
+
+.mainsection {
+  display: flex;
+  /* justify-content: space-around; */
+  align-items: center !important;
+  margin-top: px !important;
+  padding-right: 354px !important;
+}
+
+@keyframes upDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  25% {
+    opacity: 0.25;
+    transform: translateY(-50px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-25px);
+  }
+  75% {
+    opacity: 0.75;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#login {
+  animation: upDown 1s 0.5s 1 linear;
+  align-items: center;
+  margin-top: 20px;
+  padding: 20px 50px;
+  background: #fcfeff;
+  background: linear-gradient(to bottom right, #fcfeff, #8a8be9);
+  background: -moz-linear-gradient(top left, #fcfeff, #8a8be9);
+  background: -webkit-linear-gradient(top left, #fcfeff, #8a8be9);
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  border-radius: 5px;
+}
+.title {
+  color: #152c53;
+}
+.icon {
+  width: 180px;
+  height: 60px;
+}
+.icon:hover {
+  cursor: pointer;
+  /* background: #9dbef3;
+  border-radius: 5px; */
+}
+.login-button {
+  background-color: #152c53;
+}
+.login-button:hover {
+  background-color: #264a88;
+}
+
+@media screen and (min-width: 720px) {
+  #login {
+    align-items: center;
+    width: 500px;
+  }
+}
+#login {
+  margin-left: 238px;
+  margin-bottom: 293px;
+}
+.hh {
+  padding-right: 23px;
+}
+#login {
+  margin-left: 225px;
+  margin-bottom: 293px;
+}

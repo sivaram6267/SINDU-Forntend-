@@ -306,12 +306,12 @@ export default function Header({ view }) {
             <>
               <Nav id="nav">
                 <Link className="m-2" to="/" id="nav-link">
-                  <img src={HomeIcon} alt="Home" className="iconHome" />
-                  <p id="iconHomeName">Home</p>
+                  {/* <img src={HomeIcon} alt="Home" className="iconHome" />
+                  <p id="iconHomeName">Home</p> */}
                 </Link>
                 <Link className="m-2" to="/login" id="nav-link">
-                  <img className="iconHome" src={login} alt="login" />
-                  <p id="iconHomeName">Login</p>
+                  {/* <img className="iconHome" src={login} alt="login" />
+                  <p id="iconHomeName">Login</p> */}
                 </Link>
               </Nav>
             </>
@@ -466,13 +466,13 @@ export default function Header({ view }) {
                                 Create Credentials
                               </Link>
 
-                              <Link
+                              {/* <Link
                                 className="m-2"
                                 to="/hr/promoteEmployee"
                                 id="nav-link"
                               >
                                 Promote Employee
-                              </Link>
+                              </Link> */}
 
                               <Link
                                 className="m-2"
@@ -502,13 +502,13 @@ export default function Header({ view }) {
                               >
                                 Abscond Employee
                               </Link>
-                              <Link
+                              {/* <Link
                                 className="m-2"
                                 to="/hr/demoteEmployee"
                                 id="nav-link"
                               >
                                 Demote Employee
-                              </Link>
+                              </Link> */}
                               <Link
                                 className="m-2"
                                 to="/hr/deleteEmployee"
@@ -522,6 +522,20 @@ export default function Header({ view }) {
                                 id="nav-link"
                               >
                                 Terminate Employee
+                              </Link>
+                              <Link
+                                className="m-2"
+                                to="/hr/updatesalary"
+                                id="nav-link"
+                              >
+                                Update Salary
+                              </Link>
+                              <Link
+                                className="m-2"
+                                to="/hr/PromoteDemote"
+                                id="nav-link"
+                              >
+                                Promote / Demote
                               </Link>
                             </Row>
                           </Dropdown.Menu>

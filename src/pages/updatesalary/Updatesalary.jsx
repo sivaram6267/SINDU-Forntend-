@@ -3,7 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import ApiService from "../../services/ApiService";
 
-function PromoteEmployee() {
+function Updatesalary() {
   const [data, setData] = useState({});
   const [errors, setErrors] = useState(false);
   const [status, setStatus] = useState(false);
@@ -23,7 +23,7 @@ function PromoteEmployee() {
     const { name, value } = e.target;
     console.log(name);
     setData({ ...data, [name]: value });
-    //console.log(value);
+    console.log(value);
     if (name === "Designationid" && value !== "") {
       ApiService.selectEmployee(value) //select employee
         .then((res) => {
@@ -40,62 +40,51 @@ function PromoteEmployee() {
           );
         });
     }
-    if (name === "selectEmp" && value !== "") {
-      console.log("hi");
-      setEmpIDs(value);
-      ApiService.ReportsTo(value) //primary manager
-        .then((res) => {
-          console.log(res.data);
-          setReportsto(res.data);
-        })
-        .catch((error) => {
-          alert(JSON.stringify(error));
-          setMsg(
-            error.response.data.errorMessage
-              ? error.response.data.errorMessage
-              : error.message
-          );
-        });
-    }
-    if (name === "reportsTo" && value !== "") {
-      console.log(value);
-
-      ApiService.secondarymanagerpromote(empIDs, value) //secondary manager
-        .then((res) => {
-          console.log(res.data);
-          setSecondarypromote(res.data);
-        })
-        .catch((error) => {
-          alert(JSON.stringify(error));
-          setMsg(
-            error.response.data.errorMessage
-              ? error.response.data.errorMessage
-              : error.message
-          );
-        });
-    }
   };
+  //     if (name === "selectEmp" && value !== "") {
+  //       console.log("hi");
+  //       setEmpIDs(value);
+  //       ApiService.ReportsTo(value) //primary manager
+  //         .then((res) => {
+  //           console.log(res.data);
+  //           setReportsto(res.data);
+  //         })
+  //         .catch((error) => {
+  //           alert(JSON.stringify(error));
+  //           setMsg(
+  //             error.response.data.errorMessage
+  //               ? error.response.data.errorMessage
+  //               : error.message
+  //           );
+  //         });
+  //     }
+  //     if (name === "reportsTo" && value !== "") {
+  //       console.log(value);
+
+  //       ApiService.secondarymanagerpromote(empIDs, value) //secondary manager
+  //         .then((res) => {
+  //           console.log(res.data);
+  //           setSecondarypromote(res.data);
+  //         })
+  //         .catch((error) => {
+  //           alert(JSON.stringify(error));
+  //           setMsg(
+  //             error.response.data.errorMessage
+  //               ? error.response.data.errorMessage
+  //               : error.message
+  //           );
+  //         });
+  //     }
+  //   };
   const handleSubmit = (e) => {
     e.preventDefault();
     setStatus(true);
     console.log(data);
-    // ApiService.AssignEmp(data.selectEmp, data.AssignTo)
-    //   .then((res) => {
-    //     console.log(res);
-    //     alert("assignemp is successfully ");
-    //     setMsg("");
 
-    if (data.salary === undefined) data.salary = 0;
-    if (data.secondarymanager === undefined) data.secondarymanager = null;
-    ApiService.promoteEmp(
-      data.selectEmp,
-      data.reportsTo,
-      data.secondarymanager,
-      data.salary
-    )
+    ApiService.updatesalary(data.selectEmp, data.salary, data.releasedDate)
       .then((res) => {
-        console.log(res);
-        alert("promte emp is successfully");
+        console.log(res.data);
+        alert("update salary  successfully");
       })
       .catch((error) => {
         alert(JSON.stringify(error));
@@ -107,14 +96,6 @@ function PromoteEmployee() {
       });
   };
 
-  // .catch((error) => {
-  //   alert(JSON.stringify(error));
-  //   setMsg(
-  //     error.response.data.errorMessage
-  //       ? error.response.data.errorMessage
-  //       : error.message
-  //   );
-  // });
   // };
   const handleCancel = (e) => {
     e.preventDefault();
@@ -141,7 +122,7 @@ function PromoteEmployee() {
 
   return (
     <div id="add-employee" className="container-sm ">
-      <h1 className="title text-center">Promote Employee</h1>
+      <h1 className="title text-center">Update Salary</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor="chooseDesignation">
@@ -194,8 +175,8 @@ function PromoteEmployee() {
           <Form.Control
             name="salary"
             id="salary"
-            // required
-            type="number"
+            required
+            type=""
             placeholder="Enter salary"
             defaultValue={data.salary}
             onChange={handleChange}
@@ -225,50 +206,20 @@ function PromoteEmployee() {
             ))}
           </Form.Select>
         </Form.Group> */}
-        <Form.Group className="mb-3 px-2">
-          <Form.Label htmlFor="reportsTo">
-            Primary Reports To
-            <nobr />
-            <span className="text-danger"> *</span>
+        <Form.Group className="mb-3" width="50px">
+          <Form.Label htmlFor="releaseDate">
+            <b>Select Date</b>
           </Form.Label>
-          <Form.Select
-            id="reportsTo"
-            aria-label="employee Type"
-            className="selectInput"
-            name="reportsTo"
-            required
+          <Form.Control
+            required={true}
+            id="releaseDate"
+            type="date"
+            placeholder="Enter releaseDate"
+            name="releasedDate"
+            title="enter releaseDate"
+            defaultValue={data.releaseDate}
             onChange={handleChange}
-          >
-            <option value="">{status ? "loading" : "select "}</option>
-            {/* <option value="1">N/A</option> */}
-            {reportsto?.map((type) => (
-              <option key={type.empId} value={type.lancesoft}>
-                {type.firstName} {type.lastName} {type.lancesoft}
-              </option>
-            ))}
-          </Form.Select>
-        </Form.Group>
-        <Form.Group className="mb-3 px-2">
-          <Form.Label htmlFor="reportsTo">
-            secondary ReportsTo
-            <nobr />
-            {/* <span className="text-danger"> *</span> */}
-          </Form.Label>
-          <Form.Select
-            id="secondarymanager"
-            aria-label="employee Type"
-            className="selectInput"
-            name="secondarymanager"
-            onChange={handleChange}
-          >
-            <option value="">{status ? "loading" : "select "}</option>
-            {/* <option value="1">N/A</option> */}
-            {secondarypromote?.map((type) => (
-              <option key={type.empId} value={type.lancesoft}>
-                {type.firstName} {type.lastName} {type.lancesoft}
-              </option>
-            ))}
-          </Form.Select>
+          />
         </Form.Group>
         <Button variant="primary" type="submit">
           submit
@@ -281,4 +232,4 @@ function PromoteEmployee() {
   );
 }
 
-export default PromoteEmployee;
+export default Updatesalary;

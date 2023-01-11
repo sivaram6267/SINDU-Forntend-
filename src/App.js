@@ -5,7 +5,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import AddEmployee from "./pages/addEmployee/AddEmployee";
 import EditEmployee from "./pages/addEmployee/EditEmployee";
 import PrivateRoutes from "./routes/PrivateRoutes";
-import PromoteEmployee from "./pages/promoteEmployee/PromoteEmployee";
+// import PromoteEmployee from "./pages/promoteEmployee/PromoteEmployee";
 import ExitEmployee from "./pages/exitEmployee/ExitEmployee";
 import Finance from "./components/finance/Finance";
 import ClientDomestic from "./pages/clientDomestic/ClientDomestic";
@@ -32,13 +32,15 @@ import TransferEmployee from "./pages/transferEmployee/TransferEmployee";
 import ReleaseRequest from "./pages/releaseRequest/ReleaseRequest";
 import EditClientDetails from "./pages/editClientDetails/EditClientDetails";
 import Subordinatesupervisior from "./components/subordinatesupervisior/Subordinatesupervisior";
-import DemoteEmployee from "./pages/demoteEmployee/DemoteEmployee";
+// import DemoteEmployee from "./pages/demoteEmployee/DemoteEmployee";
 import AbscondEmployee from "./pages/abscondEmployee/AbscondEmployee";
 import ModelComponent from "./modelComponent/ModelComponent";
 import EmployeeProfile from "./pages/employeeProfile/EmployeeProfile";
 import DeleteEmployee from "./pages/deleteEmployee/DeleteEmployee";
 
 import TerminateEmployee from "./pages/terminateEmployee/TerminateEmployee";
+import Updatesalary from "./pages/updatesalary/Updatesalary";
+import PromoteDemote from "./pages/promoteDemote/PromoteDemote";
 
 function App() {
   return (
@@ -64,6 +66,7 @@ function App() {
               </PrivateRoutes>
             }
           />
+
           <Route path="/hr">
             <Route
               index
@@ -164,14 +167,14 @@ function App() {
                 </PrivateRoutes>
               }
             />
-            <Route
+            {/* <Route
               path="promoteEmployee"
               element={
                 <PrivateRoutes>
                   <PromoteEmployee />
                 </PrivateRoutes>
               }
-            />
+            /> */}
 
             <Route
               path="AbscondEmployee"
@@ -181,14 +184,23 @@ function App() {
                 </PrivateRoutes>
               }
             />
-            <Route
+            {/* <Route
               path="demoteEmployee"
               element={
                 <PrivateRoutes>
                   <DemoteEmployee />
                 </PrivateRoutes>
               }
+            /> */}
+            <Route
+              path="promoteDemote"
+              element={
+                <PrivateRoutes>
+                  <PromoteDemote />
+                </PrivateRoutes>
+              }
             />
+
             <Route
               path="terminateEmployee"
               element={
@@ -197,6 +209,15 @@ function App() {
                 </PrivateRoutes>
               }
             />
+            <Route
+              path="Updatesalary"
+              element={
+                <PrivateRoutes>
+                  <Updatesalary />
+                </PrivateRoutes>
+              }
+            />
+
             <Route
               path="subordinatesupervisior"
               element={
@@ -350,7 +371,6 @@ function App() {
             }
           />
         </Route>
-        
       </Routes>
     </>
   );

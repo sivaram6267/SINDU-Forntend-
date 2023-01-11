@@ -17,7 +17,6 @@ import ApiService from "../../services/ApiService";
 import { useEffect } from "react";
 import { color, padding } from "@mui/system";
 
-
 import Card from "react-bootstrap/Card";
 import { red } from "@mui/material/colors";
 import "../dataTable/DataTable.css";
@@ -34,7 +33,6 @@ export default function DataTable(props) {
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState();
   const [msg, setMsg] = useState();
- 
 
   const handleChangePage = (event, newPage) => {
     setPageNumber(newPage);
@@ -85,37 +83,26 @@ export default function DataTable(props) {
     //     format: (value) => value.toFixed(2),
     //   },
   ];
-const showStatus = (status) =>{
-  if(status == "BENCH"){
-return{'backgroundColor':'#FFF9E5'}
-}else if(status == "CLIENT"){
-  return{'backgroundColor':'#D1F3D2' }
-}
-else if(status =="MANAGMENT" ){
-  return{'backgroundColor': '#E6E9F9'}
-}
-else if(status == 'ABSCOND')
-{
-return{'backgroundColor':'#4C4C4C', color:'#ffffff'}
-}
-else if(status ==  'RELEAS')
-{
-return{'backgroundColor':'#ff0000'}
-}
-else if(status == 'TERMINATED')
-{
-return{'backgroundColor':'#ff0000'}
-}
-else if(status == 'EXIT')
-{
-return{'backgroundColor':'#F6C3CC'}
-} 
-}
-
-
+  const showStatus = (status) => {
+    if (status == "BENCH") {
+      return { backgroundColor: "#FFF9E5" };
+    } else if (status == "CLIENT") {
+      return { backgroundColor: "#D1F3D2" };
+    } else if (status == "MANAGMENT") {
+      return { backgroundColor: "#E6E9F9" };
+    } else if (status == "ABSCOND") {
+      return { backgroundColor: "#4C4C4C", color: "#ffffff" };
+    } else if (status == "RELEAS") {
+      return { backgroundColor: "#ff0000" };
+    } else if (status == "TERMINATED") {
+      return { backgroundColor: "#ff0000" };
+    } else if (status == "EXIT") {
+      return { backgroundColor: "#F6C3CC" };
+    }
+  };
 
   // function Status(props){
-  
+
   //   if (props.Status === "Bench") {
   //     return (
   //       <div className="statustemp e-bench">
@@ -140,7 +127,7 @@ return{'backgroundColor':'#F6C3CC'}
   //         <span className="statustxt e-managment">MANAGMENT</span>
   //       </div>)
   //   }
- 
+
   // }
 
   function createData(
@@ -531,13 +518,11 @@ return{'backgroundColor':'#F6C3CC'}
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
-                  <TableCell 
-                   key={column.id}
+                  <TableCell
+                    key={column.id}
                     align={column.align}
-                   
                     style={{ minWidth: column.minWidth }}
                   >
-                   
                     <b>{column.label}</b>
                   </TableCell>
                 ))}
@@ -545,15 +530,18 @@ return{'backgroundColor':'#F6C3CC'}
             </TableHead>
             <TableBody>
               {rows.map((row) => {
-                <TableRow ></TableRow>
+                <TableRow></TableRow>;
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                     {columns.map((column) => {
                       const value = row[column.id];
 
                       return (
-                        <TableCell sx={showStatus(row.status)}  key={column.id} align={column.align}> 
-                       
+                        <TableCell
+                          sx={showStatus(row.status)}
+                          key={column.id}
+                          align={column.align}
+                        >
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
