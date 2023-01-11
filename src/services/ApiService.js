@@ -3,18 +3,19 @@ import axios from "axios"
 
 // const BASE_URL = "http://18.209.60.4:8080/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // devops
 
-// const BASE_URL = "http://10.81.4.195:2022"; //server port
+ const BASE_URL = "http://10.81.4.195:2022"; //server port
 
 // const BASE_URL = "http://10.81.4.23:9090/LESM-Status-Monitor123";
 
 // const BASE_URL ="http://18.188.242.190:8081/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // NEW ONE DEVOPS API
 
 // const BASE_URL = "http://10.81.4.191:2030"; // sudheer pc
+// const BASE_URL = "http://10.81.4.23:2030"; // server pc
 //const BASE_URL = "http://localhost:2032"
-// const BASE_URL = "http://10.81.4.198:2025"; //sowmya pc
+//  const BASE_URL = "http://10.81.4.198:2025"; //sowmya pc
 // const BASE_URL = "http://10.81.4.197:2021"; // chamu pc
 // const BASE_URL = "http://10.81.3.30:9090"; // charan pc
-const BASE_URL = "http://10.81.4.198:2025" //sowmya pc
+// const BASE_URL = "http://10.81.4.198:2025" //sowmya pc
 //const  BASE_URL="http://10.81.4.188:2021";  //santhosh pc
 //  const BASE_URL = "http://10.81.4.231:2022"; //teju pc
 //get
@@ -340,8 +341,8 @@ export default new (class ApiService {
   selectEmployeeAssign(id) {
     return axios.get(`${BASE_URL}/AssignToEmployee?LancesoftId=${id}`, auth())
   }
-  GetAllEmployes(pageNumber, pageSize) {
-    return axios.get(`${BASE_URL}/api/v1/hr/card-detail?pageNumber=${pageNumber}&pageSize=${pageSize}`, auth())
+  GetAllEmployes(pageNumber) {
+    return axios.get(`${BASE_URL}/api/v1/hr/card-detail?pageNumber=${pageNumber}`, auth())
   }
   SearchEmployees(data) {
     return axios.get(`${BASE_URL}/api/v1/hr/search?keyword=${data}`, auth())
@@ -387,8 +388,8 @@ export default new (class ApiService {
   transferEmpgeneral(id, id2, Salary, Location) {
     return axios.get(`${BASE_URL}/transfer?LancesoftId=${id}&Location=${Location}&Salary=${Salary}&TansferLancesoftId=${id2}`, auth())
   }
-  GetAllEmployesby(pageNumber, pageSize) {
-    return axios.get(`${BASE_URL}/api/v1/emp/repotees?pageNumber=${pageNumber}&pageSize=${pageSize}`, auth())
+  GetAllEmployesby(pageNumber) {
+    return axios.get(`${BASE_URL}/api/v1/emp/repotees?pageNumber=${pageNumber}`, auth())
   }
 
   // Edit Client details

@@ -1,3 +1,154 @@
+.employee-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  width: 300px;
+  margin: 20px;
+  background-color: white;
+  transition: transform 0.3s;
+  flex-wrap: wrap;
+
+}
+
+.employee-card:hover {
+  transform: scale(1.1);
+}
+
+.employee-card img {
+  width: 50%;
+  height: 120px;
+  object-fit: cover;
+  margin-top: 8px;
+  border-radius: 58%;
+}
+
+.employee-card .info {
+  padding: 20px;
+  text-align: center;
+}
+
+.employee-card .info h2 {
+  margin: 10px 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.employee-card .info p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.employee-card .manager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-top: 1px solid #ddd;
+}
+
+.employee-card .manager .name {
+  font-size: 14px; 
+  font-weight: bold;
+  color: #333;
+text-align: justify;
+text-align: left;
+
+  }
+
+.employee-card .manager .title {
+  font-size: 12px;
+ 
+  color: #666;
+  text-align: left;
+  
+}
+.employee-card {
+  background: linear-gradient(to bottom, #e1f5fe, #ffffff);
+  /* Other styles */
+}
+.employee-card .p.style{
+  border-radius: 25px;
+}
+
+
+
+.card-image {
+  position: top;
+  width: 120px;
+  height: 80px;
+  border-radius: 50%;
+ margin-top: -50px;
+ padding-top: 10px;
+ margin: 0 center;
+ margin-bottom: 5px;
+}
+
+.card-template {
+  margin-top: 60px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 100px;
+ 
+  padding-top: 45px;
+  width: 300px!important;
+  height: 350px!important;
+  /* width: 18rem; */
+  animation: upDown 1s 0.5s 1 linear;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  text-align:var()!important;
+}
+
+.card-template:hover {
+  transform: scale(1.1);
+  z-index: 1;
+  /* width: 19rem;
+  height: 22rem; */
+  /* height: 15rem; */
+}
+.employees {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-weight: bold;
+  color: #5485d8;
+  cursor: pointer;
+  margin-bottom: -20px;
+  /* margin-top: 5px; */
+}
+.employees:hover {
+  color: #1c5ac5;
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* flex-wrap: wrap; */
+  /* font-size: 20px; */
+  /* margin-bottom: 5px;
+  margin-top: 5px; */
+}
+
+.card-btn {
+  background-color: #224685;
+  border-radius: 5px;
+  color: #fff;
+}
+.card-btn:hover {
+  background-color: #4480e9;
+}
+
+
+
+
+
 .card-image {
   position: absolute;
   width: 105px;

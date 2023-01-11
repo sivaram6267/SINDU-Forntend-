@@ -1,11 +1,12 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
-// import ApiService from "../../services/ApiService";
-// import { useNavigate } from "react-router-dom";
-import ModelComponent from "../modelComponent/ModelComponent";
-// import EmployeeProfile from "../../pages/employeeProfile/EmployeeProfile";
+import { Link } from "react-router-dom";
+import ModelComponent from "../../modelComponent/ModelComponent";
 import "./cards.css";
 import ApiService from "../../services/ApiService";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
 function Cards(props) {
   let type = sessionStorage.getItem("type");
   // console.log(props.data);
@@ -18,6 +19,7 @@ function Cards(props) {
   // const [view, setView] = useState();
   // const [data, setData] = useState({});
   // const navigate = useNavigate();
+
   const handleClick = (id) => {
     setSubEmpId(id);
     setSubEmp(true);
@@ -49,10 +51,41 @@ function Cards(props) {
     //   });
   };
 
+
+
+
+  
+  const showStatus = (status) =>{
+    if(status == "BENCH"){
+  return{'backgroundColor':'#FFF9E5'}
+  }else if(status == "CLIENT"){
+    return{'backgroundColor':'#D1F3D2' }
+  }
+  else if(status =="MANAGMENT" ){
+    return{'backgroundColor': '#E6E9F9'}
+  }
+  else if(status == 'ABSCONDED')
+  {
+  return{'backgroundColor':'#F6C3CC', color:'#ffffff'}
+  }
+  else if(status ==  'RELEASED')
+  {
+  return{'backgroundColor':'##F6C3CC'}
+  }
+  else if(status == 'TERMINATED')
+  {
+  return{'backgroundColor':'#F6C3CC'}
+  }
+  else if(status == 'EXIT')
+  {
+  return{'backgroundColor':'#F6C3CC'}
+  } 
+  }
+
   return (
     <>
       <ModelComponent
-        data={subEmp ? subEmpId : props.data.empId}
+        data={subEmp ? subEmpId : props?.data?.empId}
         type={type}
         show={modalShow}
         // view={view}
@@ -61,21 +94,62 @@ function Cards(props) {
           // setData({});
         }}
       />
-      <Card className="card-template">
+
+ 
+ {/* <Link to="/hr/editEmployee" state={{ empId: props?.data?.empId, name: "" }}> */}
+ <Link to="/hr/EmployeeProfile" state={{ empId: props?.data?.empId, type: type }} style={{ textDecoration: 'none' }}>
+<div className="employee-card" >
+   <img src={props?.data?.photo} alt="Profile Photo"/>
+  <div className="info">
+    <h2>{props?.data?.employeeName}</h2>
+    <p style= {showStatus(props?.data?.status)}>  {props?.data?.status}</p>
+    <p> {props?.data?.lancesoftId}</p>
+    <p>{props?.data?.designation}</p>
+  </div>
+  <div className="manager primary">
+  
+    <div className="name">{props?.data?.managerName	} </div> &nbsp; 
+    <div className="title" >Primary Manager</div>
+    {/* <div class="title">{props?.data?.managerName	}</div> */}
+  </div>
+  <div className="manager secondary">
+    <div className="name">{props?.data?.subordinateManagerName	} </div> &nbsp;
+    <div className="title"> Secondary Manager</div>
+  </div>
+</div>
+
+</Link>
+
+
+
+
+
+
+      {/* <Card className="card-template">
         <Card.Img
-          variant="top"
+          
           className="card-image"
-          src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1655897437~exp=1655898037~hmac=b3cc634fd5e10bbc789099f7b0330132746d548d90a0bf505440d33dc444afa7&w=740"
+          src={props?.data?.photo}
         />
-        <Card.Body>
-          <Card.Title>{props.data.lancesoft}</Card.Title>
+        
+          {/* Profile Photo&emsp; {props?.data?.ProfilePhoto}<br/>   */}
+        {/* <Card.Body>
+          <Card.Title> Name:&emsp;{props?.data?.employeeName}</Card.Title>  
           <Card.Text>
-            EmployeeId: &emsp; {props.data.lancesoft} <br /> Employee
-            Name:&emsp;
-            {props.data.firstName} {props.data.lastName} <br />
-            Email:&emsp; {props.data.email}
-          </Card.Text>
-          {props.data?.button === "Exit" ? (
+       
+            LancesoftId: &emsp; {props?.data?.	lancesoftId} <br /> 
+            
+            {/* {props?.data?.firstName} {props?.data?.lastName} <br /> */}
+            {/* Profile Photo:&emsp; {props?.data?.ProfilePhoto}<br/> */}
+            {/* Designation:&emsp; {props?.data?.designation}<br/>
+            Status:&emsp; {props?.data?.status} <br />
+            Primary Manager	:&emsp; {props?.data?.managerName	} <br />
+            Secondary Manager	:&emsp; {props?.data?.subordinateManagerName	} <br /> */}
+            {/* Edit	:&emsp; {props?.data?.Edit	} <br />
+            View	:&emsp; {props?.data?.View	} <br /> */}
+          {/* </Card.Text> */}
+        
+          {/* {props?.data?.button === "Exit" ? ( 
             status ? (
               <>
                 <Button
@@ -87,7 +161,7 @@ function Cards(props) {
                 <Button
                   variant="danger"
                   // className="card-btn"
-                  onClick={() => setStatus(false)}
+                  // onClick={() => setStatus(false)}
                 >
                   Cancel
                 </Button>
@@ -139,8 +213,8 @@ function Cards(props) {
                         <br />
                       </Fragment>
                     ))}
-                  </>
-                )}
+                  </> */}
+                {/* )} */}
               {/* <div>
                 <span className="employees" onClick={() => handleClick(1)}>
                   1. associate1
@@ -155,11 +229,11 @@ function Cards(props) {
                 </span>
               </div> */}
             </>
-          )}
-        </Card.Body>
-      </Card>
-    </>
-  );
-}
+           )}
+        {/* </Card.Body>  */}
+      {/* </Card> */}
+    // </>
+  {/* );  */}
+{/* } */}
 
 export default Cards;

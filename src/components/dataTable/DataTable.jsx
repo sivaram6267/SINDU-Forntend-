@@ -1,12 +1,5 @@
 import * as React from "react";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
+
 import { Button } from "react-bootstrap";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -16,11 +9,16 @@ import ModelComponent from "../../modelComponent/ModelComponent";
 import ApiService from "../../services/ApiService";
 import { useEffect } from "react";
 import { color, padding } from "@mui/system";
+import Cards from "../cards/Cards";
+import CardsDisplay from "./CardsDisplay";
 
 
-import Card from "react-bootstrap/Card";
+//import Card from 'react-bootstrap/Card';  
 import { red } from "@mui/material/colors";
 import "../dataTable/DataTable.css";
+import { Pagination } from "@mui/material";
+
+
 export default function DataTable(props) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -30,13 +28,20 @@ export default function DataTable(props) {
   const [EditModalShow, setEditModalShow] = useState(false);
   const [status, setStatus] = useState(false);
   const [data, setData] = useState([]);
+  const [searchData, setSearchData] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [search, setSearch] = useState();
   const [msg, setMsg] = useState();
+  const[isPagination, setIsPagination] = useState(true)
+
+
+  const [loading, setLoading] = useState(false);
+const [currentPage, setCurrentPage] = useState(0);
+  const [cardsPerPage, setCardsPerPage] = useState(1);
  
 
-  const handleChangePage = (event, newPage) => {
+ const handleChangePage = (event, newPage) => {
     setPageNumber(newPage);
     setPage(newPage);
     console.log(newPage);
@@ -85,65 +90,8 @@ export default function DataTable(props) {
     //     format: (value) => value.toFixed(2),
     //   },
   ];
-const showStatus = (status) =>{
-  if(status == "BENCH"){
-return{'backgroundColor':'#FFF9E5'}
-}else if(status == "CLIENT"){
-  return{'backgroundColor':'#D1F3D2' }
-}
-else if(status =="MANAGMENT" ){
-  return{'backgroundColor': '#E6E9F9'}
-}
-else if(status == 'ABSCOND')
-{
-return{'backgroundColor':'#4C4C4C', color:'#ffffff'}
-}
-else if(status ==  'RELEAS')
-{
-return{'backgroundColor':'#ff0000'}
-}
-else if(status == 'TERMINATED')
-{
-return{'backgroundColor':'#ff0000'}
-}
-else if(status == 'EXIT')
-{
-return{'backgroundColor':'#F6C3CC'}
-} 
-}
 
-
-
-  // function Status(props){
-  
-  //   if (props.Status === "Bench") {
-  //     return (
-  //       <div className="statustemp e-bench">
-  //         <span className="statustxt e-bench">Bench</span>
-  //       </div>)
-  //   }
-  //   if (props.Status === "CLIENT ") {
-  //     return (
-  //       <div className="statustemp e-client">
-  //         <span className="statustxt e-client">CLIENT</span>
-  //       </div>)
-  //   }
-  //   if (props.Status === "ABSCOND, RELEAS,EXIT,TERMINATED") {
-  //     return (
-  //       <div className="statustemp e-abscond,releas,exit,terminated">
-  //         <span className="statustxt e-abscond,releas,exit,terminated">ABSCOND, RELEAS,EXIT,TERMINATED</span>
-  //       </div>)
-  //   }
-  //   if (props.Status === "MANAGMENT") {
-  //     return (
-  //       <div className="statustemp e-managment">
-  //         <span className="statustxt e-managment">MANAGMENT</span>
-  //       </div>)
-  //   }
- 
-  // }
-
-  function createData(
+function createData(
     name,
     lsiId,
     profilePic,
@@ -325,115 +273,182 @@ return{'backgroundColor':'#F6C3CC'}
     setRows(temp);
   };
 
-  useEffect(() => {
-    if (type === "hr") {
-      ApiService.GetAllEmployes(pageNumber, pageSize)
-        .then((res) => {
-          console.log(data);
-          setData(res.data);
-          AssignData(res.data);
-          setStatus(true);
-          // setPageNumber(res.data.currentPage)
-          // setPageSize()
-        })
-        .catch((err) => {
-          alert(err.message);
-          setStatus(false);
-        });
-    }
+  useEffect (()=>{
+    function getEmployeeDetails(){
+      
+    setIsPagination(true);
+      setLoading(true);
 
-    if (type === "manager") {
-      ApiService.GetAllEmployesby(pageNumber, pageSize)
-        .then((res) => {
-          console.log(data);
-          setData(res.data);
-          AssignData(res.data);
-          setStatus(true);
-          // setGeneralassignEmp(res.data);
-        })
+      if (type === "hr"){
+        ApiService.GetAllEmployes(currentPage)
+          .then((res) => {
+          
+            setData(res.data);
+            console.log(res.data);
+            //AssignData(res.data);
+            setStatus(true);
+            setLoading(false);
+            // setPageNumber(res.data.currentPage)
+            // setPageSize()
+            setCardsPerPage(res.data.totalPage);
+            
+          })
+          .catch((err) => {
+            alert(err.message);
+            setStatus(false);
+          });
+      }
+      if (type === "manager" || type === "lead" || type === "ch" || type === "md" || type === "general_manager") {
+        ApiService.GetAllEmployesby(currentPage)
+          .then((res) => {
+            
+            setData(res.data);
+            //AssignData(res.data);
+            setStatus(true);
+            setLoading(false);
+            console.log(res.data);
+            // setGeneralassignEmp(res.data);
+            setCardsPerPage(res.data.totalPage);
+          })
+  
+          .catch((error) => {
+            alert(JSON.stringify(error));
+            setMsg(
+              error.response.data.errorMessage
+                ? error.response.data.errorMessage
+                : error.message
+            );
+          });
+      }
+      
 
-        .catch((error) => {
-          alert(JSON.stringify(error));
-          setMsg(
-            error.response.data.errorMessage
-              ? error.response.data.errorMessage
-              : error.message
-          );
-        });
     }
-    if (type === "lead") {
-      ApiService.GetAllEmployesby(pageNumber, pageSize)
-        .then((res) => {
-          console.log(data);
-          setData(res.data);
-          AssignData(res.data);
-          setStatus(true);
-          // setGeneralassignEmp(res.data);
-        })
+      getEmployeeDetails();  
+  }, [currentPage]);
 
-        .catch((error) => {
-          alert(JSON.stringify(error));
-          setMsg(
-            error.response.data.errorMessage
-              ? error.response.data.errorMessage
-              : error.message
-          );
-        });
-    }
-    if (type === "ch") {
-      ApiService.GetAllEmployesby(pageNumber, pageSize)
-        .then((res) => {
-          console.log(data);
-          setData(res.data);
-          AssignData(res.data);
-          setStatus(true);
-          // setGeneralassignEmp(res.data);
-        })
+  
+  const indexOfLastCard = currentPage * cardsPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+ // const currentCards = movieCard.slice(indexOfFirstCard, indexOfLastCard);
 
-        .catch((error) => {
-          alert(JSON.stringify(error));
-          setMsg(
-            error.response.data.errorMessage
-              ? error.response.data.errorMessage
-              : error.message
-          );
-        });
-    }
-    if (type === "md") {
-      ApiService.GetAllEmployesby(pageNumber, pageSize)
-        .then((res) => {
-          console.log(data);
-          setData(res.data);
-          AssignData(res.data);
-          setStatus(true);
-          // setGeneralassignEmp(res.data);
-        })
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // console.log(cardsPerPage, movieCard.length, paginate);
 
-        .catch((error) => {
-          alert(JSON.stringify(error));
-          setMsg(
-            error.response.data.errorMessage
-              ? error.response.data.errorMessage
-              : error.message
-          );
-        });
-    }
-    if (type === "general_manager") {
-      ApiService.GetAllEmployesby(pageNumber, pageSize)
-        .then((res) => {
-          console.log(data);
-          setData(res.data);
-          AssignData(res.data);
-          setStatus(true);
-          // setPageNumber(res.data.currentPage)
-          // setPageSize()
-        })
-        .catch((err) => {
-          alert(err.message);
-          setStatus(false);
-        });
-    }
-  }, [pageNumber, pageSize]);
+  const handleChange1 = (event, value) => {
+    setCurrentPage(value);
+  };
+
+  // useEffect(() => {
+  //   if (type === "hr") {
+  //     setLoading(true);
+  //     ApiService.GetAllEmployes(2)
+  //       .then((res) => {
+
+  //         console.log(res.data);
+  //         //AssignData(res.data);
+  //         setStatus(true);
+  //         // setPageNumber(res.data.currentPage)
+  //         // setPageSize()
+  //       })
+  //       .catch((err) => {
+  //         alert(err.message);
+  //         setStatus(false);
+  //       });
+  //   }
+
+    // if (type === "manager") {
+    //   ApiService.GetAllEmployesby(pageNumber, pageSize)
+    //     .then((res) => {
+    //       console.log(data);
+    //       setData(res.data);
+    //       AssignData(res.data);
+    //       setStatus(true);
+    //       // setGeneralassignEmp(res.data);
+    //     })
+
+    //     .catch((error) => {
+    //       alert(JSON.stringify(error));
+    //       setMsg(
+    //         error.response.data.errorMessage
+    //           ? error.response.data.errorMessage
+    //           : error.message
+    //       );
+    //     });
+    // }
+    // if (type === "lead") {
+    //   ApiService.GetAllEmployesby(pageNumber, pageSize)
+    //     .then((res) => {
+    //       console.log(data);
+    //       setData(res.data);
+    //       AssignData(res.data);
+    //       setStatus(true);
+    //       // setGeneralassignEmp(res.data);
+    //     })
+
+    //     .catch((error) => {
+    //       alert(JSON.stringify(error));
+    //       setMsg(
+    //         error.response.data.errorMessage
+    //           ? error.response.data.errorMessage
+    //           : error.message
+    //       );
+    //     });
+    // }
+    // if (type === "ch") {
+    //   ApiService.GetAllEmployesby(pageNumber, pageSize)
+    //     .then((res) => {
+    //       console.log(data);
+    //       setData(res.data);
+    //       AssignData(res.data);
+    //       setStatus(true);
+    //       // setGeneralassignEmp(res.data);
+    //     })
+
+    //     .catch((error) => {
+    //       alert(JSON.stringify(error));
+    //       setMsg(
+    //         error.response.data.errorMessage
+    //           ? error.response.data.errorMessage
+    //           : error.message
+    //       );
+    //     });
+    // }
+    // if (type === "md") {
+    //   ApiService.GetAllEmployesby(pageNumber, pageSize)
+    //     .then((res) => {
+    //       console.log(data);
+    //       setData(res.data);
+    //       AssignData(res.data);
+    //       setStatus(true);
+    //       // setGeneralassignEmp(res.data);
+    //     })
+
+    //     .catch((error) => {
+    //       alert(JSON.stringify(error));
+    //       setMsg(
+    //         error.response.data.errorMessage
+    //           ? error.response.data.errorMessage
+    //           : error.message
+    //       );
+    //     });
+    // }
+  //   if (type === "general_manager") {
+  //     ApiService.GetAllEmployesby(pageNumber, pageSize)
+  //       .then((res) => {
+  //         console.log(data);
+  //         setData(res.data);
+  //         AssignData(res.data);
+  //         setStatus(true);
+  //         // setPageNumber(res.data.currentPage)
+  //         // setPageSize()
+  //       })
+  //       .catch((err) => {
+  //         alert(err.message);
+  //         setStatus(false);
+  //       });
+  //   }
+  // }, [pageNumber, pageSize]);
 
   // if (type === "manager") {
   //   ApiService.GetAllEmployesby()
@@ -460,53 +475,42 @@ return{'backgroundColor':'#F6C3CC'}
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    ApiService.SearchEmployees(search.search)
+    console.log(search.search);
+    if (type === "hr"){
+      ApiService.SearchEmployees(search.search)
+    
       .then((res) => {
-        setData(res.data);
-        AssignsearchData(res.data);
-        setStatus(true);
-      })
-      .catch((error) => {
-        setStatus(false);
-        console.log(error);
-        setMsg(
-          error.response.data.errorMessage
-            ? error.response.data.errorMessage
-            : error.message
-        );
-      });
+
+          console.log(page);
+          setSearchData(res.data);
+          
+          //AssignsearchData(res.data);
+          setStatus(true);
+          setIsPagination(false);
+          console.log(searchData);
+        })
+        .catch((error) => {
+          setStatus(false);
+          console.log(error);
+          setMsg(
+            error.response.data.errorMessage
+              ? error.response.data.errorMessage
+              : error.message
+          );
+        });
+    }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSearch({ ...data, [name]: value });
   };
+  
 
   const BENCH = (e) => {};
 
   return (
     <>
-      {/* { <ModelComponent
-        data={subEmp ? subEmpId : pid}
-        type={type}
-        show={modalShow}
-        // view={view}
-        onHide={() => {
-          setModalShow(false);
-          // setData({});
-        }}
-      /> } */}
-      {/* { <EmployeeProfile
-       data={subEmp ? subEmpId : pid}
-       type={type}
-       show={modalShow}
-       // view={view}
-       onHide={() => {
-         setModalShow(false);
-         // setData({});
-       }}
-     /> } */}
-
       <form id="searchForm" onSubmit={handleSubmit}>
         <input
           type="search"
@@ -515,67 +519,33 @@ return{'backgroundColor':'#F6C3CC'}
           placeholder="Enter ID"
           onChange={handleChange}
         />
+        
         <button type="submit" className="searchclick">
           Search
         </button>
       </form>
-      <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        {/* <Table
-          bordered
-          columns={columns}
-          dataSource={this.status}
-          rowClassName={(record) => (record.status > 50 ? "red" : "green")}
-        /> */}
-        <TableContainer sx={{ maxHeight: 440 }}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell 
-                   key={column.id}
-                    align={column.align}
-                   
-                    style={{ minWidth: column.minWidth }}
-                  >
-                   
-                    <b>{column.label}</b>
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => {
-                <TableRow ></TableRow>
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
+      <br/>
+      <br/>
+      
+      {isPagination ? (
+        <>
+        <CardsDisplay empCards={data} loading={loading} />
+        <Pagination count={cardsPerPage} page={currentPage} onChange={handleChange1} />
+        </>
+        ) : (
+          <div style={{display:"flex", flexWrap:"wrap", gap:"20px"}}>
+        {searchData?.length>=0 && searchData.map(it=> <Cards data={it}/>)}
+      </div>
+          
+          )
 
-                      return (
-                        <TableCell sx={showStatus(row.status)}  key={column.id} align={column.align}> 
-                       
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={data.totalItems}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
+      }
+
+      {/* <div style={{display:"flex", flexWrap:"wrap", gap:"20px"}}>
+        {data?.Employees?.length>=0 && data.Employees.map(it=> <Cards data={it}/>)}
+      </div> */}
+      <br/>
+    
     </>
   );
 }
