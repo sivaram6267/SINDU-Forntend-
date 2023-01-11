@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import ApiService from "../../services/ApiService";
  import ModelComponent from "../../modelComponent/ModelComponent";
 // import EmployeeProfile from "../../pages/employeeProfile/EmployeeProfile";
@@ -15,12 +16,14 @@ export default function SubEmployee({ id }) {
   const [subEmpId, setSubEmpId] = useState("");
   const [data, setData] = useState({});
 
+  const navigate = useNavigate();
+
   const handleClick = (id) => {
     setSubEmpId(id);
     setSubEmp(true);
     setModalShow(true);
   };
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevState) => ({
@@ -69,6 +72,12 @@ export default function SubEmployee({ id }) {
       >
         {viewEmployee ? "Hide" : "View Employees"}
       </Button>
+      <Button className="btn-danger" onClick={(e) => {
+          e.preventDefault();
+          navigate("/hr/editEmployee", { state: { empId: id, name: "" } });
+          }}>
+        EDIT
+        </Button>
       {/* <Button class="green" onChange={handleChange}>
         Edit
       </Button> */}
