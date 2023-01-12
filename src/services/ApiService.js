@@ -658,20 +658,17 @@ export default new (class ApiService {
 
   //Delete Employee
   DesinationsForDeleteModule() {
+    return axios.get(`${BASE_URL}/getAllDemoteDesignations`, auth());
+  }
+
+  ShowEmployeesToDelete(desg_id) {
     return axios.get(
-      `${BASE_URL}/api/v1/admin/ShowDesinationsForDeleteModule`,
+      `${BASE_URL}/api/v1/admin/ShowEmployeesToDelete/${desg_id}`,
       auth()
     );
   }
-
-  ShowEmployeesToDelete(empid) {
-    return axios.get(
-      `${BASE_URL}/api/v1/admin/ShowEmployeesToDelete/${empid}`,
-      auth()
-    );
-  }
-
-  deleteEmployee(lancesoftid) {
+  // http://10.81.4.195:2022/api/v1/admin/ShowEmployeesToDelete/3
+  deleteEmployees(lancesoftid) {
     return axios.delete(
       `${BASE_URL}/api/v1/admin/delete-employee/${lancesoftid}`,
       auth()
@@ -685,15 +682,16 @@ export default new (class ApiService {
     );
   }
 
-  deleteEmployee(lancesoft) {
+  deleteEmployee(empId) {
     return axios.delete(
-      `${BASE_URL}/api/v1/admin/delete-employee/${lancesoft}/${false}`,
+      `${BASE_URL}/api/v1/admin/DeleteEmployee?empId=${empId}&flag=${false}`,
       auth()
     );
   }
-  deleteEmployeefor(lancesoft) {
+  // api/v1/admin/DeleteEmployee?empId=2&flag=false
+  deleteEmployeefor(empId) {
     return axios.delete(
-      `${BASE_URL}/api/v1/admin/delete-employee/${lancesoft}/${true}`,
+      `${BASE_URL}/api/v1/admin/DeleteEmployee?empId=${empId}&flag=${true}`,
       auth()
     );
   }

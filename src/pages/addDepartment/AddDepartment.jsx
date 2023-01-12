@@ -43,7 +43,7 @@ export default function AddDepartment() {
         // console.log(error);
         setStatus(false);
         // setErrors(true);
-        alert(JSON.stringify(error))
+        alert(JSON.stringify(error));
         setMsg(
           error.response.data.errorMessage
             ? error.response.data.errorMessage

@@ -53,7 +53,7 @@ function DeleteEmployee() {
     // setErrors(false);
     ApiService.deleteEmployee(data.selectEmp)
       .then((res) => {
-        console.log(data);
+        console.log(data.selectEmp);
         // alert("successfull");
         navigate(`/${type}`);
         setStatus(false);
@@ -158,8 +158,9 @@ function DeleteEmployee() {
             <option value="">{status ? "loading" : "select "}</option>
             {/* <option value="1">N/A</option> */}
             {deleteto?.map((type) => (
-              <option key={type.empId} value={type.lancesoft}>
+              <option key={type.empId} value={type.empId}>
                 {type.lancesoft}
+                {type.firstName}
               </option>
             ))}
           </Form.Select>

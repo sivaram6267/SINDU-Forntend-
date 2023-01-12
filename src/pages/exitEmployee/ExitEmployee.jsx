@@ -12,7 +12,7 @@ function ExitEmployee() {
   const [empTypes, setEmpTypes] = useState(null);
   const [desgs, setDesgs] = useState(null);
   const [Releaseemp, setReleaseemp] = useState(null);
-
+  let type = sessionStorage.getItem("type");
   const handleChange = (e) => {
     let type = sessionStorage.getItem("type");
     const { name, value } = e.target;
@@ -123,7 +123,11 @@ function ExitEmployee() {
   //       );
   //     });
   // }, []);
-
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate(`/${type}`);
+    //
+  };
   return (
     <div id="add-employee" className="container-sm ">
       <h1 className="title text-center">Release Employee</h1>
@@ -192,9 +196,11 @@ function ExitEmployee() {
             onChange={handleChange}
           />
         </Form.Group>
-
         <Button type="submit" varient="success">
           submit
+        </Button>{" "}
+        <Button variant="danger" onClick={handleCancel} className="px-2">
+          Cancel
         </Button>
       </Form>
     </div>
