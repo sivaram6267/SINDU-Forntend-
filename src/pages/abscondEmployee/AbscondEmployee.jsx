@@ -15,7 +15,7 @@ function AbscondEmployee() {
   const [reportsto, setReportsto] = useState(null);
   const [assignid, setAssignid] = useState(null);
   const [abscondemp, setAbscondemp] = useState(null);
-
+  let type = sessionStorage.getItem("type");
   const handleChange = (e) => {
     let type = sessionStorage.getItem("type");
     const { name, value } = e.target;
@@ -128,7 +128,11 @@ function AbscondEmployee() {
         );
       });
   }, []);
-
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate(`/${type}`);
+    //
+  };
   return (
     <div id="add-employee" className="container-sm ">
       <h1 className="title text-center">Abscond Employee</h1>
@@ -196,6 +200,9 @@ function AbscondEmployee() {
         </Form.Group>
         <Button variant="primary" type="submit">
           submit
+        </Button>{" "}
+        <Button variant="danger" onClick={handleCancel} className="px-2">
+          Cancel
         </Button>
       </Form>
     </div>
