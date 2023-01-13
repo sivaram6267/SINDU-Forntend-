@@ -60,10 +60,10 @@ function AbscondEmployee() {
     setSelemp(value)
     // setData({ ...data, [name]: value });
   }
-  const handleCancel = (e) => {
-    e.preventDefault()
-    navigate(`/${type}`)
-  }
+  // const handleCancel = (e) => {
+  //   e.preventDefault()
+  //   navigate(`/${type}`)
+  // }
 
   const navigate = useNavigate()
   const handleSubmit = (e) => {
