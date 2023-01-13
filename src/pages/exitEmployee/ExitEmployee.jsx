@@ -13,6 +13,7 @@ function ExitEmployee() {
   const [desgs, setDesgs] = useState(null);
   const [Releaseemp, setReleaseemp] = useState(null);
 
+  let type = sessionStorage.getItem("type");
   const handleChange = (e) => {
     let type = sessionStorage.getItem("type");
     const { name, value } = e.target;
@@ -69,9 +70,11 @@ function ExitEmployee() {
     // setErrors(false);
     ApiService.ReleaseEmpCmp(data.releaseDate, data.lancesoft)
       .then((res) => {
+        e.preventDefault();
+        e.target.reset();
         console.log(res.data);
         alert("released successfully");
-        navigate("/hr");
+        navigate("/hr/ExitEmployee");
         setStatus(false);
         // setErrors(false);
         setMsg("");
@@ -123,6 +126,11 @@ function ExitEmployee() {
   //       );
   //     });
   // }, []);
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate(`/${type}`);
+  };
+
 
   return (
     <div id="add-employee" className="container-sm ">
@@ -195,6 +203,9 @@ function ExitEmployee() {
 
         <Button type="submit" varient="success">
           submit
+        </Button>{" "}
+        <Button onClick={handleCancel} variant="danger">
+          Cancel
         </Button>
       </Form>
     </div>

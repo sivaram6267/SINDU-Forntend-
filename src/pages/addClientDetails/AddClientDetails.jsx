@@ -62,9 +62,13 @@ function AddClientDetails() {
     // setErrors(false);
     ApiService.addClientDetails(data, data.clientsId, data.employeeID)
       .then((res) => {
+        e.preventDefault();
+        e.target.reset();
+
         // console.log(res.data);
         alert("successfull");
-        navigate(`/${type}`);
+        navigate("/hr/AddClientDetails");
+        // navigate(`/${type}`);
         setStatus(false);
         setMsg("");
       })
@@ -73,6 +77,7 @@ function AddClientDetails() {
         setStatus(true);
         setErrors(false);
         alert(JSON.stringify(error));
+
         setMsg(
           error.response.data.errorMessage
             ? error.response.data.errorMessage
@@ -80,7 +85,10 @@ function AddClientDetails() {
         );
       });
   };
-
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate(`/${type}`);
+  };
   useEffect(() => {
     ApiService.getAllClients()
       .then((res) => {
@@ -336,6 +344,9 @@ function AddClientDetails() {
         )}
         <Button variant="primary" type="submit">
           Submit
+        </Button>{" "}
+        <Button onClick={handleCancel} variant="danger">
+          Cancel
         </Button>
         {status && (
           <p className="text-success mb-2">

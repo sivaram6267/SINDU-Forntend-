@@ -12,7 +12,7 @@ function TerminateEmployee() {
   const [empTypes, setEmpTypes] = useState(null);
   const [desgs, setDesgs] = useState(null);
   const [Releaseemp, setReleaseemp] = useState(null);
-
+  let type = sessionStorage.getItem("type");
   const handleChange = (e) => {
     let type = sessionStorage.getItem("type");
     const { name, value } = e.target;
@@ -40,20 +40,24 @@ function TerminateEmployee() {
   const handleSelectEmployee = (e) => {
     const { name, value } = e.target;
     console.log(name, value);
+    
     setData({ ...data, [name]: value });
   };
 
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
+    e.target.reset();
     setStatus(true);
     console.log(data);
     // setErrors(false);
     ApiService.ReleaseEmpCmps(data.releasedDate, data.lancesoft)
       .then((res) => {
+        e.preventDefault();
+        e.target.reset();
         console.log(res.data);
         alert("Succesfully Terminated ");
-        navigate("/hr");
+        navigate("/hr/TerminateEmployee");
         setStatus(false);
         // setErrors(false);
         setMsg("");
@@ -105,6 +109,11 @@ function TerminateEmployee() {
   //       );
   //     });
   // }, []);
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate(`/${type}`);
+  };
+
 
   return (
     <div id="add-employee" className="container-sm ">
@@ -175,8 +184,11 @@ function TerminateEmployee() {
             onChange={handleChange}
           />
         </Form.Group>
-        <Button type="submit" varient="success">
+        <Button type="submit" varient="success" >
           submit
+        </Button>{" "}
+        <Button onClick={handleCancel} variant="danger">
+          Cancel
         </Button>
       </Form>
     </div>

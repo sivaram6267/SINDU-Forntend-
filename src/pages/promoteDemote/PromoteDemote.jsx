@@ -112,6 +112,7 @@ function PromoteDemote() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    e.target.reset();
     setStatus(true);
     console.log(data);
     // ApiService.AssignEmp(data.selectEmp, data.AssignTo)
@@ -131,8 +132,11 @@ function PromoteDemote() {
       data.Designationids
     )
       .then((res) => {
+        e.preventDefault();
+    e.target.reset();
         console.log(res.data);
         alert(res.data);
+        navigate("/hr/PromoteDemote");
         // alert("Demote and promote emp is successfully");
       })
       .catch((error) => {

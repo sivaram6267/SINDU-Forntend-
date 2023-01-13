@@ -51,7 +51,7 @@ export default function Header({ view }) {
       })
         .then((res) => {
           console.log(res.data);
-          alert("successfully");
+          // alert("successfully");
           setTotal(res.data);
         })
         .catch((error) => {
@@ -888,6 +888,14 @@ export default function Header({ view }) {
                           {user}
                         </Link>
                         <Link
+                                className="m-2"
+                                to="/ChangePassword"
+                                id="nav-link"
+                              >
+                          ChangePassword
+                              </Link>
+                       
+                        <Link
                           className="m-2"
                           to="/"
                           onClick={handlefunction}
@@ -895,9 +903,11 @@ export default function Header({ view }) {
                         >
                           Logout
                         </Link>
+                       
                       </Row>
                     </Dropdown.Menu>
                   </Dropdown>
+                 
                 </Nav>
               </Navbar.Collapse>
             </>

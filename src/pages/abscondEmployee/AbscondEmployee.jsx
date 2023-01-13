@@ -15,7 +15,8 @@ function AbscondEmployee() {
   const [reportsto, setReportsto] = useState(null);
   const [assignid, setAssignid] = useState(null);
   const [abscondemp, setAbscondemp] = useState(null);
-
+  
+  let type = sessionStorage.getItem("type");
   const handleChange = (e) => {
     let type = sessionStorage.getItem("type");
     const { name, value } = e.target;
@@ -63,18 +64,25 @@ function AbscondEmployee() {
     setSelemp(value);
     // setData({ ...data, [name]: value });
   };
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate(`/${type}`);
+  };
+
 
   const navigate = useNavigate();
   const handleSubmit = (e) => {
-    e.preventDefault();
+   
     setStatus(true);
     console.log(data);
     // setErrors(false);
     ApiService.abscondEmp(data.releasedDate, selemp)
       .then((res) => {
+        e.preventDefault();
+        e.target.reset();
         console.log(res.data);
         alert("absconded successfully ");
-        navigate("/hr");
+        navigate("/hr/AbscondEmployee");
         setStatus(false);
         // setErrors(false);
         setMsg("");
@@ -83,6 +91,7 @@ function AbscondEmployee() {
         // console.log(error);
         alert(JSON.stringify(error));
         setStatus(false);
+        
         // setErrors(true);
         setMsg(
           error.response.data.errorMessage
@@ -196,6 +205,9 @@ function AbscondEmployee() {
         </Form.Group>
         <Button variant="primary" type="submit">
           submit
+        </Button>{" "}
+        <Button onClick={handleCancel} variant="danger">
+          Cancel
         </Button>
       </Form>
     </div>
