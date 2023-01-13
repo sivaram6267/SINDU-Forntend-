@@ -21,6 +21,8 @@ function Updatesalary() {
   let type = sessionStorage.getItem("type");
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // e.preventDefault();
+    // e.target.reset();
     console.log(name);
     setData({ ...data, [name]: value });
     console.log(value);
@@ -77,14 +79,17 @@ function Updatesalary() {
   //     }
   //   };
   const handleSubmit = (e) => {
-    e.preventDefault();
+    
     setStatus(true);
     console.log(data);
 
     ApiService.updatesalary(data.selectEmp, data.salary, data.releasedDate)
       .then((res) => {
+        e.preventDefault();
+    e.target.reset();
         console.log(res.data);
         alert("update salary  successfully");
+        navigate("/hr/Updatesalary");
       })
       .catch((error) => {
         alert(JSON.stringify(error));

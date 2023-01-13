@@ -34,8 +34,11 @@ export default function DataTable(props) {
   const [isPagination, setIsPagination] = useState(true);
 
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(Number(sessionStorage.getItem("pageNumber")) || 0);
   const [cardsPerPage, setCardsPerPage] = useState(1);
+  window.onload = function () {
+    console.log("hi Wenodh")
+  };
 
   const handleChangePage = (event, newPage) => {
     setPageNumber(newPage);
@@ -76,15 +79,7 @@ export default function DataTable(props) {
     { id: "view", label: "View", minWidth: 50 },
     { id: "edit", label: "Edit", minWidth: 50 },
 
-    // format: (value) => value.toLocaleString("en-US"),
-
-    //   {
-    //     id: "density",
-    //     label: "Density",
-    //     minWidth: 170,
-    //     align: "right",
-    //     format: (value) => value.toFixed(2),
-    //   },
+ 
   ];
 
   function createData(
@@ -98,7 +93,7 @@ export default function DataTable(props) {
     view,
     edit
   ) {
-    //   const density = population / size;
+
     return {
       name,
       lsiId,
@@ -112,11 +107,6 @@ export default function DataTable(props) {
     };
   }
 
-  /*
-  function createData(email, lastName, phoneNumber, firstName, view) {
-    //   const density = population / size;
-    return { email, lastName, phoneNumber, firstName, view }
-  }*/
 
   const handleOnClick = (id) => {
     console.log("emp1");
@@ -129,17 +119,13 @@ export default function DataTable(props) {
     navigate("/hr/editEmployee", { state: { empId: id, name: "" } });
   };
   const handleOnClickView = (id) => {
-    //data={subEmp ? subEmpId : pid}
-    //type={type}
+
     console.log(id, type);
     navigate("/hr/EmployeeProfile", { state: { empId: id, type: type } });
   };
 
   const navigate = useNavigate();
-  // const handleCancel = (e) => {
-  //   e.preventDefault()
-  //   navigate(`/${type}`)
-  // }
+
   let [rows, setRows] = useState([
     createData(
       "emp2",
@@ -175,13 +161,11 @@ export default function DataTable(props) {
   const AssignsearchData = (items) => {
     let temp = [];
 
-    // console.log(items.Employees)
 
     items?.map((item) => {
       temp.push(
         createData(
-          //item.managerName,
-          //item.lancesoftId,
+   
 
           item.employeeName,
           item.lancesoftId,
@@ -193,8 +177,7 @@ export default function DataTable(props) {
           item.managerName,
           item.subordinateManagerName,
 
-          //item.designation,
-
+ 
           <Button
             className="card-btn"
             onClick={(e) => {
@@ -226,7 +209,7 @@ export default function DataTable(props) {
   const AssignData = (items) => {
     let temp = [];
 
-    // console.log(items.Employees)
+
 
     items.Employees?.map((item) => {
       temp.push(
@@ -279,12 +262,12 @@ export default function DataTable(props) {
           .then((res) => {
             setData(res.data);
             console.log(res.data);
-            //AssignData(res.data);
+
             setStatus(true);
             setLoading(false);
-            // setPageNumber(res.data.currentPage)
-            // setPageSize()
+
             setCardsPerPage(res.data.totalPage);
+            console.log(res.wenodh)
           })
           .catch((err) => {
             alert(err.message);
@@ -301,11 +284,11 @@ export default function DataTable(props) {
         ApiService.GetAllEmployesby(currentPage)
           .then((res) => {
             setData(res.data);
-            //AssignData(res.data);
+
             setStatus(true);
             setLoading(false);
             console.log(res.data);
-            // setGeneralassignEmp(res.data);
+   
             setCardsPerPage(res.data.totalPage);
           })
 
@@ -331,6 +314,7 @@ export default function DataTable(props) {
   // console.log(cardsPerPage, movieCard.length, paginate);
 
   const handleChange1 = (event, value) => {
+    sessionStorage.setItem("pageNumber", value);
     setCurrentPage(value);
   };
 

@@ -41,6 +41,7 @@ import DeleteEmployee from "./pages/deleteEmployee/DeleteEmployee";
 import TerminateEmployee from "./pages/terminateEmployee/TerminateEmployee";
 import Updatesalary from "./pages/updatesalary/Updatesalary";
 import PromoteDemote from "./pages/promoteDemote/PromoteDemote";
+import ChangePassword from "./pages/changePassword/ChangePassword";
 
 function App() {
   return (
@@ -359,6 +360,14 @@ function App() {
             element={
               <PrivateRoutes>
                 <GeneralManager />
+              </PrivateRoutes>
+            }
+          />
+           <Route
+            path="/changePassword"
+            element={
+              <PrivateRoutes>
+                <ChangePassword />
               </PrivateRoutes>
             }
           />

@@ -667,6 +667,7 @@ const EditEmployee = () => {
           >
             {/* <option value="">{status ? "loading" : "select "}</option>
             <option value="0">N/A</option> */}
+            <option value="0">N/A</option> 
             {supId?.map((type) => (
               <option
                 key={type.desgId}
@@ -700,6 +701,7 @@ const EditEmployee = () => {
           >
             {/* <option value="">{status ? "loading" : "select "}</option>
             <option value="0">N/A</option> */}
+            <option value="0">N/A</option> 
             {primarydesg?.map((type) => (
               <option
                 key={type.desgId}

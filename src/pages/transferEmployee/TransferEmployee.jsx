@@ -146,9 +146,11 @@ export default function TransferEmployee() {
         data.salary
       )
         .then((res) => {
+          e.preventDefault();
+          e.target.reset();
           console.log(res);
           alert("promte transfer emp is successfully");
-          navigate("/hr");
+          navigate("/hr/TransferEmployee");
         })
         .catch((error) => {
           alert(JSON.stringify(error));
@@ -323,6 +325,7 @@ export default function TransferEmployee() {
         );
       });
   }, []);
+  
 
   useEffect(() => {
     if (type === "manager") {
