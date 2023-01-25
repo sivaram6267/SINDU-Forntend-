@@ -438,6 +438,23 @@ export default function Header({ view }) {
                             </Row>
                           </Dropdown.Menu>
                         </Dropdown>
+                        {/* <Link className="m-2" to="Recruiter" id="nav-link">
+                          Recruiter Module
+                        </Link> */}
+                        {/* <Dropdown.Toggle
+                          className="toggle"
+                          variant=""
+                          id="dropdown-basic dropdownMenu dropdown-autoclose-true "
+                        >
+                          <p id="nav-link" className="username">
+                            Recruiter Module
+                          </p>
+                          <Link
+                            className="m-2"
+                            to="hr/Recruiter"
+                            id="nav-link"
+                          ></Link>
+                        </Dropdown.Toggle> */}
                         <Dropdown>
                           <Dropdown.Toggle
                             className="toggle"
@@ -752,6 +769,31 @@ export default function Header({ view }) {
                             {total}
                           </span>
                         </p>
+
+                        <Dropdown>
+                          <Dropdown.Toggle
+                            className="toggle"
+                            variant=""
+                            id="dropdown-basic dropdownMenu dropdown-autoclose-true "
+                          >
+                            {/* <img src={profilepic} alt="profile" className="img" /> */}
+                            <p id="nav-link" className="username">
+                              Recruiter
+                            </p>
+                          </Dropdown.Toggle>
+                          <Dropdown.Menu>
+                            <Row>
+                              <Link
+                                className="m-2"
+                                to="/hr/Recruiter"
+                                id="nav-link"
+                              >
+                                Jobs Posting
+                              </Link>
+                            </Row>
+                          </Dropdown.Menu>
+                        </Dropdown>
+
                         {/* <Dropdown>
                           <Dropdown.Toggle
                             className="toggle"
