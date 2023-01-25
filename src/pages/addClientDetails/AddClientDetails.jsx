@@ -40,7 +40,10 @@ function AddClientDetails() {
         });
     }
   };
-
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate(`/${type}`);
+  };
   const handlePractice = (e) => {
     const { name, value } = e.target;
     console.log(name + " " + value);
@@ -51,6 +54,7 @@ function AddClientDetails() {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   };
+  console.log(data);
 
   // eslint-disable-next-line  no-unused-vars
   const [errors, setErrors] = useState(false);
@@ -62,7 +66,7 @@ function AddClientDetails() {
     // setErrors(false);
     ApiService.addClientDetails(data, data.clientsId, data.employeeID)
       .then((res) => {
-        // console.log(res.data);
+        console.log(data);
         alert("successfull");
         navigate(`/${type}`);
         setStatus(false);
@@ -281,6 +285,139 @@ function AddClientDetails() {
       defaultValue: data.desgAtClient,
       handleChange: handleData,
     },
+
+    {
+      id: "cgst",
+      title: "CGST",
+      name: "cgst",
+      type: "number",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "Enter cgst number",
+
+      defaultValue: data.cgst,
+      handleChange: handleData,
+    },
+    {
+      id: "igst",
+      title: "IGST",
+      name: "igst",
+      type: "number",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "Enter igst number",
+
+      defaultValue: data.igst,
+      handleChange: handleData,
+    },
+    {
+      id: "sgst",
+      title: "SGST",
+      name: "sgst",
+      type: "number",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "Enter sgst number",
+
+      defaultValue: data.sgst,
+      handleChange: handleData,
+    },
+    {
+      id: "TotalTax",
+      title: "TotalTax",
+      name: "totalTax",
+      type: "number",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "Enter totaltax",
+
+      defaultValue: data.totalTax,
+      handleChange: handleData,
+    },
+    {
+      id: "povalue",
+      title: "Povalue",
+      name: "povalue",
+      type: "number",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "Enter povalue",
+      required: true,
+      defaultValue: data.povalue,
+      handleChange: handleData,
+    },
+    {
+      id: "towerHead",
+      title: "TowerHead",
+      name: "towerHead",
+      type: "text",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "enter towerhead name",
+      required: true,
+      defaultValue: data.towerHead,
+      handleChange: handleData,
+    },
+    {
+      id: "ponumber",
+      title: "ponumber",
+      name: "ponumber",
+      type: "text",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "enter ponumber",
+      required: true,
+      defaultValue: data.ponumber,
+      handleChange: handleData,
+    },
+    {
+      id: "handledBy",
+      title: "handledBy",
+      name: "handledBy",
+      type: "text",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "enter handledby name",
+      required: true,
+      defaultValue: data.handledBy,
+      handleChange: handleData,
+    },
+    // {
+    //   id: "tenure",
+    //   title: "Tenure",
+    //   name: "tenure",
+    //   type: "text",
+    //   // pattern: "[0-9]{10}",
+
+    //   placeholder: "",
+    //   required: true,
+    //   defaultValue: data.tenure,
+    //   handleChange: handleData,
+    // },
+    // {
+    //   id: "totalEarningAtclient",
+    //   title: "totalEarningAtclient",
+    //   name: "totalEarningAtclient",
+    //   type: "number",
+    //   // pattern: "[0-9]{10}",
+
+    //   placeholder: "",
+    //   required: true,
+    //   defaultValue: data.totalEarningAtclient,
+    //   handleChange: handleData,
+    // },
+    {
+      id: "podate",
+      title: "PoDate",
+      name: "podate",
+      type: "date",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "",
+      required: true,
+      defaultValue: data.podate,
+      handleChange: handleData,
+    },
     {
       id: "Posdate",
       title: "POS Date",
@@ -336,13 +473,15 @@ function AddClientDetails() {
         )}
         <Button variant="primary" type="submit">
           Submit
+        </Button>{" "}
+        <Button onClick={handleCancel} variant="danger">
+          Cancel
         </Button>
         {status && (
           <p className="text-success mb-2">
             Please wait while we are processing your request.
           </p>
         )}
-
         {<p className="text-danger mb-2">{msg}</p>}
       </Form>
     </div>

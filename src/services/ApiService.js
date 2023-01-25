@@ -39,6 +39,7 @@ export function auth() {
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+
       Authorization: `Bearer ${token}`,
     },
   };
@@ -695,4 +696,28 @@ export default new (class ApiService {
       auth()
     );
   }
+  HiringType() {
+    return axios.get(`${BASE_URL}/api/v1/fields/get-all-empTypes`, auth());
+  }
+  clientnames() {
+    return axios.get(`${BASE_URL}/api/v1/fields/get-all-clients`, auth());
+  }
+  AssignName() {
+    return axios.get(`${BASE_URL}/api/v1/drop-down/rec`, auth());
+  }
+  jobstringsubmit(data) {
+    let formData = new FormData();
+    formData.append("file", data);
+    return axios.post(
+      `${BASE_URL}/api/v1/rec/post-jobstring`,
+      formData,
+      auth()
+    );
+  }
+
+  // http://10.81.4.195:2022/api/v1/drop-down/rec
+
+  // http://10.81.4.195:2022/api/v1/fields/get-all-clients
+
+  // http://10.81.4.195:2022/api/v1/rec/post-jobstring
 })();

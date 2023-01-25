@@ -41,6 +41,7 @@ import DeleteEmployee from "./pages/deleteEmployee/DeleteEmployee";
 import TerminateEmployee from "./pages/terminateEmployee/TerminateEmployee";
 import Updatesalary from "./pages/updatesalary/Updatesalary";
 import PromoteDemote from "./pages/promoteDemote/PromoteDemote";
+import Recruiter from "./components/Recruiter/Recruiter";
 
 function App() {
   return (
@@ -114,6 +115,14 @@ function App() {
               element={
                 <PrivateRoutes>
                   <DeleteEmployee />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="Recruiter"
+              element={
+                <PrivateRoutes>
+                  <Recruiter />
                 </PrivateRoutes>
               }
             />

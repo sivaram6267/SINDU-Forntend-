@@ -25,9 +25,10 @@ function EmployeeProfile() {
       [name]: value,
     }));
   };
+  console.log(client);
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(data);
+    console.log(data);
   };
 
   // const handleEdit = () => {
@@ -141,7 +142,7 @@ function EmployeeProfile() {
                       name="joiningDate"
                       id="joiningDate"
                       required
-                      type="date"
+                      type="text"
                       placeholder=""
                       disabled={disabled ? "" : "disabled"}
                       defaultValue={data.detailsResponse?.joiningDate}
@@ -172,7 +173,7 @@ function EmployeeProfile() {
                       name="dob"
                       id="dateOfBirth"
                       required
-                      type="date"
+                      type="text"
                       disabled={disabled ? "" : "disabled"}
                       defaultValue={data.detailsResponse?.dob}
                       // moment(
@@ -432,7 +433,7 @@ function EmployeeProfile() {
                       required
                       disabled={disabled ? "" : "enabled"}
                       id="salary"
-                      type="number"
+                      type="text"
                       placeholder=""
                       name="salary"
                       title="enter salary"
@@ -900,7 +901,7 @@ function EmployeeProfile() {
                       <Form.Control
                         // required
                         id="clientSalary"
-                        type="number"
+                        type="text"
                         disabled={disabled ? "" : "disabled"}
                         placeholder=""
                         name="totalEarningAtclient"
@@ -916,7 +917,7 @@ function EmployeeProfile() {
                       <Form.Control
                         // required
                         id="totalEarningAtclient"
-                        type="number"
+                        type="text"
                         disabled={disabled ? "" : "disabled"}
                         placeholder=""
                         name="totalEarningAtclient"
@@ -932,7 +933,7 @@ function EmployeeProfile() {
                       <Form.Control
                         // required
                         id="poSdate"
-                        type="date"
+                        type="text"
                         disabled={disabled ? "" : "disabled"}
                         placeholder=""
                         name="poSdate"
@@ -989,27 +990,155 @@ function EmployeeProfile() {
                         onChange={handleChange}
                       />
                     </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="totalEarningAtclient">
+                        <b>Client Tenure</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="clientTenure"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="clientTenure"
+                        title="enter clientTenure"
+                        defaultValue={client.tenure}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="totalEarningAtclient">
+                        <b>IGST</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="igst"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="igst"
+                        title="enter igst number"
+                        defaultValue={client.igst}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="totalEarningAtclient">
+                        <b>SGST</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="sgst"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="sgst"
+                        title="enter sgst number"
+                        defaultValue={client.sgst}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="cgst">
+                        <b>CGST</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="cgst"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="cgst"
+                        title="enter cgst number"
+                        defaultValue={client.cgst}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="ponumber">
+                        <b>PONUMBER</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="ponumber"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="ponumber"
+                        title="enter ponumber"
+                        defaultValue={client.ponumber}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="handledBy">
+                        <b>HandledBy</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="handledBy"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="handledBy"
+                        title="enter handledBy"
+                        defaultValue={client.handledBy}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="totalTax">
+                        <b>TotalTax</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="totalTax"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="totalTax"
+                        title="enter totalTax"
+                        defaultValue={client.totalTax}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="towerHead">
+                        <b>TowerHead</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="towerHead"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="towerHead"
+                        title="enter towerHead"
+                        defaultValue={client.towerHead}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="podate">
+                        <b>Podate</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="podate"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="podate"
+                        title="enter podate"
+                        defaultValue={client.podate}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
                   </div>
                 ))}
-                {/* </> */}
-                {/* )}
-                  </div> */}
               </Col>
 
-              <Col
-              // className={
-              //   ["lead", "Consultant"].includes(
-              //     data.detailsResponse?.designation
-              //   )
-              //     ? "break"
-              //     : ""
-              // }
-              >
-                {/* {["lead", "Consultant"].includes(
-                  data.detailsResponse?.designation
-                ) && (
-
-                )} */}
+              <Col>
                 <div id="modelSection" className="container-sm ">
                   <h5 className="modelHeading">Bill</h5>
                   <hr></hr>
@@ -1123,6 +1252,20 @@ function EmployeeProfile() {
                       />
                     </Form.Group>
                   ))}
+                  {/* {data.allClientsEarning?.map((ip) => ( */}
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="profitOrLoss">
+                      <b>AllClientsEarning</b>
+                    </Form.Label>
+                    <Form.Control
+                      disabled
+                      id="allClientsEarning"
+                      type="text"
+                      name="allClientsEarning"
+                      defaultValue={data.allClientsEarning}
+                    />
+                  </Form.Group>
+                  {/* ))} */}
 
                   {/* {disabled ? (
                   <Button className="btn-signup" type="submit">
