@@ -3,7 +3,7 @@ import axios from "axios";
 
 // const BASE_URL = "http://18.209.60.4:8080/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // devops
 
- const BASE_URL = "http://10.81.4.195:2022"; //server port
+const BASE_URL = "http://10.81.4.195:2022"; //server port
 
 // const BASE_URL = "http://10.81.4.23:9090/LESM-Status-Monitor123";
 
@@ -314,6 +314,12 @@ export default new (class ApiService {
     let formData = new FormData();
     formData.append("file", data);
     return axios.put(`${BASE_URL}/ResumeUpdate?id=${id}`, formData, auth());
+  }
+  // http://10.81.4.195:2022/Resumedownload?lancesoft=lsi9824
+  DownloadResume(lsi_id){
+    return axios.get(`${BASE_URL}/Resumedownload?lancesoft=${lsi_id}`,{
+      responseType: 'blob',
+    },auth());
   }
 
   // HR DASHBOARD//
