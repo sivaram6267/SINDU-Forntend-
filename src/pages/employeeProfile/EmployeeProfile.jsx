@@ -16,9 +16,10 @@ function EmployeeProfile() {
   const [disabled, setDisabled] = useState(false);
   const [status, setStatus] = useState(false);
   const [msg, setMsg] = useState("");
-  const [file, setFile] = useState("");
+  const [fName, setFName] = useState("");
   const [resumeUrl, setResumeUrl]  = useState("");
   const location = useLocation();
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,51 +40,51 @@ function EmployeeProfile() {
     //props.onHide()
     //setData("")
   };
+ const extractFileName = (contentDispositionValue) => {
+    var filename = "";
+    if (contentDispositionValue && contentDispositionValue.indexOf('attachment') !== -1) {
+        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+        var matches = filenameRegex.exec(contentDispositionValue);
+        if (matches != null && matches[1]) {
+            filename = matches[1].replace(/['"]/g, '');
+        }
+    }
+    return filename;
+}
 
-const handleResume = () =>{
+
+const handleResume = async() =>{
   //const { name, id } = e.target;
   //e.preventDefault();
   const id = data.detailsResponse?.employeeId;
   console.log(id);
-  ApiService.DownloadResume(id)
+ await ApiService.DownloadResume(id)
   .then((res) => {
     console.log(res.data);
+    const filename=extractFileName(res.headers['content-disposition']);
+ if(filename !== null)
+ {
+    setFName(filename)
+    setMsg("")
+    console.log("File Name: ",filename);
     var fileDownload = require('js-file-download');
-    fileDownload(res.data, 'resume.pdf');
-    
-    //let b = new Blob([res.data]);
-    // var blob = new Blob([res.data], {type: "application/pdf;charset=utf-8"});
-    // const myFile = new File([blob], "resume.pdf", 
-    //   {type: "application/pdf;charset=utf-8"},
-    //  );
+    fileDownload(res.data, filename); 
+ }
+ else{
+  setMsg("resume not found")
+ }
+    })
 
-
-    // var file = new File(["Hello, world!"], "hello world.txt", {type: "text/plain;charset=utf-8"});
-// FileSaver.saveAs(myFile);
-
-
-
-
-    //FileSaver.saveAs( new Blob(b, { type: "application/pdf" }), "resume.pdf" );
-
-    // res.blob().then(blob => {
-      // const url = window.URL.createObjectURL(new Blob([res.data]));
-  //     setResumeUrl(url)
-  //     console.log(url);
-// const link = document.createElement('a');
-// link.href = url;
-// link.setAttribute('download', 'file.pdf');
-// document.body.appendChild(link);
-// link.click();
-        // // Creating new object of PDF file
-        // const fileURL = window.URL.createObjectURL(blob);
-        // // Setting various property values
-        // let alink = document.createElement('a');
-        // alink.href = fileURL;
-        // alink.download = 'SamplePDF.pdf';
-        // alink.click();
-   // })
-})
+.catch((error) => {
+  alert(JSON.stringify(error));
+ 
+  setMsg(
+    error.response.data.errorMessage
+      ? error.response.data.errorMessage
+      : error.message
+  );
+});
+   
 
 }
 
@@ -634,10 +635,12 @@ const handleResume = () =>{
                     
                     <b>Resume Download</b><br/>
 <button className="buttonDownload"  onClick={handleResume} >
-    <a className="button" href="" download = "resume.pdf">
+    <a className="button" href="" download={fName} >
       Download Resume
     </a>
 </button>
+
+
 
 
 
