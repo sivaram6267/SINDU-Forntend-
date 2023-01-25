@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import ApiService from "../../services/ApiService";
 import SubEmployee from "../../components/subEmployee/SubEmployee";
 import { useLocation } from "react-router-dom";
+import FileSaver from "file-saver";
 
 function EmployeeProfile() {
   // console.log(props.data);
@@ -15,7 +16,8 @@ function EmployeeProfile() {
   const [disabled, setDisabled] = useState(false);
   const [status, setStatus] = useState(false);
   const [msg, setMsg] = useState("");
-
+  const [file, setFile] = useState("");
+  const [resumeUrl, setResumeUrl]  = useState("");
   const location = useLocation();
 
   const handleChange = (e) => {
@@ -37,6 +39,55 @@ function EmployeeProfile() {
     //props.onHide()
     //setData("")
   };
+
+const handleResume = () =>{
+  //const { name, id } = e.target;
+  //e.preventDefault();
+  const id = data.detailsResponse?.employeeId;
+  console.log(id);
+  ApiService.DownloadResume(id)
+  .then((res) => {
+    console.log(res.data);
+    var fileDownload = require('js-file-download');
+    fileDownload(res.data, 'resume.pdf');
+    
+    //let b = new Blob([res.data]);
+    // var blob = new Blob([res.data], {type: "application/pdf;charset=utf-8"});
+    // const myFile = new File([blob], "resume.pdf", 
+    //   {type: "application/pdf;charset=utf-8"},
+    //  );
+
+
+    // var file = new File(["Hello, world!"], "hello world.txt", {type: "text/plain;charset=utf-8"});
+// FileSaver.saveAs(myFile);
+
+
+
+
+    //FileSaver.saveAs( new Blob(b, { type: "application/pdf" }), "resume.pdf" );
+
+    // res.blob().then(blob => {
+      // const url = window.URL.createObjectURL(new Blob([res.data]));
+  //     setResumeUrl(url)
+  //     console.log(url);
+// const link = document.createElement('a');
+// link.href = url;
+// link.setAttribute('download', 'file.pdf');
+// document.body.appendChild(link);
+// link.click();
+        // // Creating new object of PDF file
+        // const fileURL = window.URL.createObjectURL(blob);
+        // // Setting various property values
+        // let alink = document.createElement('a');
+        // alink.href = fileURL;
+        // alink.download = 'SamplePDF.pdf';
+        // alink.click();
+   // })
+})
+
+}
+
+
 
   useEffect(() => {
     console.log(location.state.empId);
@@ -424,6 +475,7 @@ function EmployeeProfile() {
                       onChange={handleChange}
                     />
                   </Form.Group>
+                  
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="salary">
                       <b>Salary</b>
@@ -527,6 +579,10 @@ function EmployeeProfile() {
                       />
                     </Form.Group>
                   ))}
+                  
+    
+    
+    
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="lastStatus">
                       <b>Last Status</b>
@@ -574,7 +630,42 @@ function EmployeeProfile() {
                       defaultValue={data.exitType}
                       // onChange={handleChange}
                     />
+                    <br/>
+                    
+                    <b>Resume Download</b><br/>
+<button className="buttonDownload"  onClick={handleResume} >
+    <a className="button" href="" download = "resume.pdf">
+      Download Resume
+    </a>
+</button>
+
+
+
+
+{/* <a href=""class="buttonDownload"   id="resumeDownload" onClick={handleResume(data.detailsResponse?.employeeId)}>Download</a>  */}
+
+
                   </Form.Group>
+                  {/* <Form.Group className="mb-3">
+                    <Form.Label htmlFor="resumeDownload">
+                      <b>Resume Download</b>
+                    </Form.Label>
+                    <Form.Control
+                      required
+                      disabled={disabled ? "" : "enabled"}
+                      id="resumeDownload"
+                      // type="text"
+                      // placeholder="Enter releasedDate"
+                      name="releasedDate"
+                      title="enter releasedDate"
+                      defaultValue={data.resumeDownload}
+                       onChange={handleResume}
+                    />
+                  </Form.Group> */}
+
+
+
+                
                   {/* <Form.Group className="mb-3">
                       <Form.Label htmlFor="employeeId">
                         Reporting Person
@@ -989,6 +1080,8 @@ function EmployeeProfile() {
                         onChange={handleChange}
                       />
                     </Form.Group>
+
+                    
                   </div>
                 ))}
                 {/* </> */}
@@ -1123,6 +1216,7 @@ function EmployeeProfile() {
                       />
                     </Form.Group>
                   ))}
+                  
 
                   {/* {disabled ? (
                   <Button className="btn-signup" type="submit">
