@@ -1,37 +1,37 @@
-import React, { Fragment } from "react";
-import { useState } from "react";
-import { Button, Modal, Col, Row, Form, FormGroup } from "react-bootstrap";
+import React, { Fragment } from "react"
+import { useState } from "react"
+import { Button, Modal, Col, Row, Form, FormGroup } from "react-bootstrap"
 // import moment from "moment";
-import "./EmployeeProfile.css";
-import { useEffect } from "react";
-import ApiService from "../../services/ApiService";
-import SubEmployee from "../../components/subEmployee/SubEmployee";
-import { useLocation } from "react-router-dom";
-import FileSaver from "file-saver";
+import "./EmployeeProfile.css"
+import { useEffect } from "react"
+import ApiService from "../../services/ApiService"
+import SubEmployee from "../../components/subEmployee/SubEmployee"
+import { useLocation } from "react-router-dom"
+import FileSaver from "file-saver"
 
 function EmployeeProfile() {
   // console.log(props.data);
-  const [data, setData] = useState({});
-  const [client, setClient] = useState({});
-  const [disabled, setDisabled] = useState(false);
-  const [status, setStatus] = useState(false);
-  const [msg, setMsg] = useState("");
-  const [fName, setFName] = useState("");
-  const [resumeUrl, setResumeUrl]  = useState("");
-  const location = useLocation();
-
+  const [data, setData] = useState({})
+  const [client, setClient] = useState({})
+  const [disabled, setDisabled] = useState(false)
+  const [status, setStatus] = useState(false)
+  const [msg, setMsg] = useState("")
+  const [fName, setFName] = useState("")
+  const [resumeUrl, setResumeUrl] = useState("")
+  const location = useLocation()
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setData((prevState) => ({
       ...prevState,
       [name]: value,
-    }));
-  };
+    }))
+  }
+  console.log(client)
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // console.log(data);
-  };
+    e.preventDefault()
+    console.log(data)
+  }
 
   // const handleEdit = () => {
   //   setDisabled(true);
@@ -39,19 +39,38 @@ function EmployeeProfile() {
   const handleClose = () => {
     //props.onHide()
     //setData("")
-  };
- const extractFileName = (contentDispositionValue) => {
-    var filename = "";
-    if (contentDispositionValue && contentDispositionValue.indexOf('attachment') !== -1) {
-        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-        var matches = filenameRegex.exec(contentDispositionValue);
-        if (matches != null && matches[1]) {
-            filename = matches[1].replace(/['"]/g, '');
-        }
+  }
+  const extractFileName = (contentDispositionValue) => {
+    var filename = ""
+    if (contentDispositionValue && contentDispositionValue.indexOf("attachment") !== -1) {
+      var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/
+      var matches = filenameRegex.exec(contentDispositionValue)
+      if (matches != null && matches[1]) {
+        filename = matches[1].replace(/['"]/g, "")
+      }
     }
-    return filename;
-}
+    return filename
+  }
 
+  const handleResume = async () => {
+    //const { name, id } = e.target;
+    //e.preventDefault();
+    const id = data.detailsResponse?.employeeId
+    console.log(id)
+    await ApiService.DownloadResume(id)
+      .then((res) => {
+        console.log(res.data)
+        const filename = extractFileName(res.headers["content-disposition"])
+        if (filename !== null) {
+          setFName(filename)
+          setMsg("")
+          console.log("File Name: ", filename)
+          var fileDownload = require("js-file-download")
+          fileDownload(res.data, filename)
+        } else {
+          setMsg("resume not found")
+        }
+      })
 
 const handleResume = async() =>{
   //const { name, id } = e.target;
@@ -90,44 +109,44 @@ const handleResume = async() =>{
    
 
 }
-
-
+    
+  }
 
   useEffect(() => {
-    console.log(location.state.empId);
+    console.log(location.state.empId)
 
     if (location.state.empId) {
-      setStatus(true);
+      setStatus(true)
       //console.log(props)
-      console.log(data);
+      console.log(data)
       ApiService.getEmployeeById(location.state.empId)
         .then((res) => {
-          console.log(res.data);
-          setData(res.data);
-          setStatus(false);
-          setMsg("");
+          console.log(res.data)
+          setData(res.data)
+          setStatus(false)
+          setMsg("")
         })
         .catch((err) => {
-          console.log(err);
-          setData("");
-          setStatus(false);
-          setMsg(err.message);
-        });
+          console.log(err)
+          setData("")
+          setStatus(false)
+          setMsg(err.message)
+        })
 
       ApiService.getAllClientsByEmpId(location.state.empId)
         .then((res) => {
-          console.log(data);
-          console.log(res.data.addres);
-          setClient(res.data);
-          setStatus(false);
+          console.log(data)
+          console.log(res.data.addres)
+          setClient(res.data)
+          setStatus(false)
         })
         .catch((err) => {
-          console.log(err);
-          setClient({});
-          setStatus(false);
-        });
+          console.log(err)
+          setClient({})
+          setStatus(false)
+        })
     }
-  }, [location.state.empId]);
+  }, [location.state.empId])
 
   return (
     <>
@@ -147,61 +166,25 @@ const handleResume = async() =>{
                     <Form.Label htmlFor="employeeId">
                       <b>Employee ID</b>
                     </Form.Label>
-                    <Form.Control
-                      name="employeeId"
-                      id="employeeId"
-                      required
-                      disabled={disabled ? "" : "disabled"}
-                      type="text"
-                      placeholder=""
-                      defaultValue={data.detailsResponse?.employeeId}
-                      onChange={handleChange}
-                    />
+                    <Form.Control name="employeeId" id="employeeId" required disabled={disabled ? "" : "disabled"} type="text" placeholder="" defaultValue={data.detailsResponse?.employeeId} onChange={handleChange} />
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="firstName">
                       <b>First Name</b>
                     </Form.Label>
-                    <Form.Control
-                      name="firstName"
-                      id="firstName"
-                      required
-                      type="text"
-                      placeholder=""
-                      disabled={disabled ? "" : "disabled"}
-                      defaultValue={data.detailsResponse?.firstName}
-                      onChange={handleChange}
-                    />
+                    <Form.Control name="firstName" id="firstName" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.firstName} onChange={handleChange} />
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="lastName">
                       <b>Last Name</b>
                     </Form.Label>
-                    <Form.Control
-                      name="lastName"
-                      id="lastName"
-                      required
-                      type="text"
-                      placeholder=""
-                      disabled={disabled ? "" : "disabled"}
-                      defaultValue={data.detailsResponse?.lastName}
-                      onChange={handleChange}
-                    />
+                    <Form.Control name="lastName" id="lastName" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.lastName} onChange={handleChange} />
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="joiningDate">
                       <b>Joining Date</b>
                     </Form.Label>
-                    <Form.Control
-                      name="joiningDate"
-                      id="joiningDate"
-                      required
-                      type="date"
-                      placeholder=""
-                      disabled={disabled ? "" : "disabled"}
-                      defaultValue={data.detailsResponse?.joiningDate}
-                      onChange={handleChange}
-                    />
+                    <Form.Control name="joiningDate" id="joiningDate" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.joiningDate} onChange={handleChange} />
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="email">
@@ -227,7 +210,7 @@ const handleResume = async() =>{
                       name="dob"
                       id="dateOfBirth"
                       required
-                      type="date"
+                      type="text"
                       disabled={disabled ? "" : "disabled"}
                       defaultValue={data.detailsResponse?.dob}
                       // moment(
@@ -240,46 +223,19 @@ const handleResume = async() =>{
                     <Form.Label htmlFor="gender">
                       <b>Gender</b>
                     </Form.Label>
-                    <Form.Control
-                      name="gender"
-                      id="gender"
-                      required
-                      type="text"
-                      placeholder=""
-                      disabled={disabled ? "" : "disabled"}
-                      defaultValue={data.detailsResponse?.gender}
-                      onChange={handleChange}
-                    />
+                    <Form.Control name="gender" id="gender" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.gender} onChange={handleChange} />
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="employeeType">
                       <b>Employee Type</b>
                     </Form.Label>
-                    <Form.Control
-                      name="employeeType"
-                      id="employeeType"
-                      required
-                      type="text"
-                      placeholder=""
-                      disabled={disabled ? "" : "disabled"}
-                      defaultValue={data.detailsResponse?.employeeType}
-                      onChange={handleChange}
-                    />
+                    <Form.Control name="employeeType" id="employeeType" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.employeeType} onChange={handleChange} />
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="location">
                       <b>Location</b>
                     </Form.Label>
-                    <Form.Control
-                      name="location"
-                      id="location"
-                      required
-                      type="text"
-                      placeholder=""
-                      disabled={disabled ? "" : "disabled"}
-                      defaultValue={data.detailsResponse?.location}
-                      onChange={handleChange}
-                    />
+                    <Form.Control name="location" id="location" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.location} onChange={handleChange} />
                   </Form.Group>
 
                   {/* <Form.Group className="mb-3 checkbox">
@@ -373,31 +329,13 @@ const handleResume = async() =>{
                     <Form.Label htmlFor="subDepartName">
                       <b>Sub Department Name</b>
                     </Form.Label>
-                    <Form.Control
-                      name="subDepartName"
-                      id="subDepartName"
-                      required
-                      type="text"
-                      placeholder=""
-                      disabled={disabled ? "" : "disabled"}
-                      defaultValue={data.detailsResponse?.subDepartName}
-                      onChange={handleChange}
-                    />
+                    <Form.Control name="subDepartName" id="subDepartName" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.subDepartName} onChange={handleChange} />
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="designation">
                       <b>Designation</b>
                     </Form.Label>
-                    <Form.Control
-                      name="designation"
-                      id="designation"
-                      required
-                      type="text"
-                      placeholder=""
-                      disabled={disabled ? "" : "disabled"}
-                      defaultValue={data.detailsResponse?.designation}
-                      onChange={handleChange}
-                    />
+                    <Form.Control name="designation" id="designation" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.designation} onChange={handleChange} />
                   </Form.Group>
                   {/* <Form.Group className="mb-3">
                       <Form.Label htmlFor="status">Status</Form.Label>
@@ -417,16 +355,7 @@ const handleResume = async() =>{
                     <Form.Label htmlFor="location">
                       <b>Department</b>
                     </Form.Label>
-                    <Form.Control
-                      name="depart"
-                      id="depart"
-                      required
-                      type="text"
-                      placeholder=""
-                      disabled={disabled ? "" : "disabled"}
-                      defaultValue={data.detailsResponse?.department}
-                      onChange={handleChange}
-                    />
+                    <Form.Control name="depart" id="depart" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={data.detailsResponse?.department} onChange={handleChange} />
                   </Form.Group>
                   {/* <Form.Group className="mb-3">
                       <Form.Label htmlFor="vertical">vertical</Form.Label>
@@ -450,14 +379,7 @@ const handleResume = async() =>{
                       <Form.Label htmlFor="benchTenure">
                         <b>Bench Tenure</b>
                       </Form.Label>
-                      <Form.Control
-                        disabled
-                        id="benchTenure"
-                        type="number"
-                        name="benchTenure"
-                        defaultValue={ip.benchTenure}
-                        onChange={handleChange}
-                      />
+                      <Form.Control disabled id="benchTenure" type="number" name="benchTenure" defaultValue={ip.benchTenure} onChange={handleChange} />
                     </Form.Group>
                   ))}
                   <Form.Group className="mb-3">
@@ -479,38 +401,18 @@ const handleResume = async() =>{
                       onChange={handleChange}
                     />
                   </Form.Group>
-                  
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="salary">
                       <b>Salary</b>
                     </Form.Label>
-                    <Form.Control
-                      required
-                      disabled={disabled ? "" : "enabled"}
-                      id="salary"
-                      type="number"
-                      placeholder=""
-                      name="salary"
-                      title="enter salary"
-                      defaultValue={data.salary}
-                      onChange={handleChange}
-                    />
+                    <Form.Control required disabled={disabled ? "" : "enabled"} id="salary" type="text" placeholder="" name="salary" title="enter salary" defaultValue={data.salary} onChange={handleChange} />
                   </Form.Group>
                   {data.addres?.map((it) => (
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="firstName">
                         <b>Country</b>
                       </Form.Label>
-                      <Form.Control
-                        name="country"
-                        id="country"
-                        required
-                        type="text"
-                        placeholder=""
-                        disabled={disabled ? "" : "disabled"}
-                        defaultValue={it.country}
-                        onChange={handleChange}
-                      />
+                      <Form.Control name="country" id="country" required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={it.country} onChange={handleChange} />
                     </Form.Group>
                   ))}
                   {data.addres?.map((it) => (
@@ -518,16 +420,7 @@ const handleResume = async() =>{
                       <Form.Label htmlFor="state">
                         <b>State</b>
                       </Form.Label>
-                      <Form.Control
-                        name="state"
-                        id="state "
-                        required
-                        type="text"
-                        placeholder=""
-                        disabled={disabled ? "" : "disabled"}
-                        onChange={handleChange}
-                        defaultValue={it.state}
-                      />
+                      <Form.Control name="state" id="state " required type="text" placeholder="" disabled={disabled ? "" : "disabled"} onChange={handleChange} defaultValue={it.state} />
                     </Form.Group>
                   ))}{" "}
                   {data.addres?.map((it) => (
@@ -553,17 +446,7 @@ const handleResume = async() =>{
                       <Form.Label htmlFor="street">
                         <b>Street</b>
                       </Form.Label>
-                      <Form.Control
-                        name="street"
-                        id="street"
-                        enable
-                        required
-                        type="text"
-                        placeholder=""
-                        disabled={disabled ? "" : "disabled"}
-                        defaultValue={it.street}
-                        onChange={handleChange}
-                      />
+                      <Form.Control name="street" id="street" enable required type="text" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={it.street} onChange={handleChange} />
                     </Form.Group>
                   ))}
                   {data.addres?.map((it) => (
@@ -571,22 +454,9 @@ const handleResume = async() =>{
                       <Form.Label htmlFor="zipCode">
                         <b>Pincode</b>
                       </Form.Label>
-                      <Form.Control
-                        name="zipCod"
-                        id="zipCod"
-                        required
-                        type="number"
-                        placeholder=""
-                        disabled={disabled ? "" : "disabled"}
-                        defaultValue={it.zipCod}
-                        onChange={handleChange}
-                      />
+                      <Form.Control name="zipCod" id="zipCod" required type="number" placeholder="" disabled={disabled ? "" : "disabled"} defaultValue={it.zipCod} onChange={handleChange} />
                     </Form.Group>
                   ))}
-                  
-    
-    
-    
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="lastStatus">
                       <b>Last Status</b>
@@ -634,24 +504,17 @@ const handleResume = async() =>{
                       defaultValue={data.exitType}
                       // onChange={handleChange}
                     />
-                    <br/>
-                    
-                    <b>Resume Download</b><br/>
-<button className="buttonDownload"  onClick={handleResume} >
-    <a className="button" href="" download={fName} >
-      Download Resume
-    </a>
-</button>
+                    <br />
 
+                    <b>Resume Download</b>
+                    <br />
+                    <button className="buttonDownload" onClick={handleResume}>
+                      <a className="button" href="" download={fName}>
+                        Download Resume
+                      </a>
+                    </button>
 
-
-
-
-
-
-{/* <a href=""class="buttonDownload"   id="resumeDownload" onClick={handleResume(data.detailsResponse?.employeeId)}>Download</a>  */}
-
-
+                    {/* <a href=""class="buttonDownload"   id="resumeDownload" onClick={handleResume(data.detailsResponse?.employeeId)}>Download</a>  */}
                   </Form.Group>
                   {/* <Form.Group className="mb-3">
                     <Form.Label htmlFor="resumeDownload">
@@ -669,10 +532,6 @@ const handleResume = async() =>{
                        onChange={handleResume}
                     />
                   </Form.Group> */}
-
-
-
-                
                   {/* <Form.Group className="mb-3">
                       <Form.Label htmlFor="employeeId">
                         Reporting Person
@@ -998,7 +857,7 @@ const handleResume = async() =>{
                       <Form.Control
                         // required
                         id="clientSalary"
-                        type="number"
+                        type="text"
                         disabled={disabled ? "" : "disabled"}
                         placeholder=""
                         name="totalEarningAtclient"
@@ -1014,7 +873,7 @@ const handleResume = async() =>{
                       <Form.Control
                         // required
                         id="totalEarningAtclient"
-                        type="number"
+                        type="text"
                         disabled={disabled ? "" : "disabled"}
                         placeholder=""
                         name="totalEarningAtclient"
@@ -1030,7 +889,7 @@ const handleResume = async() =>{
                       <Form.Control
                         // required
                         id="poSdate"
-                        type="date"
+                        type="text"
                         disabled={disabled ? "" : "disabled"}
                         placeholder=""
                         name="poSdate"
@@ -1087,29 +946,155 @@ const handleResume = async() =>{
                         onChange={handleChange}
                       />
                     </Form.Group>
-
-                    
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="totalEarningAtclient">
+                        <b>Client Tenure</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="clientTenure"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="clientTenure"
+                        title="enter clientTenure"
+                        defaultValue={client.tenure}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="totalEarningAtclient">
+                        <b>IGST</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="igst"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="igst"
+                        title="enter igst number"
+                        defaultValue={client.igst}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="totalEarningAtclient">
+                        <b>SGST</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="sgst"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="sgst"
+                        title="enter sgst number"
+                        defaultValue={client.sgst}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="cgst">
+                        <b>CGST</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="cgst"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="cgst"
+                        title="enter cgst number"
+                        defaultValue={client.cgst}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="ponumber">
+                        <b>PONUMBER</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="ponumber"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="ponumber"
+                        title="enter ponumber"
+                        defaultValue={client.ponumber}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="handledBy">
+                        <b>HandledBy</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="handledBy"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="handledBy"
+                        title="enter handledBy"
+                        defaultValue={client.handledBy}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="totalTax">
+                        <b>TotalTax</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="totalTax"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="totalTax"
+                        title="enter totalTax"
+                        defaultValue={client.totalTax}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="towerHead">
+                        <b>TowerHead</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="towerHead"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="towerHead"
+                        title="enter towerHead"
+                        defaultValue={client.towerHead}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="podate">
+                        <b>Podate</b>
+                      </Form.Label>
+                      <Form.Control
+                        // required
+                        id="podate"
+                        type="text"
+                        disabled={disabled ? "" : "disabled"}
+                        placeholder=""
+                        name="podate"
+                        title="enter podate"
+                        defaultValue={client.podate}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
                   </div>
                 ))}
-                {/* </> */}
-                {/* )}
-                  </div> */}
               </Col>
 
-              <Col
-              // className={
-              //   ["lead", "Consultant"].includes(
-              //     data.detailsResponse?.designation
-              //   )
-              //     ? "break"
-              //     : ""
-              // }
-              >
-                {/* {["lead", "Consultant"].includes(
-                  data.detailsResponse?.designation
-                ) && (
-
-                )} */}
+              <Col>
                 <div id="modelSection" className="container-sm ">
                   <h5 className="modelHeading">Bill</h5>
                   <hr></hr>
@@ -1134,16 +1119,7 @@ const handleResume = async() =>{
                       <Form.Label htmlFor="paidTillNow">
                         <b>Total Salary Paid Till Now</b>
                       </Form.Label>
-                      <Form.Control
-                        name="paidTillNow"
-                        id="paidTillNow"
-                        required
-                        type="text"
-                        placeholder=""
-                        disabled
-                        defaultValue={ip.totalSalPaidTillNow}
-                        onChange={handleChange}
-                      />
+                      <Form.Control name="paidTillNow" id="paidTillNow" required type="text" placeholder="" disabled defaultValue={ip.totalSalPaidTillNow} onChange={handleChange} />
                     </Form.Group>
                   ))}
                   {data.internalExpenses?.map((ip) => (
@@ -1151,15 +1127,7 @@ const handleResume = async() =>{
                       <Form.Label htmlFor="totalExpenses">
                         <b>Total Expences</b>
                       </Form.Label>
-                      <Form.Control
-                        disabled
-                        id="totalExpenses"
-                        type="text"
-                        name="totalExpenses"
-                        placeholder=""
-                        defaultValue={ip.totalExpenses}
-                        onChange={handleChange}
-                      />
+                      <Form.Control disabled id="totalExpenses" type="text" name="totalExpenses" placeholder="" defaultValue={ip.totalExpenses} onChange={handleChange} />
                     </Form.Group>
                   ))}
 
@@ -1214,16 +1182,17 @@ const handleResume = async() =>{
                       <Form.Label htmlFor="profitOrLoss">
                         <b>Profit/Loss</b>
                       </Form.Label>
-                      <Form.Control
-                        disabled
-                        id="profitOrLoss"
-                        type="text"
-                        name="profitOrLoss"
-                        defaultValue={ip.profitOrLoss}
-                      />
+                      <Form.Control disabled id="profitOrLoss" type="text" name="profitOrLoss" defaultValue={ip.profitOrLoss} />
                     </Form.Group>
                   ))}
-                  
+                  {/* {data.allClientsEarning?.map((ip) => ( */}
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="profitOrLoss">
+                      <b>AllClientsEarning</b>
+                    </Form.Label>
+                    <Form.Control disabled id="allClientsEarning" type="text" name="allClientsEarning" defaultValue={data.allClientsEarning} />
+                  </Form.Group>
+                  {/* ))} */}
 
                   {/* {disabled ? (
                   <Button className="btn-signup" type="submit">
@@ -1256,6 +1225,6 @@ const handleResume = async() =>{
         )}
       </div>
     </>
-  );
+  )
 }
-export default EmployeeProfile;
+export default EmployeeProfile

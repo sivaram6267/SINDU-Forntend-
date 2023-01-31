@@ -53,7 +53,7 @@ function EditClientDetails() {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
     console.log(name + " " + value);
-  }
+  };
   const handleClients = (e) => {
     const { name, value } = e.target;
     //setData({ ...data, [name]: value });
@@ -147,7 +147,6 @@ function EditClientDetails() {
             : error.message
         );
       });
-
   };
   const handleData = (e) => {
     const { name, value } = e.target;
@@ -169,7 +168,7 @@ function EditClientDetails() {
     setEmpId(value);
     console.log(value);
 
-    ApiService. getClientDetail(value)
+    ApiService.getClientDetail(value)
       .then((res) => {
         //let id = res.data;
         setStatus(false);
@@ -178,8 +177,6 @@ function EditClientDetails() {
         setData(res.data);
         //setClientnames(res.data);
         //console.log(clientnames);
-
-        
 
         // console.log(res.data.clientId);
         // console.log(client2);
@@ -228,7 +225,6 @@ function EditClientDetails() {
     const { name, value } = e.target;
     console.log(name + " " + value);
     setData({ ...data, [name]: value });
-
   };
   useEffect(() => {
     ApiService.getSelectEmp()
@@ -385,11 +381,11 @@ function EditClientDetails() {
     {
       id: "clientEmail",
       title: "client Manager email",
-      name: "clientManagerEmail",
-      type: "",
+      name: "clientEmail",
+      type: "email",
       placeholder: "Enter client email",
       required: true,
-      defaultValue:  data.clientManagerEmail,
+      defaultValue: data.clientManagerEmail,
       handleChange: handleclientManagerEmail,
     },
     {
@@ -399,8 +395,8 @@ function EditClientDetails() {
       type: "text",
       placeholder: "Enter client Manager Name",
       required: true,
-      defaultValue:data.clientManagerName,
-       handleChange: handleDataChange,
+      defaultValue: data.clientManagerName,
+      handleChange: handleDataChange,
     },
     {
       id: "clientsId",
@@ -417,7 +413,7 @@ function EditClientDetails() {
             aria-label="Client Name"
             className="selectInput"
             name="clientsId"
-             //onChange={handleDataChange}
+            //onChange={handleDataChange}
           >
             <option value="">{status ? "loading" : "select "}</option>
             {clients?.map((type, index) => (
@@ -450,7 +446,7 @@ function EditClientDetails() {
       placeholder: "Enter client billing",
       required: true,
       defaultValue: data.clientSalary,
-       handleChange: handleDataChange,
+      handleChange: handleDataChange,
     },
     {
       id: "desgAtClient",
@@ -459,8 +455,116 @@ function EditClientDetails() {
       type: "text",
       placeholder: "Enter designation at client",
       required: true,
-      defaultValue:data.desgAtClient,
-       handleChange: handleDataChange,
+      defaultValue: data.desgAtClient,
+      handleChange: handleDataChange,
+    },
+    {
+      id: "cgst",
+      title: "CGST",
+      name: "cgst",
+      type: "number",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "Enter cgst number",
+
+      defaultValue: data.cgst,
+      handleChange: handleDataChange,
+    },
+    {
+      id: "igst",
+      title: "IGST",
+      name: "igst",
+      type: "number",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "Enter igst number",
+
+      defaultValue: data.igst,
+      handleChange: handleDataChange,
+    },
+    {
+      id: "sgst",
+      title: "SGST",
+      name: "sgst",
+      type: "number",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "Enter sgst number",
+
+      defaultValue: data.sgst,
+      handleChange: handleDataChange,
+    },
+    {
+      id: "TotalTax",
+      title: "TotalTax",
+      name: "totalTax",
+      type: "number",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "Enter totaltax",
+
+      defaultValue: data.totalTax,
+      handleChange: handleDataChange,
+    },
+    {
+      id: "povalue",
+      title: "Povalue",
+      name: "povalue",
+      type: "number",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "Enter povalue",
+      required: true,
+      defaultValue: data.povalue,
+      handleChange: handleDataChange,
+    },
+    {
+      id: "towerHead",
+      title: "TowerHead",
+      name: "towerHead",
+      type: "text",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "enter towerhead name",
+      required: true,
+      defaultValue: data.towerHead,
+      handleChange: handleDataChange,
+    },
+    {
+      id: "ponumber",
+      title: "ponumber",
+      name: "ponumber",
+      type: "text",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "enter ponumber",
+      required: true,
+      defaultValue: data.ponumber,
+      handleChange: handleDataChange,
+    },
+    {
+      id: "handledBy",
+      title: "handledBy",
+      name: "handledBy",
+      type: "text",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "enter handledby name",
+      required: true,
+      defaultValue: data.handledBy,
+      handleChange: handleDataChange,
+    },
+    {
+      id: "podate",
+      title: "PoDate",
+      name: "podate",
+      type: "date",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "",
+      required: true,
+      defaultValue: data.podate,
+      handleChange: handleDataChange,
     },
     {
       id: "Posdate",
@@ -470,7 +574,7 @@ function EditClientDetails() {
       placeholder: "Enter POS Date",
       required: true,
       defaultValue: data.poSDate,
-       handleChange: handleDataChange,
+      handleChange: handleDataChange,
     },
     {
       id: "Poedate",
@@ -479,8 +583,8 @@ function EditClientDetails() {
       type: "date",
       placeholder: "Enter POE Date",
       required: false,
-      defaultValue:data.poEDate ,
-       handleChange: handleDataChange,
+      defaultValue: data.poEDate,
+      handleChange: handleDataChange,
     },
   ];
   return (
@@ -517,18 +621,17 @@ function EditClientDetails() {
             ))}
           </div>
         )}
-         <Button variant="primary" type="submit">
-                                Submit
-                            </Button>{" "}
-                            <Button onClick={handleCancel} variant="danger">
-                         Cancel
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>{" "}
+        <Button onClick={handleCancel} variant="danger">
+          Cancel
         </Button>
         {status && (
           <p className="text-success mb-2">
             Please wait while we are processing your request.
           </p>
         )}
-
         {<p className="text-danger mb-2">{msg}</p>}
       </Form>
     </div>

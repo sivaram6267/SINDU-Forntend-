@@ -1,41 +1,36 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 // import { useEffect } from "react";
-import { Button, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Button, Form } from "react-bootstrap"
+import { useNavigate } from "react-router-dom"
 
-import ApiService from "../../services/ApiService";
-import { useEffect } from "react";
+import ApiService from "../../services/ApiService"
+import { useEffect } from "react"
 function ExitEmployee() {
-  const [data, setData] = useState({});
-  const [status, setStatus] = useState(false);
-  const [msg, setMsg] = useState("");
-  const [empTypes, setEmpTypes] = useState(null);
-  const [desgs, setDesgs] = useState(null);
-  const [Releaseemp, setReleaseemp] = useState(null);
-
-  let type = sessionStorage.getItem("type");
+  const [data, setData] = useState({})
+  const [status, setStatus] = useState(false)
+  const [msg, setMsg] = useState("")
+  const [empTypes, setEmpTypes] = useState(null)
+  const [desgs, setDesgs] = useState(null)
+  const [Releaseemp, setReleaseemp] = useState(null)
+  let type = sessionStorage.getItem("type")
   const handleChange = (e) => {
-    let type = sessionStorage.getItem("type");
-    const { name, value } = e.target;
-    console.log(name, value);
-    setData({ ...data, [name]: value });
+    let type = sessionStorage.getItem("type")
+    const { name, value } = e.target
+    console.log(name, value)
+    setData({ ...data, [name]: value })
 
     if (type === "hr" && name === "Designationid") {
       ApiService.ReleaseEmps(value)
         .then((res) => {
-          console.log(res.data);
-          setReleaseemp(res.data);
-          setMsg("");
+          console.log(res.data)
+          setReleaseemp(res.data)
+          setMsg("")
         })
         .catch((error) => {
           // console.log(error);
-          alert(JSON.stringify(error));
-          setMsg(
-            error.response.data.errorMessage
-              ? error.response.data.errorMessage
-              : error.message
-          );
-        });
+          alert(JSON.stringify(error))
+          setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
+        })
     }
 
     // if (type === "hr") {
@@ -55,60 +50,52 @@ function ExitEmployee() {
     //       );
     //     });
     // }
-  };
+  }
   const handleSelectEmployee = (e) => {
-    const { name, value } = e.target;
-    console.log(name, value);
-    setData({ ...data, [name]: value });
-  };
+    const { name, value } = e.target
+    console.log(name, value)
+    setData({ ...data, [name]: value })
+  }
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setStatus(true);
-    console.log(data);
+    e.preventDefault()
+    setStatus(true)
+    console.log(data)
     // setErrors(false);
     ApiService.ReleaseEmpCmp(data.releaseDate, data.lancesoft)
       .then((res) => {
-        e.preventDefault();
-        e.target.reset();
-        console.log(res.data);
-        alert("released successfully");
-        navigate("/hr/ExitEmployee");
-        setStatus(false);
+        e.preventDefault()
+        e.target.reset()
+        console.log(res.data)
+        alert("released successfully")
+        navigate("/hr/ExitEmployee")
+        setStatus(false)
         // setErrors(false);
-        setMsg("");
+        setMsg("")
       })
       .catch((error) => {
         // console.log(error);
-        alert(JSON.stringify(error));
-        setStatus(false);
+        alert(JSON.stringify(error))
+        setStatus(false)
         // setErrors(true);
-        setMsg(
-          error.response.data.errorMessage
-            ? error.response.data.errorMessage
-            : error.message
-        );
-      });
-  };
+        setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
+      })
+  }
 
   useEffect(() => {
     ApiService.getDesignationses()
       .then((res) => {
-        console.log(res.data);
-        setDesgs(res.data);
-        setMsg("");
+        console.log(res.data)
+        setDesgs(res.data)
+        setMsg("")
       })
       .catch((error) => {
         // console.log(error);
-        alert(JSON.stringify(error));
-        setMsg(
-          error.response.data.errorMessage
-            ? error.response.data.errorMessage
-            : error.message
-        );
-      });
-  }, []);
+        alert(JSON.stringify(error))
+        setMsg(error.response.data.errorMessage ? error.response.data.errorMessage : error.message)
+      })
+  }, [])
   // useEffect(() => {
   //   ApiService.ReleaseEmp()
   //     .then((res) => {
@@ -127,10 +114,9 @@ function ExitEmployee() {
   //     });
   // }, []);
   const handleCancel = (e) => {
-    e.preventDefault();
-    navigate(`/${type}`);
-  };
-
+    e.preventDefault()
+    navigate(`/${type}`)
+  }
 
   return (
     <div id="add-employee" className="container-sm ">
@@ -143,14 +129,7 @@ function ExitEmployee() {
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
-          <Form.Select
-            id="chooseDesignation"
-            aria-label="employee Type"
-            className="selectInput"
-            name="Designationid"
-            required
-            onChange={handleChange}
-          >
+          <Form.Select id="chooseDesignation" aria-label="employee Type" className="selectInput" name="Designationid" required onChange={handleChange}>
             <option value="">{status ? "loading" : "select "}</option>
             {/* <option value="1">N/A</option> */}
             {desgs?.map((type) => (
@@ -166,14 +145,7 @@ function ExitEmployee() {
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
-          <Form.Select
-            id="AssignEmp"
-            aria-label="employee Type"
-            className="selectInput"
-            name="lancesoft"
-            required
-            onChange={handleSelectEmployee}
-          >
+          <Form.Select id="AssignEmp" aria-label="employee Type" className="selectInput" name="lancesoft" required onChange={handleSelectEmployee}>
             <option value="">{status ? "loading" : "select "}</option>
             {/* <option value="1">N/A</option> */}
             {Releaseemp?.map((type) => (
@@ -189,18 +161,8 @@ function ExitEmployee() {
           <Form.Label htmlFor="releaseDate">
             <b>release Date</b>
           </Form.Label>
-          <Form.Control
-            required={true}
-            id="releaseDate"
-            type="date"
-            placeholder="Enter releaseDate"
-            name="releaseDate"
-            title="enter releasedDate"
-            defaultValue={data.releaseDate}
-            onChange={handleChange}
-          />
+          <Form.Control required={true} id="releaseDate" type="date" placeholder="Enter releaseDate" name="releaseDate" title="enter releasedDate" defaultValue={data.releaseDate} onChange={handleChange} />
         </Form.Group>
-
         <Button type="submit" varient="success">
           submit
         </Button>{" "}
@@ -209,7 +171,7 @@ function ExitEmployee() {
         </Button>
       </Form>
     </div>
-  );
+  )
 }
 
-export default ExitEmployee;
+export default ExitEmployee
