@@ -61,17 +61,20 @@ const handleResume = async() =>{
  await ApiService.DownloadResume(id)
   .then((res) => {
     console.log(res.data);
-    const filename=extractFileName(res.headers['content-disposition']);
- if(filename !== null)
+    const filename= ""//extractFileName(res.headers['content-disposition']);
+ if(filename !== "")
  {
     setFName(filename)
     setMsg("")
     console.log("File Name: ",filename);
-    var fileDownload = require('js-file-download');
-    fileDownload(res.data, filename); 
+    if(res.data.size > 0)
+    {
+      let fileDownload = require('js-file-download');
+      fileDownload(res.data, filename);
+    } 
  }
  else{
-  setMsg("resume not found")
+  alert("Resume not available for this employee")
  }
     })
 
@@ -639,6 +642,7 @@ const handleResume = async() =>{
       Download Resume
     </a>
 </button>
+
 
 
 
