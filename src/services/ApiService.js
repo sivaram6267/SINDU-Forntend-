@@ -123,14 +123,13 @@ export default new (class ApiService {
       );
     }
   }
-  // addClientDetails(data, cId, eId) {
-  //   return axios.post(`${BASE_URL}/api/v1/emp/insert-empat-client?clientId=${cId}&empId=${eId}`, data, auth())
-  // }
-
-  addClientDetails(data) {
-    return axios.post(`${BASE_URL}/api/v1/client/details`, data, auth());
+  addClientDetails(data, cId, eId) {
+    return axios.post(
+      `${BASE_URL}/api/v1/emp/insert-empat-client?clientId=${cId}&empId=${eId}`,
+      data,
+      auth()
+    );
   }
-  // http://localhost:2022/api/v1/client/details
 
   // addClientDetails2(cId, data) {
   //   return axios.put(`${BASE_URL}/api/v1/emp/update-client-details?clientDetailId=${cId}`, data, auth())
@@ -138,17 +137,12 @@ export default new (class ApiService {
   // http://10.81.4.195:2022/api/v1/client/edit?clientDetailId=150
   // http://10.81.4.195:2022/api/v1/client/edit?clientDetailId=150
   addClientDetails2(cId, data) {
-
     return axios.put(
-      `${BASE_URL}/api/v1/emp/update-client-details?clientDetailId=${cId}`,
+      `${BASE_URL}/api/v1/client/edit?clientDetailId=${cId}`,
       data,
       auth()
     );
   }
-
-      return axios.put(`${BASE_URL}/api/v1/client/edit?clientDetailId=${cId}`, data, auth())
-    }
-
 
   // http://localhost:2022/api/v1/emp/update-client-details?clientDetailId=5
 
@@ -533,15 +527,11 @@ export default new (class ApiService {
     );
   }
   getClientDetail(id) {
-
+    //http://localhost:2022/api/v1/client/edit-request?clientDetailId=95
     return axios.get(
-      `${BASE_URL}/api/v1/emp/edit-client-req?clientDetailId=${id}`,
+      `${BASE_URL}/api/v1/client/edit-request?clientDetailId=${id}`,
       auth()
     );
-
-    //http://localhost:2022/api/v1/client/edit-request?clientDetailId=95
-    return axios.get(`${BASE_URL}/api/v1/client/edit-request?clientDetailId=${id}`, auth())
-
   }
   getClients() {
     return axios.get(`${BASE_URL}/api/v1/fields/get-all-clients`, auth());
@@ -553,7 +543,7 @@ export default new (class ApiService {
     return axios.get(`${BASE_URL}/api/v1/fields/get-all-subDepart`, auth());
   }
   // Add client details
-  getmploy(id, value) {
+  getEmploy(id, value) {
     return axios.get(
       `${BASE_URL}/api/v1/drop-down/consultants?lancesoftId=${id}&subDId=${value}`,
       auth()
@@ -727,6 +717,7 @@ export default new (class ApiService {
   ChangePassword(data) {
     return axios.put(`${BASE_URL}/api/v1/auth/change-password`, data, auth());
   }
+
   recuiterdropdown() {
     return axios.get(
       `${BASE_URL}/api/v1/drop-down/employees-by-responsibilites?keyword=lsi&types=RECRUITER`,
@@ -759,58 +750,59 @@ export default new (class ApiService {
 
     // return axios.get(`${BASE_URL}/api/v1/emp/details?empId=${id}`, auth());
   }
-
-  // http://10.81.4.195:2022/getAllowances?employeeId=lsi002
-})();
-
-
-
   // AssignResponsibilities
-// http://localhost:2022/api/v1/drop-down/designaton
-Designations(){
-  return axios.get(`${BASE_URL}/api/v1/drop-down/designaton`,auth())
-}
-// http://localhost:2022/api/v1/drop-down/employee-by-desig?desgId=2&keyword=umer
-  EmployeeDesId(id,value){
-  return axios.get(`${BASE_URL}/api/v1/drop-down/employee-by-desig?desgId=${id}&keyword=${value}`,auth())
-}
-// http://localhost:2022/api/v1/drop-down/responsibilites?empId=120
-Responsibility(id){
-  return axios.get(`${BASE_URL}/api/v1/drop-down/responsibilites?empId=${id}`,auth())
-}
+  // http://localhost:2022/api/v1/drop-down/designaton
+  Designations() {
+    return axios.get(`${BASE_URL}/api/v1/drop-down/designaton`, auth());
+  }
+  // http://localhost:2022/api/v1/drop-down/employee-by-desig?desgId=2&keyword=umer
+  EmployeeDesId(id, value) {
+    return axios.get(
+      `${BASE_URL}/api/v1/drop-down/employee-by-desig?desgId=${id}&keyword=${value}`,
+      auth()
+    );
+  }
+  // http://localhost:2022/api/v1/drop-down/responsibilites?empId=120
+  Responsibility(id) {
+    return axios.get(
+      `${BASE_URL}/api/v1/drop-down/responsibilites?empId=${id}`,
+      auth()
+    );
+  }
 
-// http://localhost:2022/api/v1/emp/set-responsibilities?empId=120&responsibility=TOWER_LEAD&responsibility=RECRUITER
-SetResponsibilities(id,resp1, resp2, resp3){
+  // http://localhost:2022/api/v1/emp/set-responsibilities?empId=120&responsibility=TOWER_LEAD&responsibility=RECRUITER
+  SetResponsibilities(id, resp1, resp2, resp3) {
+    let r1 = "";
+    let r2 = "";
+    let r3 = "";
+    if (resp1 !== null && resp1 !== undefined) r1 = `&responsibility=${resp1}`;
+    if (resp2 !== null && resp2 !== undefined) r2 = `&responsibility=${resp2}`;
+    if (resp3 !== null && resp3 !== undefined) r3 = `&responsibility=${resp3}`;
 
-  let r1=""
-  let r2=""
-  let r3=""
-  if(resp1 !== null && resp1!== undefined)
-    r1 = `&responsibility=${resp1}`
-  if(resp2 !== null && resp2!== undefined)
-    r2 = `&responsibility=${resp2}`
-  if(resp3 !== null && resp3!== undefined)
-    r3 = `&responsibility=${resp3}`
-  
-  return axios.post(`${BASE_URL}/api/v1/emp/set-responsibilities?empId=${id}${r1}${r2}${r3}`,auth())
-}
-// http://localhost:2022/api/v1/drop-down/employees-by-responsibilites?keyword=lsi&types=TOWER_HEAD
-EmployeeByResponsibilites(){
+    return axios.post(
+      `${BASE_URL}/api/v1/emp/set-responsibilities?empId=${id}${r1}${r2}${r3}`,
+      auth()
+    );
+  }
+  // http://localhost:2022/api/v1/drop-down/employees-by-responsibilites?keyword=lsi&types=TOWER_HEAD
+  EmployeeByResponsibilites() {
+    return axios.get(
+      `${BASE_URL}/api/v1/drop-down/employees-by-responsibilites?keyword=lsi&types=TOWER_HEAD`,
+      auth()
+    );
+  }
 
-  return axios.get(`${BASE_URL}/api/v1/drop-down/employees-by-responsibilites?keyword=lsi&types=TOWER_HEAD`,auth())
+  EmployeeByResponsibilites1() {
+    return axios.get(
+      `${BASE_URL}/api/v1/drop-down/employees-by-responsibilites?keyword=lsi&types=TOWER_LEAD`,
+      auth()
+    );
+  }
 
-}
-
-EmployeeByResponsibilites1(){
-
-  return axios.get(`${BASE_URL}/api/v1/drop-down/employees-by-responsibilites?keyword=lsi&types=TOWER_LEAD`,auth())
-}
-
-EmployeeByResponsibilites2(){
-
-  return axios.get(`${BASE_URL}/api/v1/drop-down/employees-by-responsibilites?keyword=lsi&types=RECRUITER`,auth())
-
-}
-
-})()
-
+  EmployeeByResponsibilites2() {
+    return axios.get(
+      `${BASE_URL}/api/v1/drop-down/employees-by-responsibilites?keyword=lsi&types=RECRUITER`,
+      auth()
+    );
+  }
+})();
