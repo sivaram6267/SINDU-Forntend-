@@ -556,10 +556,17 @@ export default function Header({ view }) {
                               </Link>
                               <Link
                                 className="m-2"
+
                                 to="/hr/AddAllowance"
                                 id="nav-link"
                               >
                                 Add Allowance
+
+                                to="/hr/assignResponsibilities"
+                                id="nav-link"
+                              >
+                                AssignResponsibilities
+
                               </Link>
                             </Row>
                           </Dropdown.Menu>

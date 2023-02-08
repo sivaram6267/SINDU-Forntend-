@@ -76,6 +76,7 @@ function EmployeeProfile() {
         }
       })
 
+
       .catch((error) => {
         alert(JSON.stringify(error));
 
@@ -86,6 +87,47 @@ function EmployeeProfile() {
         );
       });
   };
+
+const handleResume = async() =>{
+  //const { name, id } = e.target;
+  //e.preventDefault();
+  const id = data.detailsResponse?.employeeId;
+  console.log(id);
+ await ApiService.DownloadResume(id)
+  .then((res) => {
+    console.log(res.data);
+    const filename= ""//extractFileName(res.headers['content-disposition']);
+ if(filename !== "")
+ {
+    setFName(filename)
+    setMsg("")
+    console.log("File Name: ",filename);
+    if(res.data.size > 0)
+    {
+      let fileDownload = require('js-file-download');
+      fileDownload(res.data, filename);
+    } 
+ }
+ else{
+  alert("Resume not available for this employee")
+ }
+    })
+
+.catch((error) => {
+  alert(JSON.stringify(error));
+ 
+  setMsg(
+    error.response.data.errorMessage
+      ? error.response.data.errorMessage
+      : error.message
+  );
+});
+   
+
+}
+    
+  }
+
 
   useEffect(() => {
     console.log(location.state.empId);

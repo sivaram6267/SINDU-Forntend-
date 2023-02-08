@@ -38,12 +38,16 @@ import ModelComponent from "./modelComponent/ModelComponent";
 import EmployeeProfile from "./pages/employeeProfile/EmployeeProfile";
 import DeleteEmployee from "./pages/deleteEmployee/DeleteEmployee";
 
-import TerminateEmployee from "./pages/terminateEmployee/TerminateEmployee";
-import Updatesalary from "./pages/updatesalary/Updatesalary";
-import PromoteDemote from "./pages/promoteDemote/PromoteDemote";
-import ChangePassword from "./pages/changePassword/ChangePassword";
-import Recruiter from "./components/Recruiter/Recruiter";
+
 import AddAllowance from "./pages/AddAllowance/AddAllowance";
+
+import TerminateEmployee from "./pages/terminateEmployee/TerminateEmployee"
+import Updatesalary from "./pages/updatesalary/Updatesalary"
+import PromoteDemote from "./pages/promoteDemote/PromoteDemote"
+import ChangePassword from "./pages/changePassword/ChangePassword"
+import Recruiter from "./components/Recruiter/Recruiter"
+import AssignResponsibilites from "./pages/assignResponsibilites/AssignResponsibilites"
+
 
 function App() {
   return (
@@ -228,11 +232,19 @@ function App() {
                 </PrivateRoutes>
               }
             />
+
             <Route
               path="AddAllowance"
               element={
                 <PrivateRoutes>
                   <AddAllowance />
+
+             <Route
+              path="assignResponsibilities"
+              element={
+                <PrivateRoutes>
+                  <AssignResponsibilites />
+
                 </PrivateRoutes>
               }
             />
