@@ -554,6 +554,13 @@ export default function Header({ view }) {
                               >
                                 Promote / Demote
                               </Link>
+                              <Link
+                                className="m-2"
+                                to="/hr/AddAllowance"
+                                id="nav-link"
+                              >
+                                Add Allowance
+                              </Link>
                             </Row>
                           </Dropdown.Menu>
                         </Dropdown>
@@ -930,13 +937,13 @@ export default function Header({ view }) {
                           {user}
                         </Link>
                         <Link
-                                className="m-2"
-                                to="/ChangePassword"
-                                id="nav-link"
-                              >
+                          className="m-2"
+                          to="/ChangePassword"
+                          id="nav-link"
+                        >
                           ChangePassword
-                              </Link>
-                       
+                        </Link>
+
                         <Link
                           className="m-2"
                           to="/"
@@ -945,11 +952,9 @@ export default function Header({ view }) {
                         >
                           Logout
                         </Link>
-                       
                       </Row>
                     </Dropdown.Menu>
                   </Dropdown>
-                 
                 </Nav>
               </Navbar.Collapse>
             </>
