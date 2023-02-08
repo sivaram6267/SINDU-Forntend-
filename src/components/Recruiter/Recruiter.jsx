@@ -50,123 +50,123 @@ function Recruiter() {
     // }
   };
 
-  const handleCancel = (e) => {
-    e.preventDefault();
-    navigate(`/${type}`);
-  };
+  // const handleCancel = (e) => {
+  //   e.preventDefault();
+  //   navigate(`/${type}`);
+  // };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setStatus(true);
-    if (type === "manager") {
-      // setErrors(false);
-      ApiService.jobstringsubmit(
-        {
-          budget: "",
-          closeDate: "",
-          jd: " ",
-          openDate: "",
-          ticketStatus: "",
-          totalPosition: "",
-        },
-        file
-      )
-        .then((res) => {
-          console.log(data);
-          // alert("successfull");
-          navigate(`/${type}`);
-          setStatus(false);
-          setMsg("");
-        })
-        .catch((error) => {
-          console.log(error);
-          setStatus(true);
-          setErrors(false);
-          // alert(JSON.stringify(error));
-          setMsg(
-            error.response.data.errorMessage
-              ? error.response.data.errorMessage
-              : error.message
-          );
-        });
-    }
-  };
-  const handleok = (e) => {
-    e.preventDefault();
-    setStatus(true);
-    // setErrors(false);
-    ApiService.deleteEmployeefor(data.selectEmp)
-      .then((res) => {
-        console.log(res.data);
-        // alert("successfull");
-        navigate(`/${type}`);
-        setStatus(false);
-        setMsg("");
-      })
-      .catch((error) => {
-        console.log(error);
-        setStatus(true);
-        setErrors(false);
-        // alert(JSON.stringify(error));
-        setMsg(
-          error.response.data.errorMessage
-            ? error.response.data.errorMessage
-            : error.message
-        );
-      });
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setStatus(true);
+  //   if (type === "manager") {
+  //     // setErrors(false);
+  //     ApiService.jobstringsubmit(
+  //       {
+  //         budget: "",
+  //         closeDate: "",
+  //         jd: " ",
+  //         openDate: "",
+  //         ticketStatus: "",
+  //         totalPosition: "",
+  //       },
+  //       file
+  //     )
+  //       .then((res) => {
+  //         console.log(data);
+  //         // alert("successfull");
+  //         navigate(`/${type}`);
+  //         setStatus(false);
+  //         setMsg("");
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //         setStatus(true);
+  //         setErrors(false);
+  //         // alert(JSON.stringify(error));
+  //         setMsg(
+  //           error.response.data.errorMessage
+  //             ? error.response.data.errorMessage
+  //             : error.message
+  //         );
+  //       });
+  //   }
+  // };
+  // const handleok = (e) => {
+  //   e.preventDefault();
+  //   setStatus(true);
+  //   // setErrors(false);
+  //   ApiService.deleteEmployeefor(data.selectEmp)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       // alert("successfull");
+  //       navigate(`/${type}`);
+  //       setStatus(false);
+  //       setMsg("");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       setStatus(true);
+  //       setErrors(false);
+  //       // alert(JSON.stringify(error));
+  //       setMsg(
+  //         error.response.data.errorMessage
+  //           ? error.response.data.errorMessage
+  //           : error.message
+  //       );
+  //     });
+  // };
 
-  useEffect(() => {
-    ApiService.HiringType()
-      .then((res) => {
-        //  console.log(res.data);
-        setHiring(res.data);
-        setMsg("");
-      })
-      .catch((error) => {
-        // console.log(error);
-        alert(JSON.stringify(error));
-        setMsg(
-          error.response.data.errorMessage
-            ? error.response.data.errorMessage
-            : error.message
-        );
-      });
-    ApiService.clientnames() //get client names dropdowm
-      .then((res) => {
-        console.log(res.data);
-        SetClientname(res.data);
-      })
+  // useEffect(() => {
+  //   ApiService.HiringType()
+  //     .then((res) => {
+  //       //  console.log(res.data);
+  //       setHiring(res.data);
+  //       setMsg("");
+  //     })
+  //     .catch((error) => {
+  //       // console.log(error);
+  //       alert(JSON.stringify(error));
+  //       setMsg(
+  //         error.response.data.errorMessage
+  //           ? error.response.data.errorMessage
+  //           : error.message
+  //       );
+  //     });
+  //   ApiService.clientnames() //get client names dropdowm
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       SetClientname(res.data);
+  //     })
 
-      .catch((error) => {
-        alert(JSON.stringify(error));
-        setMsg(
-          error.response.data.errorMessage
-            ? error.response.data.errorMessage
-            : error.message
-        );
-      });
-    if (type === "manager") {
-      ApiService.AssignName()
-        .then((res) => {
-          console.log(res.data);
-          SetAssignname(res.data);
-        })
-        .catch((error) => {
-          alert(JSON.stringify(error));
-          setMsg(
-            error.response.data.errorMessage
-              ? error.response.data.errorMessage
-              : error.message
-          );
-        });
-    }
-  }, []);
+  //     .catch((error) => {
+  //       alert(JSON.stringify(error));
+  //       setMsg(
+  //         error.response.data.errorMessage
+  //           ? error.response.data.errorMessage
+  //           : error.message
+  //       );
+  //     });
+  //   if (type === "manager") {
+  //     ApiService.AssignName()
+  //       .then((res) => {
+  //         console.log(res.data);
+  //         SetAssignname(res.data);
+  //       })
+  //       .catch((error) => {
+  //         alert(JSON.stringify(error));
+  //         setMsg(
+  //           error.response.data.errorMessage
+  //             ? error.response.data.errorMessage
+  //             : error.message
+  //         );
+  //       });
+  //   }
+  // }, []);
 
   return (
     <div id="add-employee" className="container-sm ">
       <h1 className="title text-center">Recruiter Module</h1>
-      <Form onSubmit={handleSubmit}>
+      <Form >
         <div className="mb-3">
           <label htmlFor="email">Job Description </label>
           <textarea

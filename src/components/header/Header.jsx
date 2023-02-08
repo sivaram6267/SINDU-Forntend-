@@ -554,6 +554,13 @@ export default function Header({ view }) {
                               >
                                 Promote / Demote
                               </Link>
+                              <Link
+                                className="m-2"
+                                to="/hr/assignResponsibilities"
+                                id="nav-link"
+                              >
+                                AssignResponsibilities
+                              </Link>
                             </Row>
                           </Dropdown.Menu>
                         </Dropdown>

@@ -57,12 +57,12 @@ function Cards(props) {
   
   const showStatus = (status) =>{
     if(status == "BENCH"){
-  return{'backgroundColor':'#FFF9E5'}
+  return{'backgroundColor':'#FFEB3B',color:'#000'}
   }else if(status == "CLIENT"){
-    return{'backgroundColor':'#D1F3D2' }
+    return{'backgroundColor':'#66BB6A',color:'#000' }
   }
   else if(status =="MANAGMENT" ){
-    return{'backgroundColor': '#E6E9F9'}
+    return{'backgroundColor': '#424242',color:'#ffffff'}
   }
   else if(status == 'ABSCONDED')
   {
@@ -78,7 +78,7 @@ function Cards(props) {
   }
   else if(status == 'EXIT')
   {
-  return{'backgroundColor':'#F6C3CC'}
+  return{'backgroundColor':'#EF5350',color:'#000'}
   } 
   }
 
