@@ -18,9 +18,9 @@ function EditClientDetails() {
   //const [clientnames, setClientnames] = useState(null);
   //let [client2, setClient2] = useState([2, "email", "managername", 4000, "desig", "2022-03-18", "2022-03-18"])
   const [practice, setPractice] = useState(null);
-  const[towerhead,setTowerhead]=useState(null)
-  const[towerlead,setTowerlead]=useState(null)
-  const[recruiter,setRecruiter]=useState(null)
+  const [towerhead, setTowerhead] = useState(null);
+  const [towerlead, setTowerlead] = useState(null);
+  const [recruiter, setRecruiter] = useState(null);
   const [emplo, setEmplo] = useState(null);
   const [practiceno, setPracticeno] = useState(null);
   const [msg, setMsg] = useState("");
@@ -35,7 +35,7 @@ function EditClientDetails() {
     if (dataone.lancesoftId === undefined) dataone.lancesoftId = "";
     if (type === "hr") {
       console.log(practiceno);
-      ApiService.getEmploys(value, practiceno)  //2
+      ApiService.getEmploys(value, practiceno) //2
         .then((res) => {
           console.log(res.data);
           setEmplo(res.data);
@@ -66,7 +66,7 @@ function EditClientDetails() {
     // if (name === "ClientDetails") {
     // if (name === "ClientDetails" && value !== "") {
     // if (name === "employeeID" && value !== "") {
-    ApiService.getEmpdetail(value)  //3
+    ApiService.getEmpdetail(value) //3
       .then((res) => {
         // let id = res.data;
         //setStatus(false);
@@ -187,8 +187,6 @@ function EditClientDetails() {
     });
   };
 
-
-  
   const handleClientDetail = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
@@ -272,7 +270,7 @@ function EditClientDetails() {
         );
       });
     if (type === "hr") {
-      ApiService.selectPractices()  //1
+      ApiService.selectPractices() //1
         .then((res) => {
           console.log(res.data);
           setPractice(res.data);
@@ -290,60 +288,60 @@ function EditClientDetails() {
         });
     }
     // if (data === "towerhead") {
-     
+
     // }
 
     ApiService.EmployeeByResponsibilites()
-    .then((res) => {
-      console.log(res.data);
-      setTowerhead(res.data);
-      setMsg("");
-    })
-    .catch((error) => {
-      // console.log(error);
-      alert(JSON.stringify(error));
-      setTowerhead(null);
-      setMsg(
-        error.response.data.errorMessage
-          ? error.response.data.errorMessage
-          : error.message
-      );
-    });
+      .then((res) => {
+        console.log(res.data);
+        setTowerhead(res.data);
+        setMsg("");
+      })
+      .catch((error) => {
+        // console.log(error);
+        alert(JSON.stringify(error));
+        setTowerhead(null);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
+      });
     ApiService.EmployeeByResponsibilites1()
-    .then((res) => {
-      console.log(res.data);
-      setTowerlead(res.data);
-      setMsg("");
-    })
-    .catch((error) => {
-      // console.log(error);
-      alert(JSON.stringify(error));
-      setTowerlead(null);
-      setMsg(
-        error.response.data.errorMessage
-          ? error.response.data.errorMessage
-          : error.message
-      );
-    });
+      .then((res) => {
+        console.log(res.data);
+        setTowerlead(res.data);
+        setMsg("");
+      })
+      .catch((error) => {
+        // console.log(error);
+        alert(JSON.stringify(error));
+        setTowerlead(null);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
+      });
     ApiService.EmployeeByResponsibilites2()
-    .then((res) => {
-      console.log(res.data);
-      setRecruiter(res.data);
-      setMsg("");
-    })
-    .catch((error) => {
-      // console.log(error);
-      alert(JSON.stringify(error));
-      setTowerhead(null);
-      setMsg(
-        error.response.data.errorMessage
-          ? error.response.data.errorMessage
-          : error.message
-      );
-    });
+      .then((res) => {
+        console.log(res.data);
+        setRecruiter(res.data);
+        setMsg("");
+      })
+      .catch((error) => {
+        // console.log(error);
+        alert(JSON.stringify(error));
+        setTowerhead(null);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
+      });
   }, []);
 
-  const workmodes = ['WFO','WFH','Hybrid','PWF','TWH']
+  const workmodes = ["WFO", "WFH", "Hybrid", "PWF", "TWH"];
 
   const formData = [
     // {
@@ -396,7 +394,7 @@ function EditClientDetails() {
     },
     {
       id: "lancesoftId",
-      title: "LancesoftId",
+      title: "Lancesoft Id",
       name: "lancesoftId",
       type: "text",
       placeholder: "Enter search",
@@ -491,19 +489,21 @@ function EditClientDetails() {
             {/* <span className="text-danger"> *</span> */}
           </Form.Label>
           <Form.Select
-             required
+            required
             id="clientsId"
             aria-label="Client Name"
             className="selectInput"
             name="clients"
-            
+
             //onChange={handleDataChange}
           >
             <option value="">{status ? "loading" : "select "}</option>
             {clients?.map((type, index) => (
-              <option key={"clientsId" + index} value={type.clientsId}
-               selected={type.clientsId === data.clients}
-              //  selected={type.empId === data.clientsId}
+              <option
+                key={"clientsId" + index}
+                value={type.clientsId}
+                selected={type.clientsId === data.clients}
+                //  selected={type.empId === data.clientsId}
               >
                 {type.clientsNames}
               </option>
@@ -526,50 +526,48 @@ function EditClientDetails() {
       id: "clientLocation",
       title: "Client Location",
       name: "clientLocation",
-     
+
       type: "text",
       placeholder: "Enter client Location",
       required: true,
       defaultValue: data.clientLocation,
       handleChange: handleDataChange,
-      
     },
     {
       id: "skillset",
       data: (
         <div className="mb-3">
-        <label htmlFor="email">Skill Set </label>
-        <textarea
-          className="form-control"
-          placeholder="text"
-          type="text"
-          name="skillset"
-          noValidate
-          defaultValue={data.skillSet}
-          onChange={handleDataChange}
-        />
-      </div>
-       
+          <label htmlFor="email">Skill Set </label>
+          <textarea
+            className="form-control"
+            placeholder="text"
+            type="text"
+            name="skillset"
+            noValidate
+            defaultValue={data.skillSet}
+            onChange={handleDataChange}
+          />
+        </div>
       ),
     },
-    
+
     // {
     //   id: "joiningBonus",
     //   title: "Joining Bonus",
     //   name: "joiningBonus",
-     
+
     //   type: "Number",
     //   placeholder: "Enter joiningBonus",
     //   required: true,
     //   defaultValue: data.joiningBonus,
     //   handleChange: handleDataChange,
     // },
-  
+
     // {
     //   id: "joiningBonusTenure",
     //   title: "Joining Bonus Tenure",
     //   name: "joiningBonusTenure",
-     
+
     //   type: "Number",
     //   placeholder: "Enter joiningBonusTenure",
     //   required: true,
@@ -580,7 +578,7 @@ function EditClientDetails() {
     //   id: "shiftAllowance",
     //   title: "Shift Allowance",
     //   name: "shiftAllowance",
-     
+
     //   type: "Number",
     //   placeholder: "Enter shiftAllowance",
     //   required: true,
@@ -591,7 +589,7 @@ function EditClientDetails() {
     //   id: "specialAllowance",
     //   title: "Special Allowance",
     //   name: "specialAllowance",
-     
+
     //   type: "Number",
     //   placeholder: "Enter specialAllowance",
     //   required: true,
@@ -671,7 +669,7 @@ function EditClientDetails() {
     // },
     {
       id: "povalue",
-      title: "PoValue",
+      title: "PO Value",
       name: "povalue",
       type: "number",
       // pattern: "[0-9]{10}",
@@ -686,7 +684,7 @@ function EditClientDetails() {
       data: (
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor=" Tower-Head">
-            Tower-Head
+            Tower Head
             <nobr />
             {/* <span className="text-danger"> *</span> */}
           </Form.Label>
@@ -697,12 +695,14 @@ function EditClientDetails() {
             className="selectInput"
             //defaultValue={data.towerHead}
             name="towerhead"
-          // onChange={handleResponse}
+            // onChange={handleResponse}
           >
             <option value="">{status ? "loading" : "select "}</option>
             {towerhead?.map((type, index) => (
-              <option key={"towerhead" + index} value={type.lancesoftId}
-              selected={type.empId === data.towerHead}
+              <option
+                key={"towerhead" + index}
+                value={type.lancesoftId}
+                selected={type.empId === data.towerHead}
               >
                 {type.name}
               </option>
@@ -716,7 +716,7 @@ function EditClientDetails() {
       data: (
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor=" Tower-lead">
-            Tower-Lead
+            Tower Lead
             <nobr />
             {/* <span className="text-danger"> *</span> */}
           </Form.Label>
@@ -731,8 +731,10 @@ function EditClientDetails() {
           >
             <option value="">{status ? "loading" : "select "}</option>
             {towerlead?.map((type, index) => (
-              <option key={"towerlead" + index} value={type.lancesoftId}
-              selected={type.empId === data.towerLead}
+              <option
+                key={"towerlead" + index}
+                value={type.lancesoftId}
+                selected={type.empId === data.towerLead}
               >
                 {type.name}
               </option>
@@ -747,7 +749,7 @@ function EditClientDetails() {
       data: (
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor=" recruiter">
-          Recruiter
+            Recruiter
             <nobr />
             {/* <span className="text-danger"> *</span> */}
           </Form.Label>
@@ -762,8 +764,10 @@ function EditClientDetails() {
           >
             <option value="">{status ? "loading" : "select "}</option>
             {recruiter?.map((type, index) => (
-              <option key={"recruiter" + index} value={type.recruiter}
-              selected={type.empId === data.recruiter}
+              <option
+                key={"recruiter" + index}
+                value={type.recruiter}
+                selected={type.empId === data.recruiter}
               >
                 {type.name}
               </option>
@@ -773,11 +777,11 @@ function EditClientDetails() {
       ),
     },
     {
-      id:"workMode",
+      id: "workMode",
       data: (
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor="workMode">
-          WorkMode
+            Work Mode
             <nobr />
             {/* <span className="text-danger"> *</span> */}
           </Form.Label>
@@ -792,8 +796,10 @@ function EditClientDetails() {
           >
             <option value="">{status ? "loading" : "select "}</option>
             {workmodes?.map((type, index) => (
-              <option key={"workMode" + index} value={type.workMode}
-              selected={type === data.workMode}
+              <option
+                key={"workMode" + index}
+                value={type.workMode}
+                selected={type === data.workMode}
               >
                 {type}
               </option>
@@ -802,7 +808,6 @@ function EditClientDetails() {
         </Form.Group>
       ),
     },
-
 
     // {
     //   id: "towerHead",
@@ -818,7 +823,7 @@ function EditClientDetails() {
     // },
     {
       id: "ponumber",
-      title: "PoNumber",
+      title: "PO Number",
       name: "ponumber",
       type: "text",
       // pattern: "[0-9]{10}",
@@ -828,20 +833,20 @@ function EditClientDetails() {
       defaultValue: data.ponumber,
       handleChange: handleDataChange,
     },
-    
+
     {
       id: "clientJoiningDate",
-      title: "Client JoiningDate",
+      title: "Client Joining Date",
       name: "clientJoiningDate",
       type: "date",
       placeholder: "",
       required: true,
       defaultValue: data.clientJoiningDate,
-       handleChange: handleDataChange,
+      handleChange: handleDataChange,
     },
     {
       id: "clientLastWorkingDate",
-      title: "Client LastWorkingDate",
+      title: "Client Last Working Date",
       name: "clientLastWorkingDate",
       type: "date",
       placeholder: "",
@@ -851,7 +856,7 @@ function EditClientDetails() {
     },
     {
       id: "lancesoftLastWorkingDate",
-      title: "Lancesoft LastWorkingDate",
+      title: "Lancesoft Last Working Date",
       name: "lancesoftLastWorkingDate",
       type: "date",
       placeholder: "",
@@ -861,7 +866,7 @@ function EditClientDetails() {
     },
     {
       id: "offerReleaseDate",
-      title: "Offer ReleaseDate",
+      title: "Offer Release Date",
       name: "offerReleaseDate",
       type: "date",
       placeholder: "",
@@ -871,7 +876,7 @@ function EditClientDetails() {
     },
     {
       id: "podate",
-      title: "PoDate",
+      title: "PO Date",
       name: "podate",
       type: "date",
       // pattern: "[0-9]{10}",

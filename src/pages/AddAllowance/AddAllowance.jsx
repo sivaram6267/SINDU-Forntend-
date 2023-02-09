@@ -227,7 +227,7 @@ function AddAllowance() {
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor="salary">Special Allowance</Form.Label>
           <Form.Control
-            name="SpecialAllowance"
+            name="Special Allowance"
             id="SpecialAllowance"
             type="number"
             placeholder=""

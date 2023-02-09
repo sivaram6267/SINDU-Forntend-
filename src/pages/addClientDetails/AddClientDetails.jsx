@@ -233,7 +233,7 @@ function AddClientDetails() {
     },
     {
       id: "lancesoftId",
-      title: "lancesoftId",
+      title: "Lancesoft Id",
       name: "lancesoftId1",
       type: "text",
       placeholder: "Enter search",
@@ -270,7 +270,7 @@ function AddClientDetails() {
     },
     {
       id: "clientEmail",
-      title: "client email",
+      title: "Client Email",
       name: "clientEmail",
       type: "email",
       placeholder: "Enter client email",
@@ -325,20 +325,32 @@ function AddClientDetails() {
     //   defaultValue: data.clientName,
     //   handleChange: handleChange,
     // },
+    // {
+    //   id: "totalEarningAtClient",
+    //   title: "TotalEarningAtClient",
+    //   name: "totalEarningAtClient",
+    //   type: "number",
+
+    //   placeholder: "Enter totalEarningAtClient",
+    //   required: true,
+    //   defaultValue: data.totalEarningAtClient,
+    //   handleChange: handleData,
+    // },
     {
-      id: "clientSalary",
-      title: "Client Salary",
-      name: "clientSalary",
-      type: "number",
-      pattern: "[+91][0-9]{13}",
-      placeholder: "Enter client billing",
+      id: "desgAtClient",
+      title: "Desgination At Client",
+      name: "desgAtClient",
+      type: "text",
+      // pattern: "[0-9]{10}",
+
+      placeholder: "Enter designation at client",
       required: true,
-      defaultValue: data.clientSalary,
+      defaultValue: data.desgAtClient,
       handleChange: handleData,
     },
     {
       id: "desgAtClient",
-      title: "Desgination at client",
+      title: "Desgination At Client",
       name: "desgAtClient",
       type: "text",
       // pattern: "[0-9]{10}",
@@ -399,7 +411,7 @@ function AddClientDetails() {
     },
     {
       id: "podate",
-      title: "podate",
+      title: "PO Date",
       name: "podate",
       type: "date",
       // pattern: "[0-9]{10}",
@@ -411,7 +423,7 @@ function AddClientDetails() {
     },
     {
       id: "povalue",
-      title: "Povalue",
+      title: "PO Value",
       name: "povalue",
       type: "number",
       // pattern: "[0-9]{10}",
@@ -423,7 +435,7 @@ function AddClientDetails() {
     },
     {
       id: "skillSet",
-      title: "skillSet",
+      title: "Skill Set",
       name: "skillSet",
       type: "text",
       // pattern: "[0-9]{10}",
@@ -438,7 +450,7 @@ function AddClientDetails() {
       data: (
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor="workMode">
-            workMode
+            Work Mode
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
@@ -463,7 +475,7 @@ function AddClientDetails() {
 
     {
       id: "ponumber",
-      title: "ponumber",
+      title: "PO Number",
       name: "ponumber",
       type: "text",
       // pattern: "[0-9]{10}",
@@ -500,7 +512,7 @@ function AddClientDetails() {
       data: (
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor=" recruiter">
-            recruiter
+            Recruiter
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
@@ -536,7 +548,7 @@ function AddClientDetails() {
       data: (
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor="towerHead">
-            towerHead
+            Tower Head
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
@@ -572,7 +584,7 @@ function AddClientDetails() {
       data: (
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor=" towerLead">
-            towerLead
+            Tower Lead
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
@@ -596,7 +608,7 @@ function AddClientDetails() {
 
     {
       id: "offerReleaseDate",
-      title: "offerReleaseDate",
+      title: "Offer Release Date",
       name: "offerReleaseDate",
       type: "date",
       // pattern: "[0-9]{10}",
@@ -619,7 +631,7 @@ function AddClientDetails() {
 
     {
       id: "clientLastWorkingDate",
-      title: "clientLastWorkingDate",
+      title: "Client Last Working Date",
       name: "clientLastWorkingDate",
       type: "date",
       placeholder: "Enter clientLastWorkingDate",
@@ -629,7 +641,7 @@ function AddClientDetails() {
     },
     {
       id: " lancesoftLastWorkingDate",
-      title: "lancesoftLastWorkingDate ",
+      title: "Lancesoft Last Working Date ",
       name: "lancesoftLastWorkingDate",
       type: "date",
       placeholder: "Enter lancesoftLastWorkingDate ",

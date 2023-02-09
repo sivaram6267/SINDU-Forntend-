@@ -833,7 +833,7 @@ function EmployeeProfile() {
                         <hr></hr>
                         <Form.Group className="mb-3">
                           <Form.Label htmlFor="ShiftAllowance">
-                            <b>ShiftAllowance</b>
+                            <b>Shift Allowance</b>
                           </Form.Label>
                           <Form.Control
                             // required
@@ -850,7 +850,7 @@ function EmployeeProfile() {
 
                         <Form.Group className="mb-3">
                           <Form.Label htmlFor="workMode">
-                            <b>specialAllowance</b>
+                            <b>Special Allowance</b>
                           </Form.Label>
                           <Form.Control
                             // required
@@ -866,7 +866,7 @@ function EmployeeProfile() {
                         </Form.Group>
                         <Form.Group className="mb-3">
                           <Form.Label htmlFor="joingBonus">
-                            <b>joingBonus</b>
+                            <b>Joining Bonus</b>
                           </Form.Label>
                           <Form.Control
                             // required
@@ -882,7 +882,7 @@ function EmployeeProfile() {
                         </Form.Group>
                         <Form.Group className="mb-3">
                           <Form.Label htmlFor="joiningBonusTenure">
-                            <b>joiningBonusTenure</b>
+                            <b>Joining Bonus Tenure</b>
                           </Form.Label>
                           <Form.Control
                             // required
@@ -930,7 +930,7 @@ function EmployeeProfile() {
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="podate">
-                      <b>Podate</b>
+                      <b>PO Date</b>
                     </Form.Label>
                     <Form.Control
                       // required
@@ -947,7 +947,7 @@ function EmployeeProfile() {
 
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="poSdate">
-                      <b>PO Start date</b>
+                      <b>PO Start Date</b>
                     </Form.Label>
                     <Form.Control
                       // required
@@ -963,7 +963,7 @@ function EmployeeProfile() {
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="poEdate">
-                      <b>PO end date</b>
+                      <b>PO End Date</b>
                     </Form.Label>
                     <Form.Control
                       // required
@@ -979,7 +979,7 @@ function EmployeeProfile() {
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="offerReleaseDate">
-                      <b>OfferReleaseDate</b>
+                      <b>Offer Release Date</b>
                     </Form.Label>
                     <Form.Control
                       // required
@@ -995,7 +995,7 @@ function EmployeeProfile() {
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="clientJoiningDate">
-                      <b>ClientJoiningDate</b>
+                      <b>Client Joining Date</b>
                     </Form.Label>
                     <Form.Control
                       // required
@@ -1027,7 +1027,7 @@ function EmployeeProfile() {
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="desgAtClient">
-                      <b>Designation at Client</b>
+                      <b>Designation At Client</b>
                     </Form.Label>
                     <Form.Control
                       // required
@@ -1043,7 +1043,7 @@ function EmployeeProfile() {
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="skillSet">
-                      <b>SkillSet</b>
+                      <b>Skill Set</b>
                     </Form.Label>
                     <Form.Control
                       // required
@@ -1059,7 +1059,7 @@ function EmployeeProfile() {
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="clientLocation">
-                      <b>ClientLocation</b>
+                      <b>Client Location</b>
                     </Form.Label>
                     <Form.Control
                       // required
@@ -1075,7 +1075,7 @@ function EmployeeProfile() {
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="workMode">
-                      <b>WorkMode</b>
+                      <b>Work Mode</b>
                     </Form.Label>
                     <Form.Control
                       // required
@@ -1123,7 +1123,7 @@ function EmployeeProfile() {
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="towerHead">
-                      <b>TowerHead</b>
+                      <b>Tower Head</b>
                     </Form.Label>
                     <Form.Control
                       // required
@@ -1139,7 +1139,7 @@ function EmployeeProfile() {
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="towerLead">
-                      <b>TowerLead</b>
+                      <b>Tower Lead</b>
                     </Form.Label>
                     <Form.Control
                       // required
@@ -1171,7 +1171,7 @@ function EmployeeProfile() {
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="ClientLastWorkingDate">
-                      <b>ClientLastWorkingDate</b>
+                      <b>Client Last Working Date</b>
                     </Form.Label>
                     <Form.Control
                       // required
@@ -1187,7 +1187,7 @@ function EmployeeProfile() {
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="lancesoftLastWorkingDate">
-                      <b>LancesoftLastWorkingDate</b>
+                      <b>Lancesoft Last Working Date</b>
                     </Form.Label>
                     <Form.Control
                       // required
@@ -1219,7 +1219,7 @@ function EmployeeProfile() {
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="totalEarningAtclient">
-                      <b>Total Billing at Client</b>
+                      <b>Total Billing At Client</b>
                     </Form.Label>
                     <Form.Control
                       // required
@@ -1235,7 +1235,7 @@ function EmployeeProfile() {
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="povalue">
-                      <b>Povalue</b>
+                      <b>PO Value</b>
                     </Form.Label>
                     <Form.Control
                       // required
@@ -1251,7 +1251,7 @@ function EmployeeProfile() {
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="ponumber">
-                      <b>PONUMBER</b>
+                      <b>PO Number</b>
                     </Form.Label>
                     <Form.Control
                       // required
@@ -1316,7 +1316,7 @@ function EmployeeProfile() {
 
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="totalTax">
-                      <b>TotalTax</b>
+                      <b>Total Tax</b>
                     </Form.Label>
                     <Form.Control
                       // required
