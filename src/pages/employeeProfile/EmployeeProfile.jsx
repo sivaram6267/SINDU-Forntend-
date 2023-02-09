@@ -1223,13 +1223,13 @@ function EmployeeProfile() {
                     </Form.Label>
                     <Form.Control
                       // required
-                      id="totalEarningAtclient"
+                      id="totalEarningAtClient"
                       type="text"
                       disabled={disabled ? "" : "disabled"}
                       placeholder=""
-                      name="totalEarningAtclient"
+                      name="totalEarningAtClient"
                       title="enter Total Client billing"
-                      defaultValue={client.totalEarningAtclient}
+                      defaultValue={client.totalEarningAtClient}
                       onChange={handleChange}
                     />
                   </Form.Group>
