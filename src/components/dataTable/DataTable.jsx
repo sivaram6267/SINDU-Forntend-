@@ -258,7 +258,7 @@ export default function DataTable(props) {
       setLoading(true);
 
       if (type === "hr") {
-        ApiService.GetAllEmployes(currentPage)
+        ApiService.GetAllEmployes(currentPage-1)
           .then((res) => {
             setData(res.data);
             console.log(res.data);
@@ -281,7 +281,7 @@ export default function DataTable(props) {
         type === "md" ||
         type === "general_manager"
       ) {
-        ApiService.GetAllEmployesby(currentPage)
+        ApiService.GetAllEmployesby(currentPage-1)
           .then((res) => {
             setData(res.data);
 
