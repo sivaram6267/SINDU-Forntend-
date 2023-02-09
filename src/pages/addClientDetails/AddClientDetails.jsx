@@ -485,16 +485,16 @@ function AddClientDetails() {
     //   defaultValue: data.Empid,
     //   handleChange: handleData,
     // },
-    {
-      id: "lancesoftId",
-      title: "lancesoftId",
-      name: "lancesoftId2",
-      type: "text",
-      placeholder: "Enter search",
-      // required: true,
-      defaultValue: data.lancesoftId,
-      handleChange: handleChange,
-    },
+    // {
+    //   id: "lancesoftId",
+    //   title: "lancesoftId",
+    //   name: "lancesoftId2",
+    //   type: "text",
+    //   placeholder: "Enter search",
+    //   // required: true,
+    //   defaultValue: data.lancesoftId,
+    //   handleChange: handleChange,
+    // },
     {
       id: "",
       data: (
@@ -521,16 +521,16 @@ function AddClientDetails() {
         </Form.Group>
       ),
     },
-    {
-      id: "lancesoftId",
-      title: "lancesoftId",
-      name: "lancesoftId3",
-      type: "text",
-      placeholder: "Enter search",
-      // required: true,
-      defaultValue: data.lancesoftId,
-      handleChange: handleChange,
-    },
+    // {
+    //   id: "lancesoftId",
+    //   title: "lancesoftId",
+    //   name: "lancesoftId3",
+    //   type: "text",
+    //   placeholder: "Enter search",
+    //   // required: true,
+    //   defaultValue: data.lancesoftId,
+    //   handleChange: handleChange,
+    // },
     {
       id: "",
       data: (
@@ -557,16 +557,16 @@ function AddClientDetails() {
         </Form.Group>
       ),
     },
-    {
-      id: "lancesoftId",
-      title: "lancesoftId",
-      name: "lancesoftId4",
-      type: "text",
-      placeholder: "Enter search",
-      // required: true,
-      defaultValue: data.lancesoftId,
-      handleChange: handleChange,
-    },
+    // {
+    //   id: "lancesoftId",
+    //   title: "lancesoftId",
+    //   name: "lancesoftId4",
+    //   type: "text",
+    //   placeholder: "Enter search",
+    //   // required: true,
+    //   defaultValue: data.lancesoftId,
+    //   handleChange: handleChange,
+    // },
     {
       id: "",
       data: (
