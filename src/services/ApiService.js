@@ -123,14 +123,10 @@ export default new (class ApiService {
       );
     }
   }
-  addClientDetails(data, cId, eId) {
-    return axios.post(
-      `${BASE_URL}/api/v1/emp/insert-empat-client?clientId=${cId}&empId=${eId}`,
-      data,
-      auth()
-    );
+  addClientDetails(data) {
+    return axios.post(`${BASE_URL}/api/v1/client/details`, data, auth());
   }
-
+  // http://10.81.4.195:2022/api/v1/client/details
   // addClientDetails2(cId, data) {
   //   return axios.put(`${BASE_URL}/api/v1/emp/update-client-details?clientDetailId=${cId}`, data, auth())
   // }

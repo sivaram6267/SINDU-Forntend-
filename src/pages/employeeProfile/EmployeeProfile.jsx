@@ -156,7 +156,7 @@ function EmployeeProfile() {
         })
         .catch((err) => {
           console.log(err);
-          setData("");
+          setAllowanceData("");
           setStatus(false);
           setMsg(err.message);
         });
@@ -828,7 +828,7 @@ function EmployeeProfile() {
               {/* data.employeeDetailsResponse?.designation
                   ) && ( */}
               {/* <> */}
-              {data.allowanceData?.map((client, index) => (
+              {data.Allowance?.map((Allowance, index) => (
                 <div id="modelSection" key={index} className="container ">
                   <h5 className="modelHeading">Allowance {index + 1}</h5>
                   <hr></hr>
@@ -844,11 +844,11 @@ function EmployeeProfile() {
                       placeholder=""
                       name="ShiftAllowance"
                       title="enter Total ShiftAllowance"
-                      defaultValue={client.ShiftAllowance}
+                      defaultValue={Allowance.ShiftAllowance}
                       onChange={handleChange}
                     />
                   </Form.Group>
-
+                  ))
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="workMode">
                       <b>specialAllowance</b>
@@ -861,11 +861,10 @@ function EmployeeProfile() {
                       placeholder=""
                       name="specialAllowance"
                       title="enter specialAllowance"
-                      defaultValue={client.specialAllowance}
+                      defaultValue={Allowance.specialAllowance}
                       onChange={handleChange}
                     />
                   </Form.Group>
-
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="joingBonus">
                       <b>joingBonus</b>
@@ -878,11 +877,10 @@ function EmployeeProfile() {
                       placeholder=""
                       name="joingBonus"
                       title="enter joingBonus"
-                      defaultValue={data.joingBonus}
+                      defaultValue={Allowance.joingBonus}
                       onChange={handleChange}
                     />
                   </Form.Group>
-
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="joiningBonusTenure">
                       <b>joiningBonusTenure</b>
@@ -895,7 +893,7 @@ function EmployeeProfile() {
                       placeholder=""
                       name="joiningBonusTenure"
                       title="enter joiningBonusTenure"
-                      defaultValue={client.sgst}
+                      defaultValue={Allowance.joiningBonusTenure}
                       onChange={handleChange}
                     />
                   </Form.Group>
