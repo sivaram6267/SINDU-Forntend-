@@ -3,7 +3,7 @@ import axios from "axios";
 
 // const BASE_URL = "http://18.209.60.4:8080/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // devops
 
-const BASE_URL = "http://10.81.4.195:2022"; //server port
+const BASE_URL = "http://10.81.4.23:2020"; //server port
 
 // const BASE_URL = "http://10.81.4.23:9090/LESM-Status-Monitor123";
 
