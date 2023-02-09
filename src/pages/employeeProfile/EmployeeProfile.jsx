@@ -828,7 +828,7 @@ function EmployeeProfile() {
               {/* data.employeeDetailsResponse?.designation
                   ) && ( */}
               {/* <> */}
-              {data.Allowance?.map((Allowance, index) => (
+              {data.atClientAllowances?.map((allowanceData, index) => (
                 <div id="modelSection" key={index} className="container ">
                   <h5 className="modelHeading">Allowance {index + 1}</h5>
                   <hr></hr>
@@ -844,11 +844,11 @@ function EmployeeProfile() {
                       placeholder=""
                       name="ShiftAllowance"
                       title="enter Total ShiftAllowance"
-                      defaultValue={Allowance.ShiftAllowance}
+                      defaultValue={allowanceData.shiftAllowance}
                       onChange={handleChange}
                     />
                   </Form.Group>
-                  ))
+
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="workMode">
                       <b>specialAllowance</b>
@@ -861,7 +861,7 @@ function EmployeeProfile() {
                       placeholder=""
                       name="specialAllowance"
                       title="enter specialAllowance"
-                      defaultValue={Allowance.specialAllowance}
+                      defaultValue={allowanceData.specialAllowance}
                       onChange={handleChange}
                     />
                   </Form.Group>
@@ -877,7 +877,7 @@ function EmployeeProfile() {
                       placeholder=""
                       name="joingBonus"
                       title="enter joingBonus"
-                      defaultValue={Allowance.joingBonus}
+                      defaultValue={allowanceData.joingBonus}
                       onChange={handleChange}
                     />
                   </Form.Group>
@@ -893,7 +893,7 @@ function EmployeeProfile() {
                       placeholder=""
                       name="joiningBonusTenure"
                       title="enter joiningBonusTenure"
-                      defaultValue={Allowance.joiningBonusTenure}
+                      defaultValue={allowanceData.joiningBonusTenure}
                       onChange={handleChange}
                     />
                   </Form.Group>

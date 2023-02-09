@@ -104,7 +104,7 @@ function AddAllowance() {
   //       );
   //     });
   // };
-
+  if (data.ShiftAllowance === undefined) data.ShiftAllowance = 0;
   const handleSubmit = (e) => {
     setStatus(true);
     console.log(data);
@@ -217,8 +217,7 @@ function AddAllowance() {
           <Form.Control
             name="ShiftAllowance"
             id="ShiftAllowance"
-            required
-            type=""
+            type="number"
             placeholder=""
             //defaultValue={data.ShiftAllowance}
             onChange={handleChange}
@@ -229,8 +228,7 @@ function AddAllowance() {
           <Form.Control
             name="SpecialAllowance"
             id="SpecialAllowance"
-            required
-            type=""
+            type="number"
             placeholder=""
             //defaultValue={data.salary}
             onChange={handleChange}
@@ -244,7 +242,7 @@ function AddAllowance() {
               id="JoiningBonus"
               required
               variant="danger"
-              type=""
+              type="number"
               placeholder=""
               //defaultValue={data.salary}
               onChange={handleChange}
@@ -259,7 +257,7 @@ function AddAllowance() {
               name="BonusApplicable"
               id="BonusApplicable"
               required
-              type=""
+              type="number"
               className="danger"
               placeholder=""
               //defaultValue={data.salary}
