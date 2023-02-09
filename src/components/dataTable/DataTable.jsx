@@ -34,7 +34,7 @@ export default function DataTable(props) {
   const [isPagination, setIsPagination] = useState(true);
 
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(Number(sessionStorage.getItem("pageNumber")) || 0);
+  const [currentPage, setCurrentPage] = useState(Number(sessionStorage.getItem("pageNumber")) || 1);
   const [cardsPerPage, setCardsPerPage] = useState(1);
   window.onload = function () {
     console.log("hi Wenodh")
