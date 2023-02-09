@@ -105,6 +105,7 @@ function AddAllowance() {
   //     });
   // };
   if (data.ShiftAllowance === undefined) data.ShiftAllowance = 0;
+  if (data.SpecialAllowance === undefined) data.SpecialAllowance = 0;
   const handleSubmit = (e) => {
     setStatus(true);
     console.log(data);
