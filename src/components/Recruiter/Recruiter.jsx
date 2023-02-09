@@ -166,7 +166,9 @@ function Recruiter() {
   return (
     <div id="add-employee" className="container-sm ">
       <h1 className="title text-center">Recruiter Module</h1>
-      <Form >
+
+      <Form>
+
         <div className="mb-3">
           <label htmlFor="email">Job Description </label>
           <textarea

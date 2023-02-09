@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import ApiService from "../../services/ApiService";
-
-function Updatesalary() {
+import "./AddAllowance.css";
+function AddAllowance() {
   const [data, setData] = useState({});
   const [errors, setErrors] = useState(false);
   const [status, setStatus] = useState(false);
@@ -78,17 +78,55 @@ function Updatesalary() {
   //         });
   //     }
   //   };
+  // const handleSubmit = (e) => {
+  //   setStatus(true);
+  //   console.log(data);
+  //   const { name, value } = e.target;
+  //   // e.preventDefault();
+  //   // e.target.reset();
+  //   console.log(name);
+  //   setData({ ...data, [name]: value });
+  //   console.log(data);
+  //   ApiService.AddAllowance(data)
+  //     .then((res) => {
+  //       e.preventDefault();
+  //       e.target.reset();
+  //       console.log(res.data);
+  //       alert("update salary  successfully");
+  //       navigate("/hr");
+  //     })
+  //     .catch((error) => {
+  //       alert(JSON.stringify(error));
+  //       setMsg(
+  //         error.response.data.errorMessage
+  //           ? error.response.data.errorMessage
+  //           : error.message
+  //       );
+  //     });
+  // };
+
   const handleSubmit = (e) => {
     setStatus(true);
     console.log(data);
-
-    ApiService.updatesalary(data.selectEmp, data.salary, data.releasedDate)
+    const { name, value } = e.target;
+    // e.preventDefault();
+    // e.target.reset();
+    console.log(name);
+    setData({ ...data, [name]: value });
+    console.log(data);
+    ApiService.AddAllowance(
+      data.ShiftAllowance,
+      data.SpecialAllowance,
+      data.JoiningBonus,
+      data.BonusApplicable,
+      data.selectEmp
+    )
       .then((res) => {
-        e.preventDefault();
-        e.target.reset();
-        console.log(res.data);
-        alert("update salary  successfully");
-        navigate("/hr/Updatesalary");
+        // e.preventDefault();
+        // e.target.reset();
+        console.log(res);
+        alert("data inserted");
+        navigate("/hr");
       })
       .catch((error) => {
         alert(JSON.stringify(error));
@@ -126,11 +164,11 @@ function Updatesalary() {
 
   return (
     <div id="add-employee" className="container-sm ">
-      <h1 className="title text-center">Update Salary</h1>
+      <h1 className="title text-center">Add Allowance</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor="chooseDesignation">
-            Choose designation
+            Select Designation
             <nobr />
             <span className="text-danger"> *</span>
           </Form.Label>
@@ -175,17 +213,60 @@ function Updatesalary() {
           </Form.Select>
         </Form.Group>
         <Form.Group className="mb-3 px-2">
-          <Form.Label htmlFor="salary">Salary</Form.Label>
+          <Form.Label htmlFor="salary">Shift Allowance</Form.Label>
           <Form.Control
-            name="salary"
-            id="salary"
+            name="ShiftAllowance"
+            id="ShiftAllowance"
             required
             type=""
-            placeholder="Enter salary"
-            defaultValue={data.salary}
+            placeholder=""
+            //defaultValue={data.ShiftAllowance}
             onChange={handleChange}
           />
         </Form.Group>
+        <Form.Group className="mb-3 px-2">
+          <Form.Label htmlFor="salary">Special Allowance</Form.Label>
+          <Form.Control
+            name="SpecialAllowance"
+            id="SpecialAllowance"
+            required
+            type=""
+            placeholder=""
+            //defaultValue={data.salary}
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <div className="groove">
+          <Form.Group className="mb-3 px-2 text-danger">
+            <Form.Label htmlFor="salary">Joining Bonus</Form.Label>
+            <Form.Control
+              name="JoiningBonus"
+              id="JoiningBonus"
+              required
+              variant="danger"
+              type=""
+              placeholder=""
+              //defaultValue={data.salary}
+              onChange={handleChange}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3 px-2 text-danger">
+            <Form.Label htmlFor="salary" className="danger">
+              Bonus Applicable(Tenure)
+            </Form.Label>
+            <Form.Control
+              name="BonusApplicable"
+              id="BonusApplicable"
+              required
+              type=""
+              className="danger"
+              placeholder=""
+              //defaultValue={data.salary}
+              onChange={handleChange}
+            />
+          </Form.Group>
+        </div>{" "}
         {/* <Form.Group className="mb-3 px-2">
           <Form.Label htmlFor="AssignEmp">
             Assign To
@@ -209,22 +290,7 @@ function Updatesalary() {
               </option>
             ))}
           </Form.Select>
-        </Form.Group> */}
-        <Form.Group className="mb-3" width="50px">
-          <Form.Label htmlFor="releaseDate">
-            <b>Select Date</b>
-          </Form.Label>
-          <Form.Control
-            required={true}
-            id="releaseDate"
-            type="date"
-            placeholder="Enter releaseDate"
-            name="releasedDate"
-            title="enter releaseDate"
-            defaultValue={data.releaseDate}
-            onChange={handleChange}
-          />
-        </Form.Group>
+        </Form.Group> */}{" "}
         <Button variant="primary" type="submit">
           submit
         </Button>{" "}
@@ -236,4 +302,4 @@ function Updatesalary() {
   );
 }
 
-export default Updatesalary;
+export default AddAllowance;
