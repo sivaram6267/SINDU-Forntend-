@@ -894,11 +894,11 @@ function EditClientDetails() {
     {
       id: "Poedate",
       title: "POE Date",
-      name: "poEDate",
+      name: "poedate",
       type: "date",
       placeholder: "Enter POE Date",
       required: false,
-      defaultValue: data.poEDate,
+      defaultValue: data.poedate,
       handleChange: handleDataChange,
     },
   ];
