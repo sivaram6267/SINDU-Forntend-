@@ -821,85 +821,88 @@ function EmployeeProfile() {
 
                   <SubEmployee id={location.state.empId} />
                 </div>
+                <Row xs="auto">
+                  <Col>
+                    {/* {["lead", "Consultant"].includes( */}
+                    {/* data.employeeDetailsResponse?.designation
+                  ) && ( */}
+                    {/* <> */}
+                    {data.atClientAllowances?.map((allowanceData, index) => (
+                      <div id="modelSection" key={index} className="container ">
+                        <h5 className="modelHeading">Allowance {index + 1}</h5>
+                        <hr></hr>
+                        <Form.Group className="mb-3">
+                          <Form.Label htmlFor="ShiftAllowance">
+                            <b>ShiftAllowance</b>
+                          </Form.Label>
+                          <Form.Control
+                            // required
+                            id="ShiftAllowance"
+                            type="text"
+                            disabled={disabled ? "" : "disabled"}
+                            placeholder=""
+                            name="ShiftAllowance"
+                            title="enter Total ShiftAllowance"
+                            defaultValue={allowanceData.shiftAllowance}
+                            onChange={handleChange}
+                          />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                          <Form.Label htmlFor="workMode">
+                            <b>specialAllowance</b>
+                          </Form.Label>
+                          <Form.Control
+                            // required
+                            id="specialAllowance"
+                            type="text"
+                            disabled={disabled ? "" : "disabled"}
+                            placeholder=""
+                            name="specialAllowance"
+                            title="enter specialAllowance"
+                            defaultValue={allowanceData.specialAllowance}
+                            onChange={handleChange}
+                          />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                          <Form.Label htmlFor="joingBonus">
+                            <b>joingBonus</b>
+                          </Form.Label>
+                          <Form.Control
+                            // required
+                            id="joingBonus"
+                            type="text"
+                            disabled={disabled ? "" : "disabled"}
+                            placeholder=""
+                            name="joingBonus"
+                            title="enter joingBonus"
+                            defaultValue={allowanceData.joingBonus}
+                            onChange={handleChange}
+                          />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                          <Form.Label htmlFor="joiningBonusTenure">
+                            <b>joiningBonusTenure</b>
+                          </Form.Label>
+                          <Form.Control
+                            // required
+                            id="joiningBonusTenure"
+                            type="text"
+                            disabled={disabled ? "" : "disabled"}
+                            placeholder=""
+                            name="joiningBonusTenure"
+                            title="enter joiningBonusTenure"
+                            defaultValue={allowanceData.joiningBonusTenure}
+                            onChange={handleChange}
+                          />
+                        </Form.Group>
+                      </div>
+                    ))}
+                  </Col>
+                </Row>
               </Col>
             </Row>
-            <Row xs="auto">
-              {/* {["lead", "Consultant"].includes( */}
-              {/* data.employeeDetailsResponse?.designation
-                  ) && ( */}
-              {/* <> */}
-              {data.atClientAllowances?.map((allowanceData, index) => (
-                <div id="modelSection" key={index} className="container ">
-                  <h5 className="modelHeading">Allowance {index + 1}</h5>
-                  <hr></hr>
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="ShiftAllowance">
-                      <b>ShiftAllowance</b>
-                    </Form.Label>
-                    <Form.Control
-                      // required
-                      id="ShiftAllowance"
-                      type="text"
-                      disabled={disabled ? "" : "disabled"}
-                      placeholder=""
-                      name="ShiftAllowance"
-                      title="enter Total ShiftAllowance"
-                      defaultValue={allowanceData.shiftAllowance}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
 
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="workMode">
-                      <b>specialAllowance</b>
-                    </Form.Label>
-                    <Form.Control
-                      // required
-                      id="specialAllowance"
-                      type="text"
-                      disabled={disabled ? "" : "disabled"}
-                      placeholder=""
-                      name="specialAllowance"
-                      title="enter specialAllowance"
-                      defaultValue={allowanceData.specialAllowance}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="joingBonus">
-                      <b>joingBonus</b>
-                    </Form.Label>
-                    <Form.Control
-                      // required
-                      id="joingBonus"
-                      type="text"
-                      disabled={disabled ? "" : "disabled"}
-                      placeholder=""
-                      name="joingBonus"
-                      title="enter joingBonus"
-                      defaultValue={allowanceData.joingBonus}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="joiningBonusTenure">
-                      <b>joiningBonusTenure</b>
-                    </Form.Label>
-                    <Form.Control
-                      // required
-                      id="joiningBonusTenure"
-                      type="text"
-                      disabled={disabled ? "" : "disabled"}
-                      placeholder=""
-                      name="joiningBonusTenure"
-                      title="enter joiningBonusTenure"
-                      defaultValue={allowanceData.joiningBonusTenure}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                </div>
-              ))}
-            </Row>
             <Row xs="auto">
               {/* {["lead", "Consultant"].includes( */}
               {/* data.employeeDetailsResponse?.designation
