@@ -150,7 +150,7 @@ export default function TransferEmployee() {
           e.target.reset();
           console.log(res);
           alert("promte transfer emp is successfully");
-          navigate("/hr/TransferEmployee");
+          navigate("/TransferEmployee");
         })
         .catch((error) => {
           alert(JSON.stringify(error));

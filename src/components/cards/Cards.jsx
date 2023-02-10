@@ -57,28 +57,28 @@ function Cards(props) {
   
   const showStatus = (status) =>{
     if(status == "BENCH"){
-  return{'backgroundColor':'#FFEB3B',color:'#000'}
+  return{'backgroundColor':'#FFEB3B',color:'#000','padding-left':"10px",'padding-right':"10px"}
   }else if(status == "CLIENT"){
-    return{'backgroundColor':'#66BB6A',color:'#000' }
+    return{'backgroundColor':'#66BB6A',color:'#000','padding-left':"10px",'padding-right':"10px" }
   }
   else if(status =="MANAGMENT" ){
-    return{'backgroundColor': '#424242',color:'#ffffff'}
+    return{'backgroundColor': '#424242',color:'#ffffff','padding-left':"10px",'padding-right':"10px"}
   }
   else if(status == 'ABSCONDED')
   {
-  return{'backgroundColor':'#F6C3CC', color:'#ffffff'}
+  return{'backgroundColor':'#F6C3CC', color:'#ffffff','padding-left':"10px",'padding-right':"10px"}
   }
   else if(status ==  'RELEASED')
   {
-  return{'backgroundColor':'##F6C3CC'}
+  return{'backgroundColor':'##F6C3CC','padding-left':"10px",'padding-right':"10px"}
   }
   else if(status == 'TERMINATED')
   {
-  return{'backgroundColor':'#F6C3CC'}
+  return{'backgroundColor':'#F6C3CC','padding-left':"10px",'padding-right':"10px"}
   }
   else if(status == 'EXIT')
   {
-  return{'backgroundColor':'#EF5350',color:'#000'}
+  return{'backgroundColor':'#EF5350',color:'#000','padding-left':"10px",'padding-right':"10px"}
   } 
   }
 
@@ -102,7 +102,7 @@ function Cards(props) {
    <img src={props?.data?.photo} alt="Profile Photo"/>
   <div className="info">
     <h2>{props?.data?.employeeName}</h2>
-    <p style= {showStatus(props?.data?.status)}>  {props?.data?.status}</p>
+    <span style= {showStatus(props?.data?.status)}>  {props?.data?.status}</span>
     <p> {props?.data?.lancesoftId}</p>
     <p>{props?.data?.designation}</p>
   </div>

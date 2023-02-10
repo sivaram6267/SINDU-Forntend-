@@ -141,7 +141,8 @@ function Subordinatesupervisior() {
       .then((res) => {
         console.log(res.data);
         // alert("successfull");
-        navigate(`/${type}`);
+        // navigate(`/${type}`);
+        // navigate("/Subordinatesupervisior");
         setStatus(false);
         setMsg("");
       })

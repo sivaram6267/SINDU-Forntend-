@@ -348,18 +348,18 @@ function AddClientDetails() {
       defaultValue: data.desgAtClient,
       handleChange: handleData,
     },
-    {
-      id: "desgAtClient",
-      title: "Desgination At Client",
-      name: "desgAtClient",
-      type: "text",
-      // pattern: "[0-9]{10}",
+    // {
+    //   id: "desgAtClient",
+    //   title: "Desgination At Client",
+    //   name: "desgAtClient",
+    //   type: "text",
+    //   // pattern: "[0-9]{10}",
 
-      placeholder: "Enter designation at client",
-      required: true,
-      defaultValue: data.desgAtClient,
-      handleChange: handleData,
-    },
+    //   placeholder: "Enter designation at client",
+    //   required: true,
+    //   defaultValue: data.desgAtClient,
+    //   handleChange: handleData,
+    // },
 
     {
       id: "cgst",

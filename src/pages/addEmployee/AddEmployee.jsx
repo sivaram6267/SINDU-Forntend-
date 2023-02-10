@@ -90,7 +90,7 @@ const AddEmployee = () => {
     setStatus(true);
     // setErrors(false);
     console.log(primaryMgr);
-    ApiService.insertEmployee(data, primaryMgr)
+    ApiService.insertEmployee(data, primaryMgr || 0)
       .then((res) => {
         console.log(res.data);
         alert("employee details successfull");
@@ -542,10 +542,10 @@ const AddEmployee = () => {
             {/* Supervisor */}
             Primary Manager Designation
             <nobr />
-            <span className="text-danger"> *</span>
+           
           </Form.Label>
           <Form.Select
-            required
+            
             id="supervisorId"
             aria-label="Supervisor Id"
             className="selectInput"
