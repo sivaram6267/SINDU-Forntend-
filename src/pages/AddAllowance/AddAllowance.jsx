@@ -106,6 +106,8 @@ function AddAllowance() {
   // };
   if (data.ShiftAllowance === undefined) data.ShiftAllowance = 0;
   if (data.SpecialAllowance === undefined) data.SpecialAllowance = 0;
+  if (data.JoiningBonus === undefined) data.JoiningBonus = 0;
+  if (data.BonusApplicable === undefined) data.BonusApplicable = 0;
   const handleSubmit = (e) => {
     setStatus(true);
     console.log(data);
@@ -241,7 +243,6 @@ function AddAllowance() {
             <Form.Control
               name="JoiningBonus"
               id="JoiningBonus"
-              required
               variant="danger"
               type="number"
               placeholder=""
@@ -257,7 +258,6 @@ function AddAllowance() {
             <Form.Control
               name="BonusApplicable"
               id="BonusApplicable"
-              required
               type="number"
               className="danger"
               placeholder=""
