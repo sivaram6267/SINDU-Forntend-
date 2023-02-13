@@ -20,6 +20,7 @@ function EmployeeProfile() {
   const [allowanceData, setAllowanceData] = useState();
   const [resumeUrl, setResumeUrl] = useState("");
   const location = useLocation();
+  const [enhancedFields, setEnhancedFields] = useState();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -87,45 +88,6 @@ function EmployeeProfile() {
       });
   };
 
-  // const handleResume = async() =>{
-  //   //const { name, id } = e.target;
-  //   //e.preventDefault();
-  //   const id = data.detailsResponse?.employeeId;
-  //   console.log(id);
-  //  await ApiService.DownloadResume(id)
-  //   .then((res) => {
-  //     console.log(res.data);
-  //     const filename= ""//extractFileName(res.headers['content-disposition']);
-  //  if(filename !== "")
-  //  {
-  //     setFName(filename)
-  //     setMsg("")
-  //     console.log("File Name: ",filename);
-  //     if(res.data.size > 0)
-  //     {
-  //       let fileDownload = require('js-file-download');
-  //       fileDownload(res.data, filename);
-  //     }
-  //  }
-  //  else{
-  //   alert("Resume not available for this employee")
-  //  }
-  //     })
-
-  // .catch((error) => {
-  //   alert(JSON.stringify(error));
-
-  //   setMsg(
-  //     error.response.data.errorMessage
-  //       ? error.response.data.errorMessage
-  //       : error.message
-  //   );
-  // });
-
-  // }
-
-  //   }
-
   useEffect(() => {
     console.log(location.state.empId);
 
@@ -174,6 +136,18 @@ function EmployeeProfile() {
           setStatus(false);
         });
     }
+    ApiService.enhancedFields(location.state.empId)
+      .then((res) => {
+        console.log(data.enhancedFields);
+        console.log(res.data.enhancedFields);
+        setEnhancedFields(res.data.enhancedFields);
+        setStatus(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setEnhancedFields({});
+        setStatus(false);
+      });
   }, [location.state.empId]);
 
   return (
@@ -246,6 +220,7 @@ function EmployeeProfile() {
                       type="text"
                       placeholder=""
                       disabled={disabled ? "" : "disabled"}
+                      setClient
                       defaultValue={data.detailsResponse?.joiningDate}
                       onChange={handleChange}
                     />
@@ -569,192 +544,104 @@ function EmployeeProfile() {
                         Download Resume
                       </a>
                     </button>
-
-                    {/* <a href=""class="buttonDownload"   id="resumeDownload" onClick={handleResume(data.detailsResponse?.employeeId)}>Download</a>  */}
                   </Form.Group>
-                  {/* <Form.Group className="mb-3">
-                    <Form.Label htmlFor="resumeDownload">
-                      <b>Resume Download</b>
-                    </Form.Label>
-                    <Form.Control
-                      required
-                      disabled={disabled ? "" : "enabled"}
-                      id="resumeDownload"
-                      // type="text"
-                      // placeholder="Enter releasedDate"
-                      name="releasedDate"
-                      title="enter releasedDate"
-                      defaultValue={data.resumeDownload}
-                       onChange={handleResume}
-                    />
-                  </Form.Group> */}
-                  {/* <Form.Group className="mb-3">
-                      <Form.Label htmlFor="employeeId">
-                        Reporting Person
-                      </Form.Label>
-                      <Form.Control
-                        name="reportingperson"
-                        id="reportingperson"
-                        required
-                        disabled={disabled ? "" : "disabled"}
-                        type="text"
-                        placeholder="Enter reportingperson"
-                        defaultValue={
-                          data.detailsResponse?.reportingperson
-                        }
-                        onChange={handleChange}
-                      />
-                    </Form.Group> */}
-                  {/* <Form.Group className="mb-3">
-                    //   <Form.Label htmlFor="city">city</Form.Label>
-                    //   <Form.Control
-                    //     disabled
-                    //     id="city"
-                    //     type="text"
-                    //     name="city"
-                    //     placeholder="please enter city name"
-                    //     // defaultValue={it.city}
-                    //     onChange={handleChange}
-                    //   />
-                    // </Form.Group> */}
-                  {/* <Form.Group className="mb-3 checkbox">
-                <Form.Label>Gender : </Form.Label>{" "}
-                <Form.Check
-                  required
-                  inline
-                  label="Male"
-                  name="gender"
-                  type="radio"
-                  defaultValue={data.gender}
-                  onChange={(e) => {
-                    data.gender = "Male";
-                  }}
-                />
-                <Form.Check
-                  inline
-                  label="Female"
-                  name="gender"
-                  type="radio"
-                  defaultValue={data.gender}
-                  onChange={(e) => {
-                    data.gender = "Female";
-                  }}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label htmlFor="phone number">Phone Number</Form.Label>
-                <Form.Control
-                  // required
-                  id="phone number"
-                  type="tel"
-                  disabled={disabled ? "" : "disabled"}
-                  // pattern="[+91][0-9]{13}"
-                  // pattern="[0-9]{10}"
-                  message="please enter correct number"
-                  placeholder="please enter phone number"
-                  name="phoneNo"
-                  // placeholder="+919999999999"
-                  // pattern="[+91][0-9].{11}"
-                  // maxLength={13}
-                  title="enter phone number like +919999999999"
-                  defaultValue={data.phoneNo}
-                  onChange={handleChange}
-                />
-              </Form.Group> */}
-                  {/* <Form.Group className="mb-3">
-                  <Form.Label htmlFor="practice">Practice</Form.Label>
-                  <Form.Control
-                    required
-                    disabled={disabled ? "" : "disabled"}
-                    id="practice"
-                    type="text"
-                    placeholder="please enter practice"
-                    name="practice"
-                    title="enter salary"
-                    defaultValue={data.practice}
-                    onChange={handleChange}
-                  />
-                </Form.Group> */}
-                  {/* <Form.Group className="mb-3">
-                  <Form.Label htmlFor="designationAtLs">
-                    Designation at Lancesoft
-                  </Form.Label>
-                  <Form.Control
-                    required
-                    disabled={disabled ? "" : "disabled"}
-                    id="designationAtLs"
-                    type="text"
-                    placeholder="please enter designation at Lancesoft"
-                    name="designationAtLs"
-                    title="enter designation"
-                    defaultValue={data.designationAtLs}
-                    onChange={handleChange}
-                  />
-                </Form.Group> */}
-                  {/* <Form.Group className="mb-3">
-                  <Form.Label htmlFor="tenure">Tenure</Form.Label>
-                  <Form.Control
-                    disabled
-                    id="tenure"
-                    type="text"
-                    name="tenure"
-                    defaultValue={data.internalExpenses?.tenure}
-                    // onChange={handleChange}
-                  />
-
-                </Form.Group> */}
-                  {/* {data.addres?.map((it) => (
-                      <Form.Group className="mb-3">
-                        <Form.Label htmlFor="addressId">AddressId</Form.Label>
-                        <Form.Control
-                          name="addressId"
-                          id="addressId"
-                          required
-                          type="text"
-                          placeholder="enter addressId "
-                          disabled={disabled ? "" : "disabled"}
-                          defaultValue={it.addressId}
-                          onChange={handleChange}
-                        />
-                      </Form.Group>
-                    ))} */}
-                  {/* <Form.Group className="mb-3">
-                      <Form.Label htmlFor="designation">
-                        Working Internal
-                      </Form.Label>
-                      <Form.Control
-                        name="WorkingInternal"
-                        id="WorkingInternal"
-                        required
-                        type="text"
-                        placeholder="status"
-                        disabled={disabled ? "" : "disabled"}
-                        defaultValue={data.detailsResponse?.WorkingInternal}
-                        onChange={handleChange}
-                      />
-                    </Form.Group> */}
                 </div>
               </Col>
+              <Col>
+                <div id="modelSection" className="container-sm ">
+                  {/* {data.enhancedFields?.map((ipt) => ( */}
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="BrInr">
+                      <b>BR INR</b>
+                    </Form.Label>
+                    <Form.Control
+                      disabled
+                      id="BrInr"
+                      type="number"
+                      name="BrInr"
+                      // defaultValue={ipt.br_INR}
+                      defaultValue={enhancedFields?.br_INR}
+                    />
+                  </Form.Group>
 
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="BrUsd">
+                      <b>BR USD</b>
+                    </Form.Label>
+                    <Form.Control
+                      disabled
+                      id="BrUsd"
+                      type="text"
+                      name="BrUsd"
+                      defaultValue={enhancedFields?.br_USD}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="PrInr">
+                      <b>PR INR</b>
+                    </Form.Label>
+                    <Form.Control
+                      disabled
+                      id="PrInr"
+                      type="text"
+                      name="PrInr"
+                      defaultValue={enhancedFields?.pr_INR}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="PrUsd">
+                      <b>PR USD</b>
+                    </Form.Label>
+                    <Form.Control
+                      disabled
+                      id="PrUsd"
+                      type="text"
+                      name="PrUsd"
+                      defaultValue={enhancedFields?.pr_USD}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="GpmInr">
+                      <b>GPM INR</b>
+                    </Form.Label>
+                    <Form.Control
+                      disabled
+                      id="GpmInr"
+                      type="text"
+                      name="GpmInr"
+                      defaultValue={enhancedFields?.gpm_USD}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="GpmUsd">
+                      <b>GPM USD</b>
+                    </Form.Label>
+                    <Form.Control
+                      disabled
+                      id="GpmUsd"
+                      type="text"
+                      name="GpmUsd"
+                      defaultValue={enhancedFields?.gpm_USD}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="GM">
+                      <b>GM</b>
+                    </Form.Label>
+                    <Form.Control
+                      disabled
+                      id="gm"
+                      type="text"
+                      name="gm"
+                      defaultValue={enhancedFields?.gm}
+                    />
+                  </Form.Group>
+                </div>
+              </Col>
               <Col>
                 <div id="modelSection" className="container-sm ">
                   <h5 className="modelHeading">Bill</h5>
                   <hr></hr>
-                  {/* <Form.Group className="mb-3">
-                      <Form.Label htmlFor="paidTillNow">
-                        Total salary paid till now
-                      </Form.Label>
-                      <Form.Control
-                        disabled
-                        id="paidTillNow"
-                        type="text"
-                        name="paidTillNow"
-                        defaultValue={
-                          data.internalExpenses?.totalSalPaidTillNow
-                        }
-                        onChange={handleChange}
-                      />
-                    </Form.Group> */}
 
                   {data.internalExpenses?.map((ip) => (
                     <Form.Group className="mb-3">
