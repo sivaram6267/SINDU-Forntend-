@@ -40,7 +40,7 @@ function TerminateEmployee() {
   const handleSelectEmployee = (e) => {
     const { name, value } = e.target;
     console.log(name, value);
-    
+
     setData({ ...data, [name]: value });
   };
 
@@ -114,7 +114,6 @@ function TerminateEmployee() {
     navigate(`/${type}`);
   };
 
-
   return (
     <div id="add-employee" className="container-sm ">
       <h1 className="title text-center">Terminate Employee</h1>
@@ -176,7 +175,7 @@ function TerminateEmployee() {
             required={true}
             id="releasedDate"
             type="date"
-            max="2022-07-31"
+            // max="2022-07-31"
             placeholder="Enter releasedDate"
             name="releasedDate"
             title="enter releasedDate"
@@ -184,7 +183,7 @@ function TerminateEmployee() {
             onChange={handleChange}
           />
         </Form.Group>
-        <Button type="submit" varient="success" >
+        <Button type="submit" varient="success">
           submit
         </Button>{" "}
         <Button onClick={handleCancel} variant="danger">

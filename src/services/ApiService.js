@@ -821,5 +821,9 @@ GetAllSubClients(){
       auth()
     );
   }
+  subcontractor() {
+    return axios.get(`${BASE_URL}/api/v1/fields/get-all-clients`, auth());
+  }
 })();
-// http://localhost:2020/api/v1/client/get_enhancedFields/2
+
+// http://localhost:2020/api/v1/fields/get-all-clients

@@ -354,7 +354,7 @@ function EmployeeProfile() {
                   {data.internalExpenses?.map((ip) => (
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="benchTenure">
-                        <b>Bench Tenure</b>
+                        <b>Total No Of Days</b>
                       </Form.Label>
                       <Form.Control
                         disabled
@@ -642,7 +642,18 @@ function EmployeeProfile() {
                 <div id="modelSection" className="container-sm ">
                   <h5 className="modelHeading">Bill</h5>
                   <hr></hr>
-
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="profitOrLoss">
+                      <b>AllClientsEarning</b>
+                    </Form.Label>
+                    <Form.Control
+                      disabled
+                      id="allClientsEarning"
+                      type="text"
+                      name="allClientsEarning"
+                      defaultValue={data.allClientsEarning}
+                    />
+                  </Form.Group>
                   {data.internalExpenses?.map((ip) => (
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="paidTillNow">
@@ -692,18 +703,7 @@ function EmployeeProfile() {
                     </Form.Group>
                   ))}
                   {/* {data.allClientsEarning?.map((ip) => ( */}
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="profitOrLoss">
-                      <b>AllClientsEarning</b>
-                    </Form.Label>
-                    <Form.Control
-                      disabled
-                      id="allClientsEarning"
-                      type="text"
-                      name="allClientsEarning"
-                      defaultValue={data.allClientsEarning}
-                    />
-                  </Form.Group>
+
                   {/* ))} */}
 
                   <SubEmployee id={location.state.empId} />
@@ -799,6 +799,86 @@ function EmployeeProfile() {
                 <div id="modelSection" key={index} className="container ">
                   <h5 className="modelHeading">Client {index + 1}</h5>
                   <hr></hr>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="clientsNames">
+                      <b>Client Name</b>
+                    </Form.Label>
+                    <Form.Control
+                      // required
+                      id="clients"
+                      disabled={disabled ? "" : "disabled"}
+                      type="text"
+                      placeholder=""
+                      name="clients"
+                      title="enter client name"
+                      defaultValue={client.clients}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="clientLocation">
+                      <b>Client Location</b>
+                    </Form.Label>
+                    <Form.Control
+                      // required
+                      id="clientLocation"
+                      type="text"
+                      disabled={disabled ? "" : "disabled"}
+                      placeholder=""
+                      name="clientLocation"
+                      title="enter clientLocation"
+                      defaultValue={client.clientLocation}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="workMode">
+                      <b>Work Mode</b>
+                    </Form.Label>
+                    <Form.Control
+                      // required
+                      id="workMode"
+                      type="text"
+                      disabled={disabled ? "" : "disabled"}
+                      placeholder=""
+                      name="workMode"
+                      title="enter workMode"
+                      defaultValue={client.workMode}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="totalEarningAtclient">
+                      <b>Client Email</b>
+                    </Form.Label>
+                    <Form.Control
+                      // required
+                      id="clientEmail"
+                      type="email"
+                      disabled={disabled ? "" : "disabled"}
+                      placeholder=""
+                      name="clientEmail"
+                      title="enter client mail"
+                      defaultValue={client.clientEmail}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="totalEarningAtclient">
+                      <b>Client Manager Name</b>
+                    </Form.Label>
+                    <Form.Control
+                      // required
+                      id="clientManagerName"
+                      type="email"
+                      disabled={disabled ? "" : "disabled"}
+                      placeholder=""
+                      name="clientManagerName"
+                      title="enter client Manager Name"
+                      defaultValue={client.clientManagerName}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="clientSalary">
                       <b>Client Salary</b>
@@ -896,22 +976,7 @@ function EmployeeProfile() {
                       onChange={handleChange}
                     />
                   </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="clientsNames">
-                      <b>Client Name</b>
-                    </Form.Label>
-                    <Form.Control
-                      // required
-                      id="clients"
-                      disabled={disabled ? "" : "disabled"}
-                      type="text"
-                      placeholder=""
-                      name="clients"
-                      title="enter client name"
-                      defaultValue={client.clients}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
+
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="desgAtClient">
                       <b>Designation At Client</b>
@@ -944,70 +1009,24 @@ function EmployeeProfile() {
                       onChange={handleChange}
                     />
                   </Form.Group>
+
                   <Form.Group className="mb-3">
-                    <Form.Label htmlFor="clientLocation">
-                      <b>Client Location</b>
+                    <Form.Label htmlFor="subcontractor">
+                      <b>SubContractor</b>
                     </Form.Label>
                     <Form.Control
                       // required
-                      id="clientLocation"
+                      id="subcontractor"
                       type="text"
                       disabled={disabled ? "" : "disabled"}
                       placeholder=""
-                      name="clientLocation"
-                      title="enter clientLocation"
-                      defaultValue={client.clientLocation}
+                      name="subcontractor"
+                      title="enter subcontractor"
+                      defaultValue={client.subContractor}
                       onChange={handleChange}
                     />
                   </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="workMode">
-                      <b>Work Mode</b>
-                    </Form.Label>
-                    <Form.Control
-                      // required
-                      id="workMode"
-                      type="text"
-                      disabled={disabled ? "" : "disabled"}
-                      placeholder=""
-                      name="workMode"
-                      title="enter workMode"
-                      defaultValue={client.workMode}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="totalEarningAtclient">
-                      <b>Client Manager Name</b>
-                    </Form.Label>
-                    <Form.Control
-                      // required
-                      id="clientManagerName"
-                      type="email"
-                      disabled={disabled ? "" : "disabled"}
-                      placeholder=""
-                      name="clientManagerName"
-                      title="enter client Manager Name"
-                      defaultValue={client.clientManagerName}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label htmlFor="totalEarningAtclient">
-                      <b>Client Email</b>
-                    </Form.Label>
-                    <Form.Control
-                      // required
-                      id="clientEmail"
-                      type="email"
-                      disabled={disabled ? "" : "disabled"}
-                      placeholder=""
-                      name="clientEmail"
-                      title="enter client mail"
-                      defaultValue={client.clientEmail}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
+
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="towerHead">
                       <b>Tower Head</b>

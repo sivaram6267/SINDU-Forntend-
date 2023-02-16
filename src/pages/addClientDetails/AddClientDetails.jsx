@@ -17,6 +17,7 @@ function AddClientDetails() {
   const [practiceno, setPracticeno] = useState(null);
   const [recuite, setRecuite] = useState(null);
   const [towerheaddrop, setTowerheaddrop] = useState(null);
+  const [contract, setContract] = useState(null);
   const [towerlead, setTowerlead] = useState(null);
   const [msg, setMsg] = useState("");
   let type = sessionStorage.getItem("type");
@@ -186,6 +187,22 @@ function AddClientDetails() {
       .then((res) => {
         console.log(res.data);
         setTowerlead(res.data);
+        setMsg("");
+      })
+      .catch((error) => {
+        // console.log(error);
+        alert(JSON.stringify(error));
+        setTowerlead(null);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
+      });
+    ApiService.subcontractor()
+      .then((res) => {
+        console.log(res.data);
+        setContract(res.data);
         setMsg("");
       })
       .catch((error) => {
@@ -457,6 +474,32 @@ function AddClientDetails() {
       required: true,
       defaultValue: data.skillSet,
       handleChange: handleData,
+    },
+    {
+      id: "",
+      data: (
+        <Form.Group className="mb-3 px-2">
+          <Form.Label htmlFor="towerHead">
+            Sub Contractor
+            <nobr />
+            <span className="text-danger"> *</span>
+          </Form.Label>
+          <Form.Select
+            id="subContractor"
+            aria-label="subContractor"
+            className="selectInput"
+            name="subContractor"
+            onChange={handleData}
+          >
+            <option value="">{status ? "loading" : "select "}</option>
+            {contract?.map((type, index) => (
+              <option key={"clientsId" + index} value={type.clientsId}>
+                {type.clientsNames}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+      ),
     },
     {
       id: "workMode",

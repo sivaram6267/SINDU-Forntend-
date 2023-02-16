@@ -542,10 +542,8 @@ const AddEmployee = () => {
             {/* Supervisor */}
             Primary Manager Designation
             <nobr />
-           
           </Form.Label>
           <Form.Select
-            
             id="supervisorId"
             aria-label="Supervisor Id"
             className="selectInput"
@@ -692,35 +690,35 @@ const AddEmployee = () => {
         </Form.Group>
       ),
     },
-    {
-      id: "isInternal",
-      data: (
-        <Form.Group className="mb-3 px-2">
-          <Form.Label htmlFor="isInternal">
-            Working internal ?<nobr />
-            <span className="text-danger"> *</span>
-          </Form.Label>
-          <Form.Select
-            required
-            id="isInternal"
-            aria-label="isInternal"
-            className="selectInput"
-            name="isInternal"
-            onChange={handleMasterData}
-          >
-            <option key="IsInternal" value="">
-              select
-            </option>
-            <option key="IsInternal true" value="true">
-              Yes
-            </option>
-            <option key="IsInternal false" value="false">
-              No
-            </option>
-          </Form.Select>
-        </Form.Group>
-      ),
-    },
+    // {
+    //   id: "isInternal",
+    //   data: (
+    //     <Form.Group className="mb-3 px-2">
+    //       <Form.Label htmlFor="isInternal">
+    //         Working internal ?<nobr />
+    //         <span className="text-danger"> *</span>
+    //       </Form.Label>
+    //       <Form.Select
+    //         required
+    //         id="isInternal"
+    //         aria-label="isInternal"
+    //         className="selectInput"
+    //         name="isInternal"
+    //         onChange={handleMasterData}
+    //       >
+    //         <option key="IsInternal" value="">
+    //           select
+    //         </option>
+    //         <option key="IsInternal true" value="true">
+    //           Yes
+    //         </option>
+    //         <option key="IsInternal false" value="false">
+    //           No
+    //         </option>
+    //       </Form.Select>
+    //     </Form.Group>
+    //   ),
+    // },
     // {
     //   id: "addressType",
     //   title: "Address Type",
