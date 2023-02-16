@@ -15,7 +15,7 @@ function EditClientDetails() {
   const [emp, setEmp] = useState(null);
   const [empId, setEmpId] = useState(null);
   const [empdetail, setEmpDetail] = useState(null);
-  //const [clientnames, setClientnames] = useState(null);
+  const [clientnames, setClientnames] = useState(null);
   //let [client2, setClient2] = useState([2, "email", "managername", 4000, "desig", "2022-03-18", "2022-03-18"])
   const [practice, setPractice] = useState(null);
   const [towerhead, setTowerhead] = useState(null);
@@ -323,6 +323,22 @@ function EditClientDetails() {
             : error.message
         );
       });
+      ApiService.GetAllSubClients()
+      .then((res) => {
+        console.log(res.data);
+        setClientnames(res.data);
+        setMsg("");
+      })
+      .catch((error) => {
+        // console.log(error);
+        alert(JSON.stringify(error));
+        setClientnames(null);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
+      });
     ApiService.EmployeeByResponsibilites2()
       .then((res) => {
         console.log(res.data);
@@ -512,6 +528,7 @@ function EditClientDetails() {
         </Form.Group>
       ),
     },
+   
     // {
     //   id: "clientName",
     //   title: "Client Name",
@@ -548,6 +565,39 @@ function EditClientDetails() {
             onChange={handleDataChange}
           />
         </div>
+      ),
+    },
+    {
+      id: "clientsId",
+      data: (
+        <Form.Group className="mb-3 px-2">
+          <Form.Label htmlFor="subContractor">
+          SubContractor
+            <nobr />
+            {/* <span className="text-danger"> *</span> */}
+          </Form.Label>
+          <Form.Select
+            required
+            id="subContractor"
+            aria-label="Client Name"
+            className="selectInput"
+            name="subContractor"
+
+            //onChange={handleDataChange}
+          >
+            <option value="">{status ? "loading" : "select "}</option>
+            {clientnames?.map((type, index) => (
+              <option
+                key={"clientsId" + index}
+                value={type.clientsId}
+                selected={type.clientsId === data.subContractor}
+                //  selected={type.empId === data.clientsId}
+              >
+                {type.clientsNames}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
       ),
     },
 
@@ -675,7 +725,7 @@ function EditClientDetails() {
       // pattern: "[0-9]{10}",
 
       placeholder: "Enter povalue",
-      required: true,
+      // required: true,
       defaultValue: data.povalue,
       handleChange: handleDataChange,
     },
@@ -870,7 +920,7 @@ function EditClientDetails() {
       name: "offerReleaseDate",
       type: "date",
       placeholder: "",
-      required: true,
+      // required: true,
       defaultValue: data.offerReleaseDate,
       handleChange: handleDataChange,
     },

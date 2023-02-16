@@ -46,6 +46,7 @@ import PromoteDemote from "./pages/promoteDemote/PromoteDemote";
 import ChangePassword from "./pages/changePassword/ChangePassword";
 import Recruiter from "./components/Recruiter/Recruiter";
 import AssignResponsibilites from "./pages/assignResponsibilites/AssignResponsibilites";
+import RecruiterDashboard from "./pages/recruiterDashboard/RecruiterDashboard";
 
 function App() {
   return (
@@ -130,7 +131,14 @@ function App() {
                 </PrivateRoutes>
               }
             />
-
+              <Route
+              path="recruiterDashboard"
+              element={
+                <PrivateRoutes>
+                  <RecruiterDashboard />
+                </PrivateRoutes>
+              }
+            />
             <Route
               path="addDepartment"
               element={

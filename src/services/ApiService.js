@@ -801,6 +801,20 @@ export default new (class ApiService {
       auth()
     );
   }
+
+  // http://localhost:2020/api/v1/fields/get-all-clients
+GetAllSubClients(){
+  return axios.get(
+    `${BASE_URL}/api/v1/fields/get-all-clients`,
+    auth()
+  );
+}
+
+
+
+
+
+
   enhancedFields(empId) {
     return axios.get(
       `${BASE_URL}/api/v1/client/get_enhancedFields/${empId}`,

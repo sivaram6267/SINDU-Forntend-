@@ -442,7 +442,7 @@ function AddClientDetails() {
       // pattern: "[0-9]{10}",
 
       placeholder: "Enter povalue",
-      required: true,
+      // required: true,      
       defaultValue: data.povalue,
       handleChange: handleData,
     },
@@ -627,7 +627,7 @@ function AddClientDetails() {
       // pattern: "[0-9]{10}",
 
       placeholder: "",
-      required: true,
+      // required: true,
       defaultValue: data.offerReleaseDate,
       handleChange: handleData,
     },
