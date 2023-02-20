@@ -441,7 +441,7 @@ export default function Header({ view }) {
                         {/* <Link className="m-2" to="Recruiter" id="nav-link">
                           Recruiter Module
                         </Link> */}
-                      <Dropdown>
+                        <Dropdown>
                           <Dropdown.Toggle
                             className="toggle"
                             variant=""
@@ -459,11 +459,11 @@ export default function Header({ view }) {
                                 to="/recruiterDashboard/RecruiterDashboard"
                                 id="nav-link"
                               >
-                              RecruiterDashboard
+                                RecruiterDashboard
                               </Link>
-                              </Row>
-                              </Dropdown.Menu>
-                              </Dropdown>
+                            </Row>
+                          </Dropdown.Menu>
+                        </Dropdown>
                         <Dropdown>
                           <Dropdown.Toggle
                             className="toggle"

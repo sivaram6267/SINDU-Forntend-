@@ -34,10 +34,12 @@ export default function DataTable(props) {
   const [isPagination, setIsPagination] = useState(true);
 
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(Number(sessionStorage.getItem("pageNumber")) || 1);
+  const [currentPage, setCurrentPage] = useState(
+    Number(sessionStorage.getItem("pageNumber")) || 1
+  );
   const [cardsPerPage, setCardsPerPage] = useState(1);
   window.onload = function () {
-    console.log("hi Wenodh")
+    console.log("hi Wenodh");
   };
 
   const handleChangePage = (event, newPage) => {
@@ -61,7 +63,7 @@ export default function DataTable(props) {
 
     { id: "lsiId", label: "Lancesoft Id", minWidth: 100 },
 
-    { id: "profilePic", label: "Profile Photo", minWidth: 100 },
+    { id: "profilePic", label: "Profile 2Photo", minWidth: 100 },
 
     { id: "designation", label: "Designation", minWidth: 120 }, // format: (value) => value.toLocaleString("en-US"),
 
@@ -78,8 +80,6 @@ export default function DataTable(props) {
 
     { id: "view", label: "View", minWidth: 50 },
     { id: "edit", label: "Edit", minWidth: 50 },
-
- 
   ];
 
   function createData(
@@ -93,7 +93,6 @@ export default function DataTable(props) {
     view,
     edit
   ) {
-
     return {
       name,
       lsiId,
@@ -107,7 +106,6 @@ export default function DataTable(props) {
     };
   }
 
-
   const handleOnClick = (id) => {
     console.log("emp1");
     setModalShow(true);
@@ -119,7 +117,6 @@ export default function DataTable(props) {
     navigate("/hr/editEmployee", { state: { empId: id, name: "" } });
   };
   const handleOnClickView = (id) => {
-
     console.log(id, type);
     navigate("/hr/EmployeeProfile", { state: { empId: id, type: type } });
   };
@@ -161,12 +158,9 @@ export default function DataTable(props) {
   const AssignsearchData = (items) => {
     let temp = [];
 
-
     items?.map((item) => {
       temp.push(
         createData(
-   
-
           item.employeeName,
           item.lancesoftId,
           <div>
@@ -177,7 +171,6 @@ export default function DataTable(props) {
           item.managerName,
           item.subordinateManagerName,
 
- 
           <Button
             className="card-btn"
             onClick={(e) => {
@@ -209,15 +202,13 @@ export default function DataTable(props) {
   const AssignData = (items) => {
     let temp = [];
 
-
-
     items.Employees?.map((item) => {
       temp.push(
         createData(
           item.employeeName,
           item.lancesoftId,
           <div>
-            <img src={item.photo} alt="Profile Photo" width="100px" />
+            <img src={item.photo} alt=" Photo" width="100px" />
           </div>,
           item.designation,
           item.status,
@@ -258,7 +249,7 @@ export default function DataTable(props) {
       setLoading(true);
 
       if (type === "hr") {
-        ApiService.GetAllEmployes(currentPage-1)
+        ApiService.GetAllEmployes(currentPage - 1)
           .then((res) => {
             setData(res.data);
             console.log(res.data);
@@ -267,7 +258,7 @@ export default function DataTable(props) {
             setLoading(false);
 
             setCardsPerPage(res.data.totalPage);
-            console.log(res.wenodh)
+            console.log(res.wenodh);
           })
           .catch((err) => {
             alert(err.message);
@@ -281,14 +272,14 @@ export default function DataTable(props) {
         type === "md" ||
         type === "general_manager"
       ) {
-        ApiService.GetAllEmployesby(currentPage-1)
+        ApiService.GetAllEmployesby(currentPage - 1)
           .then((res) => {
             setData(res.data);
 
             setStatus(true);
             setLoading(false);
             console.log(res.data);
-   
+
             setCardsPerPage(res.data.totalPage);
           })
 

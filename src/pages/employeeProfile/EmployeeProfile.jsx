@@ -535,6 +535,38 @@ function EmployeeProfile() {
                       defaultValue={data.exitType}
                       // onChange={handleChange}
                     />
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="releasedDate">
+                        <b>Technology1</b>
+                      </Form.Label>
+                      <Form.Control
+                        required
+                        disabled={disabled ? "" : "enabled"}
+                        id="technology"
+                        type="text"
+                        placeholder="Enter technology"
+                        name="technology"
+                        title="enter technology"
+                        defaultValue={data.detailsResponse?.technology1}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="technology2">
+                        <b>Technology2</b>
+                      </Form.Label>
+                      <Form.Control
+                        required
+                        disabled={disabled ? "" : "enabled"}
+                        id="technology2"
+                        type="text"
+                        placeholder="Enter technology"
+                        name="technology2"
+                        title="enter technology2"
+                        defaultValue={data.detailsResponse?.technology2}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
                     <br />
 
                     <b>Resume Download</b>
@@ -654,6 +686,38 @@ function EmployeeProfile() {
                       defaultValue={data.allClientsEarning}
                     />
                   </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="benchTillNow">
+                      <b>Bench Salary Paid Till Now</b>
+                    </Form.Label>
+                    <Form.Control
+                      name="benchTillNow"
+                      id="benchTillNow"
+                      required
+                      type="text"
+                      placeholder=""
+                      disabled
+                      defaultValue={enhancedFields?.benchPay}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="daysonbench">
+                      <b>Days on Bench</b>
+                    </Form.Label>
+                    <Form.Control
+                      name="daysonbench"
+                      id="daysonbench"
+                      required
+                      type="text"
+                      placeholder=""
+                      disabled
+                      defaultValue={enhancedFields?.daysOnBench}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+
                   {data.internalExpenses?.map((ip) => (
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="paidTillNow">
@@ -671,6 +735,7 @@ function EmployeeProfile() {
                       />
                     </Form.Group>
                   ))}
+
                   {data.internalExpenses?.map((ip) => (
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="totalExpenses">
@@ -687,7 +752,6 @@ function EmployeeProfile() {
                       />
                     </Form.Group>
                   ))}
-
                   {data.internalExpenses?.map((ip) => (
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="profitOrLoss">
@@ -703,9 +767,7 @@ function EmployeeProfile() {
                     </Form.Group>
                   ))}
                   {/* {data.allClientsEarning?.map((ip) => ( */}
-
                   {/* ))} */}
-
                   <SubEmployee id={location.state.empId} />
                 </div>
                 <Row xs="auto">

@@ -54,9 +54,9 @@ export default new (class ApiService {
   // register(data) {
   //   return axios.post(REGISTER_API_URL, data);
   // }
-  insertEmployee(data, primaryMgr) {
+  insertEmployee(data, primaryMgr, technology) {
     return axios.post(
-      `${INSERT_EMP_DETAILS_API_URL}?addressTypeId=${data.addTypeId}&departId=${data.departId}&desgId=${data.desgId}&subDepartId=${data.subDepartId}&subVId=${primaryMgr}&typeId=${data.empTypeId}`,
+      `${INSERT_EMP_DETAILS_API_URL}?addressTypeId=${data.addTypeId}&departId=${data.departId}&desgId=${data.desgId}&subDepartId=${data.subDepartId}&subVId=${primaryMgr}&technology1Id=${data.technology}&typeId=${data.empTypeId}`,
       data,
       auth()
     );
@@ -803,17 +803,9 @@ export default new (class ApiService {
   }
 
   // http://localhost:2020/api/v1/fields/get-all-clients
-GetAllSubClients(){
-  return axios.get(
-    `${BASE_URL}/api/v1/fields/get-all-clients`,
-    auth()
-  );
-}
-
-
-
-
-
+  GetAllSubClients() {
+    return axios.get(`${BASE_URL}/api/v1/fields/get-all-clients`, auth());
+  }
 
   enhancedFields(empId) {
     return axios.get(
@@ -823,6 +815,9 @@ GetAllSubClients(){
   }
   subcontractor() {
     return axios.get(`${BASE_URL}/api/v1/fields/get-all-clients`, auth());
+  }
+  getTechnology() {
+    return axios.get(`${BASE_URL}/api/v1/fields/technologies`, auth());
   }
 })();
 

@@ -23,6 +23,7 @@ const AddEmployee = () => {
   const [primaryMgr, setPrimaryMgr] = useState(null);
   const [pic, setPic] = useState("");
   const [apistatus, setApistatus] = useState(false);
+  const [technology, setTechnology] = useState(null);
 
   // const [errors, setErrors] = useState(false);
 
@@ -89,7 +90,7 @@ const AddEmployee = () => {
     e.preventDefault();
     setStatus(true);
     // setErrors(false);
-    console.log(primaryMgr);
+    console.log(data);
     ApiService.insertEmployee(data, primaryMgr || 0)
       .then((res) => {
         console.log(res.data);
@@ -158,6 +159,7 @@ const AddEmployee = () => {
       },
     });
   };
+  console.log(data.masterEmployeeDetails?.technology2);
   const handleInternalData = (e) => {
     setData({
       ...data,
@@ -186,6 +188,23 @@ const AddEmployee = () => {
     });
   };
   useEffect(() => {
+    ApiService.getTechnology()
+      .then((res) => {
+        console.log(res.data);
+        setTechnology(res.data);
+        setMsg("");
+      })
+      .catch((error) => {
+        // console.log(error);
+        alert(JSON.stringify(error));
+        setTechnology(null);
+        setMsg(
+          error.response.data.errorMessage
+            ? error.response.data.errorMessage
+            : error.message
+        );
+      });
+
     ApiService.empType()
       .then((res) => {
         console.log(res.data);
@@ -360,6 +379,10 @@ const AddEmployee = () => {
           >
             <option value="">select</option>
             <option value="BENCH">BENCH</option>
+            <option value="">CLIENT_SIDE</option>
+            <option value="BENCH">INTERNAL</option>
+            <option value="">ADMIN</option>
+
             {/* <option value="ACTIVE">ACTIVE</option>
             <option value="EXIT">EXIT</option> */}
             <option value="MANAGMENT">MANAGMENT</option>
@@ -496,6 +519,7 @@ const AddEmployee = () => {
       defaultValue: data.masterEmployeeDetails?.lancesoft,
       handleChange: handleMasterData,
     },
+
     // {
     //   id: "employeeType",
     //   title: "Employee Type",
@@ -506,6 +530,43 @@ const AddEmployee = () => {
     //   defaultValue: data.employeeType,
     //   handleChange: handleChange,
     // },
+    {
+      id: "technology",
+      data: (
+        <Form.Group className="mb-3 px-2">
+          <Form.Label htmlFor="ClientName">
+            Technology1
+            <nobr />
+            <span className="text-danger"> *</span>
+          </Form.Label>
+          <Form.Select
+            required
+            id="technology"
+            aria-label="Client Name"
+            className="selectInput"
+            name="technology"
+            onChange={handleChange}
+          >
+            <option value="">{status ? "loading" : "select "}</option>
+            {technology?.map((type) => (
+              <option key={type.technology} value={type.id}>
+                {type.technology}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+      ),
+    },
+    {
+      id: "technology2",
+      title: "Technololgy2",
+      name: "technology2",
+      type: "text",
+      placeholder: "Enter technology",
+
+      defaultValue: data.masterEmployeeDetails?.technology2,
+      handleChange: handleMasterData,
+    },
     {
       id: "desgId",
       data: (
