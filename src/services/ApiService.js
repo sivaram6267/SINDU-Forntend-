@@ -8,7 +8,7 @@ import axios from "axios";
 // const BASE_URL = "http://10.81.4.23:9090/LESM-Status-Monitor123";
 
 // const BASE_URL ="http://18.188.242.190:8081/LESM-Status-Monitor-0.0.1-SNAPSHOT"; // NEW ONE DEVOPS API
-const BASE_URL = "http://10.81.4.195:2020";
+const BASE_URL = "http://35.169.131.148:8080";
 // const BASE_URL = "http://10.81.4.191:2030"; // sudheer pc
 //  const BASE_URL = "http://10.81.4.23:2030"; // server pc
 //const BASE_URL = "http://localhost:2032"
